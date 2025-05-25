@@ -1,0 +1,334 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="search_area">
+    <div class="search_close">
+        <span><i class="fal fa-times"></i></span>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="search-wrapper text-center">
+                    <h2>search</h2>
+                    <div class="search-filtering pt-30">
+                        <div class="search_tab">
+                            <ul class="nav nav-tabs justify-content-center mb-55" id="myTab2" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="home-tab2" data-bs-toggle="tab"
+                                            data-bs-target="#home2" type="button" role="tab"
+                                            aria-selected="true">
+                                        All categories
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab2" data-bs-toggle="tab"
+                                            data-bs-target="#profile2" type="button" role="tab"
+                                            aria-selected="false">
+                                        Basketball
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                            data-bs-target="#contact2" type="button" role="tab"
+                                            aria-selected="false">
+                                        Handbag
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="sportswear-tab" data-bs-toggle="tab"
+                                            data-bs-target="#sportswear" type="button" role="tab"
+                                            aria-selected="false">
+                                        Sportswear
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent2">
+                                <div class="tab-pane fade show active" id="home2" role="tabpanel">
+                                </div>
+                                <div class="tab-pane fade" id="profile2" role="tabpanel">
+                                </div>
+                                <div class="tab-pane fade" id="contact2" role="tabpanel">
+                                </div>
+                                <div class="tab-pane fade" id="sportswear" role="tabpanel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main_search">
+                        <form action="#">
+                            <input type="text" name="search" placeholder="search products">
+                            <button class="m-search"><i class="fal fa-search d-sm-none d-md-block"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fix">
+    <div class="side-info">
+        <button class="side-info-close"><i class="fal fa-times"></i></button>
+        <div class="side-info-content">
+            <div class="mobile-menu"></div>
+            <div class="contact-infos mb-30">
+                <div class="contact-list mb-30">
+                    <h4>Office Address</h4>
+                    <p>
+                        123/A, Miranda City Likaoli
+                        Prikano, Dope
+                    </p>
+                </div>
+                <div class="contact-list mb-30">
+                    <h4>Phone Number</h4>
+                    <p>+0989 7876 9865 9</p>
+                    <p>+(090) 8765 86543 85</p>
+                </div>
+                <div class="contact-list mb-30">
+                    <h4>Email Address</h4>
+                    <p>info@example.com</p>
+                    <p>example.mail@hum.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas-overlay"></div>
+
+<!-- cart area start  -->
+<div class="cart__sidebar">
+    <div class="container">
+        <div class="cart__content">
+            <div class="cart-text">
+                <h3 class="mb-40">Shopping cart</h3>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="@Url.Content("~/img/product/29-3.jpg")" alt="">
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a asp-controller="Shop" asp-action="Index">Running 3-Stripes</a></h5>
+                        <p>1 × $66.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="@Url.Content("~/img/product/17.jpg")" alt="">
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a asp-controller="Shop" asp-action="Index">Buddy non Stripes</a></h5>
+                        <p>1 × $40.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-icon">
+                <i class="fal fa-times"></i>
+            </div>
+            <div class="cart-bottom">
+                <div class="cart-bottom__text">
+                    <span>Subtotal:</span>
+                    <span class="end">$121.00</span>
+                    <a asp-controller="Cart" asp-action="Index">view cart</a>
+                    <a asp-controller="Home" asp-action="Checkout">checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-offcanvas-overlay"></div>
+<!-- cart area end  -->
+<!-- breadcrumb area start -->
+<div class="page-layout about" data-background="@Url.Content("~/img/page/About-us1.jpg")">
+    <div class="container">
+        <div class="breadcrumb-area text-center">
+            <h2 class="page-title">Frequently Asked Questions</h2>
+            <p>Most frequent questions and answers</p>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+<!-- faq area start  -->
+<div class="faq__area pt-110 mb-110">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="title-5 mb-50 pl-20">shopping information</div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Can i edit the files ?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                Is it Layered ?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                                How can i edit the masks ?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
+                                How can i edit the masks ?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
+                                Is the font free ?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
+                                What do i need to open the files ?
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="title-5 mb-50 pl-20">payment information</div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsseven" aria-expanded="true" aria-controls="collapseOne">
+                                What is wishlist?
+                            </button>
+                        </h2>
+                        <div id="collapsseven" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseeight" aria-expanded="true" aria-controls="collapseOne">
+                                How long will delivery take?
+                            </button>
+                        </h2>
+                        <div id="collapseeight" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsenne" aria-expanded="true" aria-controls="collapseOne">
+                                What exactly happens after ordering?
+                            </button>
+                        </h2>
+                        <div id="collapsenne" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseten" aria-expanded="true" aria-controls="collapseOne">
+                                How long will delivery take?
+                            </button>
+                        </h2>
+                        <div id="collapseten" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseeleven" aria-expanded="true" aria-controls="collapseOne">
+                                How can i edit the masks ?
+                            </button>
+                        </h2>
+                        <div id="collapseeleven" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion mb-30">
+                    <div class="accordion-item c-item ">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed c-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwelve" aria-expanded="true" aria-controls="collapseOne">
+                                Do I receive an invoice for my order?
+                            </button>
+                        </h2>
+                        <div id="collapsetwelve" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p>I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar leo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- faq area end  -->
