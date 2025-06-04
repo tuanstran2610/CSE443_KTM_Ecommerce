@@ -6603,11 +6603,13 @@ label {
 .sidemenu.sidemenu-3 {
   top: -58px;
 }
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .sidemenu.sidemenu-3 {
     top: -74px;
   }
 }
+
 @media (min-width: 768px) and (max-width: 991px) {
   .sidemenu.sidemenu-3 {
     top: -74px;
@@ -6636,6 +6638,7 @@ label {
   padding: 13px 15px 10px 34px;
   margin: 0;
 }
+
 @media (min-width: 1200px) and (max-width: 1500px) {
   .gota_vertical_menu .vertical-dropdown li {
     padding: 8px 15px;
