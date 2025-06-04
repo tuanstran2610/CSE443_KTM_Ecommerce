@@ -30,6 +30,13 @@ namespace CSE443_KTM_Ecommerce.Controllers
         {
             return View();
         }
+        
+        public IActionResult BlogDetail()
+        {
+            return View();
+        }
+        
+        
         public IActionResult Checkout()
         {
             return View();
