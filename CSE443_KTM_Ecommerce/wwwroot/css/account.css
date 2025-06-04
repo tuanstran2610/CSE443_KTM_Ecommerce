@@ -67,11 +67,11 @@ aside.sidebar hr {
 .sidebar ul li {
     color: #222;
     text-decoration: none;
-    font-size: 1em;
+    font-size: 1.1em;
     cursor: pointer;
     display: block;
-    padding-top: 10px;
-    padding-bottom: 10px;    
+    padding-top: 0px;
+    padding-bottom: 0px;    
     border-radius: 4px;
     transition: background 0.2s;
     box-sizing: border-box;
