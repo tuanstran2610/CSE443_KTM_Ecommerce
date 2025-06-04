@@ -8,7 +8,10 @@
 .sidebar {
     background: #fff;
     border-radius: 8px;
-    padding: 24px 16px 16px 16px;
+    padding-top: 24px;
+    padding-right: 0px;
+    padding-bottom: 16px;
+    padding-left: 0px;    
     min-width: 250px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     height: fit-content;
@@ -19,7 +22,7 @@
 .sidebar.collapsed {
     min-width: 60px;
     width: 60px;
-    padding: 24px 8px 16px 8px;
+    padding: 24px 0px 16px 0px;
 }
 
 .sidebar h2 {
@@ -27,6 +30,11 @@
     margin-bottom: 16px;
     font-weight: bold;
     transition: opacity 0.2s;
+}
+
+.sidebar h2 span {
+    display: block;
+    padding: 0 16px;
 }
 
 aside.sidebar hr {
@@ -62,10 +70,16 @@ aside.sidebar hr {
     font-size: 1em;
     cursor: pointer;
     display: block;
-    padding: 10px 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;    
     border-radius: 4px;
     transition: background 0.2s;
     box-sizing: border-box;
+}
+
+.sidebar ul li a span {
+    display: block;
+    padding: 10px 16px;
 }
 
 .sidebar ul li a:hover {
@@ -102,7 +116,14 @@ aside.sidebar hr {
 }
 
 .sidebar.collapsed .toggle-btn {
+    background: none;
+    padding: 0;
     right: 0;
+}
+
+.sidebar.collapsed {
+    background: none;
+    padding: 0 !important;
 }
 
 .main.account-page {
@@ -230,6 +251,10 @@ aside.sidebar hr {
     margin: 0 0 8px 0;
     color: #666;
     font-size: 0.98em;
+}
+
+.sidebar.collapsed hr {
+    display: none;
 }
 
 .address-card a {
