@@ -1,153 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<div class="search_area">
-    <div class="search_close">
-        <span><i class="fal fa-times"></i></span>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12">
-                <div class="search-wrapper text-center">
-                    <h2>search</h2>
-                    <div class="search-filtering pt-30">
-                        <div class="search_tab">
-                            <ul class="nav nav-tabs justify-content-center mb-55" id="myTab2" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="home-tab2" data-bs-toggle="tab"
-                                            data-bs-target="#home2" type="button" role="tab"
-                                            aria-selected="true">
-                                        All categories
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab2" data-bs-toggle="tab"
-                                            data-bs-target="#profile2" type="button" role="tab"
-                                            aria-selected="false">
-                                        Basketball
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#contact2" type="button" role="tab"
-                                            aria-selected="false">
-                                        Handbag
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="sportswear-tab" data-bs-toggle="tab"
-                                            data-bs-target="#sportswear" type="button" role="tab"
-                                            aria-selected="false">
-                                        Sportswear
-                                    </button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent2">
-                                <div class="tab-pane fade show active" id="home2" role="tabpanel"></div>
-                                <div class="tab-pane fade" id="profile2" role="tabpanel"></div>
-                                <div class="tab-pane fade" id="contact2" role="tabpanel"></div>
-                                <div class="tab-pane fade" id="sportswear" role="tabpanel"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="main_search">
-                        <form action="#">
-                            <input type="text" name="search" placeholder="search products">
-                            <button class="m-search"><i class="fal fa-search d-sm-none d-md-block"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="fix">
-    <div class="side-info">
-        <button class="side-info-close"><i class="fal fa-times"></i></button>
-        <div class="side-info-content">
-            <div class="mobile-menu"></div>
-            <div class="contact-infos mb-30">
-                <div class="contact-list mb-30">
-                    <h4>Office Address</h4>
-                    <p>123/A, Miranda City Likaoli Prikano, Dope</p>
-                </div>
-                <div class="contact-list mb-30">
-                    <h4>Phone Number</h4>
-                    <p>+0989 7876 9865 9</p>
-                    <p>+(090) 8765 86543 85</p>
-                </div>
-                <div class="contact-list mb-30">
-                    <h4>Email Address</h4>
-                    <p>info@example.com</p>
-                    <p>example.mail@hum.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="offcanvas-overlay"></div>
-
-<!-- cart area start -->
-<div class="cart__sidebar">
-    <div class="container">
-        <div class="cart__content">
-            <div class="cart-text">
-                <h3 class="mb-40">Shopping cart</h3>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="@Url.Content("~/img/product/29-3.jpg")" alt="">
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a asp-controller="Shop" asp-action="Index">Running 3-Stripes</a></h5>
-                        <p>1 × $66.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="@Url.Content("~/img/product/17.jpg")" alt="">
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a asp-controller="Shop" asp-action="Index">Buddy non Stripes</a></h5>
-                        <p>1 × $40.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="cart-icon">
-                <i class="fal fa-times"></i>
-            </div>
-            <div class="cart-bottom">
-                <div class="cart-bottom__text">
-                    <span>Subtotal:</span>
-                    <span class="end">$121.00</span>
-                    <a asp-controller="Cart" asp-action="Index">view cart</a>
-                    <a asp-controller="Home" asp-action="Checkout">checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="cart-offcanvas-overlay"></div>
-<!-- cart area end -->
-<!-- breadcrumb area start -->
-<div class="page-layout" data-background="@Url.Content("~/img/slider/shop.jpg")">
+﻿<!-- breadcrumb area start -->
+<div class="page-layout" data-background="@Url.Content("~/img/slider/coverimg.png")">
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="breadcrumb-area text-center">
-                    <h2 class="page-title">Cart</h2>
-                    <div class="breadcrumb-menu">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb justify-content-center">
-                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                                <li class="breadcrumb-item"><a asp-controller="Cart" asp-action="Index">cart</a></li>
-                            </ol>
-                        </nav>
-                    </div>
+                    <h2 class="page-title">Blog</h2>
+                    @* <div class="breadcrumb-menu"> *@
+                    @*     <nav aria-label="breadcrumb"> *@
+                    @*         <ol class="breadcrumb justify-content-center"> *@
+                    @*             <li class="breadcrumb-item"><a href="index.html">Home</a></li> *@
+                    @*             <li class="breadcrumb-item"><a href="blog-large.html">Blog - large</a></li> *@
+                    @*         </ol> *@
+                    @*     </nav> *@
+                    @* </div> *@
                 </div>
             </div>
         </div>
@@ -155,140 +20,196 @@
 </div>
 <!-- breadcrumb area end -->
 
-<div class="f_cart_area pt-110 mb-100">
+<!-- blog area start  -->
+<div class="blog__area mb-100 pt-80">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-12">
-                <div class="cart_table">
-                    <table>
-                        <tr>
-                            <td>Product</td>
-                            <td></td>
-                            <td>price</td>
-                            <td>Quantity</td>
-                            <td>Total</td>
-                        </tr>
-                        <tbody>
-                            <tr class="max-width-set">
-                                <td>
-                                    <img src="@Url.Content("~/img/desc/3-500x500.jpg")" alt="">
-                                </td>
-                                <td>Detail V-Neck Sweater</td>
-                                <td>$18.00</td>
-                                <td>
-                                    <div class="viewcontent__action single_action pt-30">
-                                        <span><input type="number" placeholder="1"></span>
-                                    </div>
-                                </td>
-                                <td>$451.00</td>
-                                <td class="width-set">
-                                    <a href="javascript:void(0)">
-                                        <i class="fal fa-times-circle"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr class="design-footer">
-                                <td><input type="text" placeholder="Coupon Code"></td>
-                                <td><button type="submit">Apply Coupon</button></td>
-                                <td colspan="3"><a href="#">update cart</a></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <div class="bigpost-wrapper">
+                    <div class="grid_blog mb-40">
+                        <div class="blog-thumb">
+                            <img src="~/img/blog/6.jpg" alt="">
+                            <div class="grid_blog__content">
+                                <h4 class="pt-20">Creative, Creative, graphy </h4>
+                                <h2 class="b-title mb-20"><a href="blog-details.html">completely transform a boring</a></h2>
+                                <p>It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify…</p>
+                                <div class="post-meta pt-10">
+                                    <p>Post Date: <span> August 4, 2020 </span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_blog mb-40">
+                        <div class="blog-thumb">
+                            <img src="~/img/blog/7.jpg" alt="">
+                            <div class="grid_blog__content">
+                                <h4 class="pt-20">Take A Look At The Most Photo</h4>
+                                <h2 class="b-title mb-20"><a href="blog-details.html">important part of improving at </a></h2>
+                                <p>It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify…</p>
+                                <div class="post-meta pt-10">
+                                    <p>Post Date: <span> August 4, 2020 </span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_blog mb-40">
+                        <div class="blog-thumb">
+                            <img src="~/img/blog/8.jpg" alt="">
+                            <div class="grid_blog__content">
+                                <h4 class="pt-20">Sunglasses To Wear This Summer</h4>
+                                <h2 class="b-title mb-20"><a href="blog-details.html">photography has been sharing it</a></h2>
+                                <p>It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify…</p>
+                                <div class="post-meta pt-10">
+                                    <p>Post Date: <span> August 4, 2020 </span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_blog mb-40">
+                        <div class="blog-thumb">
+                            <img src="~/img/blog/9.jpg" alt="">
+                            <div class="grid_blog__content">
+                                <h4 class="pt-20">Men Wearing Canvas Boots</h4>
+                                <h2 class="b-title mb-20"><a href="blog-details.html">Sign up for an Exposure account</a></h2>
+                                <p>It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify…</p>
+                                <div class="post-meta pt-10">
+                                    <p>Post Date: <span> August 4, 2020 </span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_blog mb-40">
+                        <div class="blog-thumb">
+                            <img src="~/img/blog/10.jpg" alt="">
+                            <div class="grid_blog__content">
+                                <h4 class="pt-20">Celebrating Female Leaders</h4>
+                                <h2 class="b-title mb-20"><a href="blog-details.html">Major companies all over</a></h2>
+                                <p>It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify…</p>
+                                <div class="post-meta pt-10">
+                                    <p>Post Date: <span> August 4, 2020 </span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-12">
-                <div class="cart__acount">
-                    <h5>Cart totals</h5>
-                    <table>
-                        <tr class="first-child">
-                            <td>Subtotal</td>
-                            <td>$18.00</td>
-                        </tr>
-                        <tr class="first-child lastchild">
-                            <td>Shipping</td>
-                            <td>
-                                Enter your address to view shipping options <br>
-                                Calculate shipping
-                            </td>
-                        </tr>
-                        <tr class="first-child">
-                            <td>Total</td>
-                            <td>$47.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <a asp-controller="Home" asp-action="Checkout"><input type="submit" value="procced to checkout"></a>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="col-xl-4 col-lg-3 col-md-6">
+                <div class="sidebar__wrapper">
+                    <div class="mainBlog text-center mb-50">
+                        <div class="blog__widget">
+                            <div class="mainBlog__thumb">
+                                <img src="~/img/blog/widget-blog.png" alt="">
+                            </div>
+                            <div class="mainBlog__content pt-10">
+                                <p>There are many variations of passages of<br> lorem ipsum available, but the majority have<br> suffered alteration in some form, by injected<br> humour or randomised words which don’t <br>look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search__widget mb-35">
+                        <h4 class="mb-40 blog-s-title">Search</h4>
+                        <div class="custom-form">
+                            <form action="#" method="POST">
+                                <input type="text" placeholder="search . . .">
+                                <button type="submit"><i class="fal fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="common-widget mb-50">
+                        <h4 class="mb-40 blog-s-title">Popular Post</h4>
+                        <div class="singleBlog mb-30">
+                            <img src="~/img/blog/1.jpg" alt="">
+                            <div class="singleBlog__content">
+                                <p>
+                                    Diam arcu, fringilla a sem con
+                                </p>
+                                <span>August 4, 2020</span>
+                            </div>
+                        </div>
+                        <div class="b_single pt-30 mb-20">
+                            <div class="b_single__thumb">
+                                <img src="~/img/blog/7.jpg" alt="">
+                            </div>
+                            <div class="b_single__content">
+                                <a href="blog-large.html">Top 10 Outdoor Items For Your </a>
+                                <span>August 4, 2020</span>
+                            </div>
+                        </div>
+                        <div class="b_single pt-30 mb-20">
+                            <div class="b_single__thumb">
+                                <img src="~/img/blog/1.jpg" alt="">
+                            </div>
+                            <div class="b_single__content">
+                                <a href="blog-large.html">Take A Look At The Most Photo  </a>
+                                <span>August 4, 2020</span>
+                            </div>
+                        </div>
+                        <div class="b_single pt-30 mb-20">
+                            <div class="b_single__thumb">
+                                <img src="~/img/blog/8.jpg" alt="">
+                            </div>
+                            <div class="b_single__content">
+                                <a href="blog-large.html">Simple & Easy DIY Flower Deco  </a>
+                                <span>August 4, 2020</span>
+                            </div>
+                        </div>
+                        <div class="b_single pt-30 mb-20">
+                            <div class="b_single__thumb">
+                                <img src="~/img/blog/3.jpg" alt="">
+                            </div>
+                            <div class="b_single__content">
+                                <a href="blog-large.html">Sunglasses To Wear This Summer  </a>
+                                <span>August 4, 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-widget mb-50">
+                        <h4 class="mb-40 blog-s-title">Categories</h4>
+                        <div class="blog-category">
+                            <ul>
+                                <li><a href="blog-large.html">creative<span>(5)</span></a></li>
+                                <li><a href="blog-large.html">image <span>(4)</span></a></li>
+                                <li><a href="blog-large.html">music<span>(2)</span></a></li>
+                                <li><a href="blog-large.html">travel<span>(5)</span></a></li>
+                                <li><a href="blog-large.html">uncategorized<span>(5)</span></a></li>
+                                <li><a href="blog-large.html">videos<span>(3)</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="common-widget newsletter mb-50">
+                        <h4 class="mb-20 blog-s-title">Join Our List</h4>
+                        <p>Subscribe to our newsletter and stay updated<br> to our best offers and deals!</p>
+                        <div class="newsletter">
+                            <form action="#">
+                                <input type="email" placeholder="subscribe our newsletter">
+                                <input type="submit" value="Subscribe">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="common-widget padding-remove mb-50">
+                        <h4 class="mb-20 blog-s-title">Tag</h4>
+                        <div class="tags">
+                            <a href="blog.html">Basketball</a>
+                            <a href="blog.html">Handbag</a>
+                            <a href="blog.html">Jackets</a>
+                            <a href="blog.html">Kids & Young</a>
+                            <a href="blog.html">Training Wear</a>
+                            <a href="blog.html">Women’s</a>
+                        </div>
+                    </div>
+                    <div class="common-widget instagram">
+                        <h4 class="mb-20 blog-s-title">Instagram</h4>
+                        <div class="instagram-images pt-20 text-center">
+                            <a class="popup-image" href="~/img/blog/s1.jpg"><img src="~/img/blog/s1.jpg" alt=""></a>
+                            <a class="popup-image" href="~/img/blog/s2.jpg"><img src="~/img/blog/s2.jpg" alt=""></a>
+                            <a class="popup-image" href="~/img/blog/s3.jpg"><img src="~/img/blog/s3.jpg" alt=""></a>
+                            <a class="popup-image" href="~/img/blog/s4.jpg"><img src="~/img/blog/s4.jpg" alt=""></a>
+                            <a class="popup-image" href="~/img/blog/s5.jpg"><img src="~/img/blog/s5.jpg" alt=""></a>
+                            <a class="popup-image" href="~/img/blog/s6.jpg"> <img src="~/img/blog/s6.jpg" alt=""></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- popup area start -->
-<div class="overlay"></div>
-<div class="product-popup">
-    <div class="view-background">
-        <div class="row">
-            <div class="col-xl-5 col-lg-5 col-md-5">
-                <div class="quickview">
-                    <div class="quickview__thumb">
-                        <img src="@Url.Content("~/img/quick_view/25.jpg")" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-7">
-                <div class="viewcontent">
-                    <div class="viewcontent__header">
-                        <h2>Brown Leather Bags</h2>
-                        <a class="view_close product-p-close" href="javascript:void(0)">
-                            <i class="fal fa-times-circle"></i>
-                        </a>
-                    </div>
-                    <div class="viewcontent__rating">
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star"></i>
-                    </div>
-                    <div class="viewcontent__price">
-                        <h4><span>$</span>99.00</h4>
-                    </div>
-                    <div class="viewcontent__stock">
-                        <h4>Available :<span> In stock</span></h4>
-                    </div>
-                    <div class="viewcontent__details">
-                        <p>
-                            Anlor sit amet, consectetur adipiscing elit. Fusce condimentum est lacus, non pretium
-                            risus lacinia vel. Fusce eget turpis orci.
-                        </p>
-                    </div>
-                    <div class="viewcontent__action">
-                        <span>Qty</span>
-                        <span><input type="number" placeholder="1"></span>
-                        <span><a href="#">add to cart</a></span>
-                        <span><i class="fal fa-heart"></i></span>
-                        <span><i class="fal fa-info-circle"></i></span>
-                    </div>
-                    <div class="viewcontent__footer">
-                        <ul>
-                            <li>Category:</li>
-                            <li>SKU:</li>
-                            <li>Brand:</li>
-                        </ul>
-                        <ul>
-                            <li>Watches</li>
-                            <li>2584-MK63</li>
-                            <li>Brenda</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- popup area end -->
+<!-- blog area end  -->
