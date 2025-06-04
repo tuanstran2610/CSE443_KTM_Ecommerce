@@ -16,14 +16,15 @@
       <li><a href="#" data-section="account-info">Account Information</a></li>
       <li><a href="#" data-section="address-book">Address Book</a></li>
       <li><a href="#" data-section="orders">My Orders</a></li>
-      <li><a href="#" data-section="downloads">My Downloadable Products</a></li>
+      @* <li><a href="#" data-section="downloads">My Downloadable Products</a></li> *@
       <li><a href="#" data-section="wishlist">My Wish List</a></li>
       <li><a href="#" data-section="reviews">My Product Reviews</a></li>
-      <li><a href="#" data-section="referrals">Referrals</a></li>
+      @* <li><a href="#" data-section="referrals">Referrals</a></li> *@
+      <hr/>
       <li><a href="#" data-section="signout">Sign Out</a></li>
-      <li><a href="#" data-section="subscriptions">My Subscriptions</a></li>
-      <li><a href="#" data-section="refunds">Store Credit & Refunds</a></li>
-      <li><a href="#" data-section="returns">Request Return</a></li>
+      @* <li><a href="#" data-section="subscriptions">My Subscriptions</a></li> *@
+      @* <li><a href="#" data-section="refunds">Store Credit & Refunds</a></li> *@
+      @* <li><a href="#" data-section="returns">Request Return</a></li> *@
     </ul>
   </aside>
 
@@ -33,8 +34,23 @@
       <div class="cards">
         <div class="card">
           <div class="contact-info">
-            <div class="avatar">👤</div>
-            <div>
+            <div class="avatar">
+              <svg class="fill-current text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                <path class="path1" d="M486.4 563.2c-155.275 0-281.6-126.325-281.6-281.6s126.325-281.6 281.6-281.6
+      281.6 126.325 281.6 281.6-126.325 281.6-281.6 281.6zM486.4 51.2c-127.043 0-230.4
+      103.357-230.4 230.4s103.357 230.4 230.4 230.4c127.042 0 230.4-103.357
+      230.4-230.4s-103.358-230.4-230.4-230.4z"></path>
+                <path class="path2" d="M896 1024h-819.2c-42.347 0-76.8-34.451-76.8-76.8 0-3.485 0.712-86.285
+      62.72-168.96 36.094-48.126 85.514-86.36 146.883-113.634 74.957-33.314
+      168.085-50.206 276.797-50.206 108.71 0 201.838 16.893 276.797 50.206
+      61.37 27.275 110.789 65.507 146.883 113.634 62.008 82.675 62.72 165.475
+      62.72 168.96 0 42.349-34.451 76.8-76.8 76.8zM486.4 665.6c-178.52 0-310.267
+      48.789-381 141.093-53.011 69.174-54.195 139.904-54.2 140.61 0 14.013
+      11.485 25.498 25.6 25.498h819.2c14.115 0 25.6-11.485
+      25.6-25.6-0.006-0.603-1.189-71.333-54.198-140.507-70.734-92.304-202.483-141.093-381.002-141.093z">
+                </path>
+              </svg>
+            </div>            <div>
               <h3>Contact Information</h3>
               <div>Gia Kiệt Lê</div>
               <div>davidpham30112003plgk@gmail.com</div>
@@ -68,7 +84,23 @@
       <div class="cards">
         <div class="card">
           <div class="contact-info">
-            <div class="avatar">👤</div>
+            <div class="avatar">
+              <svg class="fill-current text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                <path class="path1" d="M486.4 563.2c-155.275 0-281.6-126.325-281.6-281.6s126.325-281.6 281.6-281.6
+      281.6 126.325 281.6 281.6-126.325 281.6-281.6 281.6zM486.4 51.2c-127.043 0-230.4
+      103.357-230.4 230.4s103.357 230.4 230.4 230.4c127.042 0 230.4-103.357
+      230.4-230.4s-103.358-230.4-230.4-230.4z"></path>
+                <path class="path2" d="M896 1024h-819.2c-42.347 0-76.8-34.451-76.8-76.8 0-3.485 0.712-86.285
+      62.72-168.96 36.094-48.126 85.514-86.36 146.883-113.634 74.957-33.314
+      168.085-50.206 276.797-50.206 108.71 0 201.838 16.893 276.797 50.206
+      61.37 27.275 110.789 65.507 146.883 113.634 62.008 82.675 62.72 165.475
+      62.72 168.96 0 42.349-34.451 76.8-76.8 76.8zM486.4 665.6c-178.52 0-310.267
+      48.789-381 141.093-53.011 69.174-54.195 139.904-54.2 140.61 0 14.013
+      11.485 25.498 25.6 25.498h819.2c14.115 0 25.6-11.485
+      25.6-25.6-0.006-0.603-1.189-71.333-54.198-140.507-70.734-92.304-202.483-141.093-381.002-141.093z">
+                </path>
+              </svg>
+            </div>
             <div>
               <h3>Contact Information</h3>
               <div>Gia Kiệt Lê</div>
@@ -85,7 +117,7 @@
     <div id="address-book" class="section-content">
       <h1>Address Book</h1>
       <div class="address-header">
-        <h3>Address Book</h3>
+        @* <h3>Address Book</h3> *@
           <a href="#">Manage Addresses</a>
       </div>
       <div class="address-group">
@@ -102,14 +134,14 @@
       </div>
     </div>
     <div id="orders" class="section-content"><h1>My Orders</h1><p>You have no orders.</p></div>
-    <div id="downloads" class="section-content"><h1>My Downloadable Products</h1><p>You have no downloadable products.</p></div>
+    @* <div id="downloads" class="section-content"><h1>My Downloadable Products</h1><p>You have no downloadable products.</p></div> *@
     <div id="wishlist" class="section-content"><h1>My Wish List</h1><p>Your wish list is empty.</p></div>
     <div id="reviews" class="section-content"><h1>My Product Reviews</h1><p>You have not reviewed any products.</p></div>
-    <div id="referrals" class="section-content"><h1>Referrals</h1><p>You have no referrals.</p></div>
+    @* <div id="referrals" class="section-content"><h1>Referrals</h1><p>You have no referrals.</p></div> *@
     <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div>
-    <div id="subscriptions" class="section-content"><h1>My Subscriptions</h1><p>You have no subscriptions.</p></div>
-    <div id="refunds" class="section-content"><h1>Store Credit & Refunds</h1><p>You have no store credit or refunds.</p></div>
-    <div id="returns" class="section-content"><h1>Request Return</h1><p>You have no return requests.</p></div>
+    @* <div id="subscriptions" class="section-content"><h1>My Subscriptions</h1><p>You have no subscriptions.</p></div> *@
+    @* <div id="refunds" class="section-content"><h1>Store Credit & Refunds</h1><p>You have no store credit or refunds.</p></div> *@
+    @* <div id="returns" class="section-content"><h1>Request Return</h1><p>You have no return requests.</p></div> *@
   </main>
 </div>
 
