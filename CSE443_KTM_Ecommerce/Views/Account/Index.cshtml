@@ -1,0 +1,107 @@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container account-page">
+  <aside class="sidebar" id="sidebar">
+    <button class="toggle-btn" id="toggleBtn" aria-label="Toggle menu">
+      &#9660;
+    </button>
+    <h2>My Account</h2>
+    <ul>
+      <li><a href="#" class="active" data-section="dashboard">Dashboard</a></li>
+      <li><a href="#" data-section="account-info">Account Information</a></li>
+      <li><a href="#" data-section="address-book">Address Book</a></li>
+      <li><a href="#" data-section="orders">My Orders</a></li>
+      <li><a href="#" data-section="downloads">My Downloadable Products</a></li>
+      <li><a href="#" data-section="wishlist">My Wish List</a></li>
+      <li><a href="#" data-section="reviews">My Product Reviews</a></li>
+      <li><a href="#" data-section="referrals">Referrals</a></li>
+      <li><a href="#" data-section="signout">Sign Out</a></li>
+      <li><a href="#" data-section="subscriptions">My Subscriptions</a></li>
+      <li><a href="#" data-section="refunds">Store Credit & Refunds</a></li>
+      <li><a href="#" data-section="returns">Request Return</a></li>
+    </ul>
+  </aside>
+
+  <main class="main account-page">
+    <div id="dashboard" class="section-content active">
+      <h1>Dashboard</h1>
+      <p>Welcome to your account dashboard.</p>
+    </div>
+    <div id="account-info" class="section-content">
+      <h1>Account Information</h1>
+      <div class="cards">
+        <div class="card">
+          <div class="contact-info">
+            <div class="avatar">👤</div>
+            <div>
+              <h3>Contact Information</h3>
+              <div>Gia Kiệt Lê</div>
+              <div>davidpham30112003plgk@gmail.com</div>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="#">Edit &rarr;</a>
+            <a href="#">Change Password &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="address-book" class="section-content">
+      <h1>Address Book</h1>
+      <div class="address-header">
+        <h3>Address Book</h3>
+        <a href="#">Manage Addresses</a>
+      </div>
+      <div class="address-group">
+        <div class="address-card">
+          <h4>Default Billing Address</h4>
+          <p><em>You have not set a default billing address.</em></p>
+          <a href="#">Edit Address &rarr;</a>
+        </div>
+        <div class="address-card">
+          <h4>Default Shipping Address</h4>
+          <p><em>You have not set a default shipping address.</em></p>
+          <a href="#">Edit Address &rarr;</a>
+        </div>
+      </div>
+    </div>
+    <div id="orders" class="section-content"><h1>My Orders</h1><p>You have no orders.</p></div>
+    <div id="downloads" class="section-content"><h1>My Downloadable Products</h1><p>You have no downloadable products.</p></div>
+    <div id="wishlist" class="section-content"><h1>My Wish List</h1><p>Your wish list is empty.</p></div>
+    <div id="reviews" class="section-content"><h1>My Product Reviews</h1><p>You have not reviewed any products.</p></div>
+    <div id="referrals" class="section-content"><h1>Referrals</h1><p>You have no referrals.</p></div>
+    <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div>
+    <div id="subscriptions" class="section-content"><h1>My Subscriptions</h1><p>You have no subscriptions.</p></div>
+    <div id="refunds" class="section-content"><h1>Store Credit & Refunds</h1><p>You have no store credit or refunds.</p></div>
+    <div id="returns" class="section-content"><h1>Request Return</h1><p>You have no return requests.</p></div>
+  </main>
+</div>
+
+<script>
+  document.querySelectorAll('.sidebar ul li a').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.sidebar ul li a').forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
+      const sectionId = this.getAttribute('data-section');
+      if (sectionId) {
+        document.getElementById(sectionId).classList.add('active');
+      }
+    });
+  });
+
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggleBtn');
+  let collapsed = false;
+  toggleBtn.addEventListener('click', function () {
+    collapsed = !collapsed;
+    sidebar.classList.toggle('collapsed', collapsed);
+    this.innerHTML = collapsed ? '&#9654;' : '&#9660;';
+    this.setAttribute('aria-label', collapsed ? 'Open menu' : 'Close menu');
+  });
+</script>

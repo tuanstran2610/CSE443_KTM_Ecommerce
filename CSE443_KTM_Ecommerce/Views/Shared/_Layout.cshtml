@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="~/css/slick.css">
     <link rel="stylesheet" href="~/css/style.css?v=124">
     <link rel="stylesheet" href="~/css/responsive.css">
+    <link rel="stylesheet" href="~/css/account.css">
+
 </head>
 
 <body>
@@ -58,7 +60,7 @@
                         <div class="gota_right">
                             <ul>
                                 <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Account</a></li>
+                                <li><a asp-controller="Account" asp-action="Index">Account</a></li>
                                 <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
                                 <li><a asp-controller="Home" asp-action="Login">Login & register</a></li>
                             </ul>

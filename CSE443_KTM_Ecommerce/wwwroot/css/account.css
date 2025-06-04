@@ -1,0 +1,249 @@
+.container.account-page {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 32px;
+}
+
+.sidebar {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px 16px 16px 16px;
+    min-width: 250px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    height: fit-content;
+    position: relative;
+    transition: min-width 0.2s, width 0.2s, padding 0.2s;
+}
+
+.sidebar.collapsed {
+    min-width: 60px;
+    width: 60px;
+    padding: 24px 8px 16px 8px;
+}
+
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 16px;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.sidebar.collapsed h2 {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: opacity 0.2s;
+}
+
+.sidebar ul li {
+    margin-bottom: 12px;
+}
+
+.sidebar ul li a,
+.sidebar ul li {
+    color: #222;
+    text-decoration: none;
+    font-size: 1em;
+    cursor: pointer;
+    display: block;
+    padding: 4px 0;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.sidebar ul li a.active {
+    font-weight: bold;
+    text-decoration: underline;
+    background: #f5f5f5;
+}
+
+.sidebar.collapsed ul {
+    opacity: 0;
+    height: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.toggle-btn {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 4px;
+    z-index: 2;
+    transition: transform 0.2s;
+}
+
+.toggle-btn:focus {
+    outline: 2px solid #007bff;
+}
+
+.sidebar.collapsed .toggle-btn {
+    right: 0;
+}
+
+.main.account-page {
+    flex: 1;
+    transition: margin-left 0.2s;
+}
+
+.account-page h1 {
+    font-size: 2em;
+    margin-bottom: 24px;
+    font-weight: bold;
+}
+
+.section-content {
+    display: none;
+}
+
+.section-content.active {
+    display: block;
+}
+
+.cards {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    min-width: 320px;
+    flex: 1;
+    margin-bottom: 24px;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #bbb;
+}
+
+.card-actions {
+    margin-top: 12px;
+}
+
+.card-actions a {
+    color: #222;
+    text-decoration: none;
+    margin-right: 16px;
+    font-size: 0.98em;
+    transition: color 0.2s;
+}
+
+.card-actions a:hover {
+    color: #007bff;
+}
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.address-header a {
+    font-size: 0.98em;
+    color: #222;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.address-group {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.address-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    min-width: 280px;
+    flex: 1;
+    margin-bottom: 12px;
+}
+
+.address-card h4 {
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.address-card p {
+    margin: 0 0 8px 0;
+    color: #666;
+    font-size: 0.98em;
+}
+
+.address-card a {
+    color: #222;
+    text-decoration: underline;
+    font-size: 0.98em;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .container.account-page {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .cards,
+    .address-group {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .card,
+    .address-card {
+        min-width: unset;
+    }
+
+    .sidebar {
+        min-width: 100%;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .sidebar.collapsed {
+        min-width: 60px;
+        width: 60px;
+    }
+}
