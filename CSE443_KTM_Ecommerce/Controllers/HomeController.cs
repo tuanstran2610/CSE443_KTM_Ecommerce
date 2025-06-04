@@ -41,6 +41,12 @@ namespace CSE443_KTM_Ecommerce.Controllers
         {
             return View();
         }
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+        
         public IActionResult NotFound()
         {
             return View();
