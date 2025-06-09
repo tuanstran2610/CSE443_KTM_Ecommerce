@@ -70,8 +70,8 @@ aside.sidebar hr {
     font-size: 1.1em;
     cursor: pointer;
     display: block;
-    padding-top: 0px;
-    padding-bottom: 0px;    
+    padding-top: 5px;
+    padding-bottom: 5px;    
     border-radius: 4px;
     transition: background 0.2s;
     box-sizing: border-box;
