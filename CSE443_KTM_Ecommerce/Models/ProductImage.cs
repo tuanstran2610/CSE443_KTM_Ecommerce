@@ -12,7 +12,7 @@ namespace CSE443_KTM_Ecommerce.Models
 
         public string ImagePath { get; set; }
 
-        public string DisplayOrder { get; set; }
+        public int DisplayOrder { get; set; } = 0;
 
         [Required]
         public int ProductId { get; set; }

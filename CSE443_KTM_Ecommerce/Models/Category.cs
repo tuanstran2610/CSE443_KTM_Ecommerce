@@ -11,7 +11,7 @@ namespace CSE443_KTM_Ecommerce.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Category  Name Must Not Be Null")]
-        public int Name { get; set; }
+        public string Name { get; set; }
         public string? Description { get; set; }
         public string?  ImagePath { get; set; }
     
