@@ -40,8 +40,11 @@ namespace CSE443_KTM_Ecommerce.Data
             modelBuilder.Entity<Delivery>().HasData(
                 new Delivery {Id=1, Name = "Standard Delivery", Description = "Delivered in 3–5 days", DeliveryFees = 2.99M },
                 new Delivery {Id=2, Name = "Express Delivery", Description = "Delivered in 1–2 days", DeliveryFees = 5.99M },
-               new Delivery {Id=3, Name = "Pickup In-Store", Description = "Pick up from store for free", DeliveryFees = 1.02M }
-                );
+               new Delivery {Id=3, Name = "Pickup In-Store", Description = "Pick up from store for free", DeliveryFees = 1.02M });
+
+            modelBuilder.Entity<ProductImage>().HasData(    
+                
+            );
         }
 
     }
