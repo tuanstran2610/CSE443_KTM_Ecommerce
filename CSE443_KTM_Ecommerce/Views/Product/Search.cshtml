@@ -1,0 +1,645 @@
+﻿@using CSE443_KTM_Ecommerce.Models
+@{
+    var searchProductResults = ViewBag.SearchProductResults as List<Product>;
+}
+
+<div class="fix">
+    <div class="side-info">
+        <button class="side-info-close"><i class="fal fa-times"></i></button>
+        <div class="side-info-content">
+            <div class="mobile-menu"></div>
+            <div class="contact-infos mb-30">
+                <div class="contact-list mb-30">
+                    <h4>Office Address</h4>
+                    <p>
+                        123/A, Miranda City Likaoli
+                        Prikano, Dope
+                    </p>
+                </div>
+                <div class="contact-list mb-30">
+                    <h4>Phone Number</h4>
+                    <p>+0989 7876 9865 9</p>
+                    <p>+(090) 8765 86543 85</p>
+                </div>
+                <div class="contact-list mb-30">
+                    <h4>Email Address</h4>
+                    <p>info@example.com</p>
+                    <p>example.mail@hum.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas-overlay"></div>
+
+<!-- cart area start  -->
+<div class="cart__sidebar">
+    <div class="container">
+        <div class="cart__content">
+            <div class="cart-text">
+                <h3 class="mb-40">Shopping cart</h3>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="@Url.Content("~/img/product/29-3.jpg")" alt="product_image" />
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a asp-controller="Shop" asp-action="Index">Running 3-Stripes</a></h5>
+                        <p>1 × $66.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="@Url.Content("~/img/product/17.jpg")" alt="product_image" />
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a asp-controller="Shop" asp-action="Index">Buddy non Stripes</a></h5>
+                        <p>1 × $40.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-icon">
+                <i class="fal fa-times"></i>
+            </div>
+            <div class="cart-bottom">
+                <div class="cart-bottom__text">
+                    <span>Subtotal:</span>
+                    <span class="end">$121.00</span>
+                    <a asp-controller="Cart" asp-action="Index">view cart</a>
+                    <a asp-controller="Home" asp-action="Checkout">checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-offcanvas-overlay"></div>
+<!-- cart area end  -->
+<!-- breadcrumb area start -->
+<div class="page-layout" data-background="@Url.Content("~/img/slider/coverimg.png")">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="breadcrumb-area text-center">
+                    <h2 class="page-title">shop</h2>
+                    @* <div class="breadcrumb-menu"> *@
+                    @*     <nav aria-label="breadcrumb"> *@
+                    @*         <ol class="breadcrumb justify-content-center"> *@
+                    @*             <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li> *@
+                    @*             <li class="breadcrumb-item"><a asp-controller="Shop" asp-action="Index">Shop</a></li> *@
+                    @*         </ol> *@
+                    @*     </nav> *@
+                    @* </div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+<!-- shop page start -->
+<div class="shop-page pt-85">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-12">
+                <div class="sidebar">
+                  
+                    <div class="product-widget">
+                        <h3 class="widget-title mb-30">Product categories</h3>
+                        <ul class="product-categories">
+                            @if (ViewBag.CategoryCounts != null)
+                            {
+                                @foreach (var c in ViewBag.CategoryCounts as List<CategoryCountViewModel>)
+                                {
+                                    <li><a  class="category-link" data-category-name="@c.CategoryName">@c.CategoryName <span class="count">(@c.ProductCount)</span></a></li>
+                                }
+                            }
+                            else
+                            {
+                                <li>No Category Found</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="product-widget pt-50">
+                        <h3 class="widget-title mb-30">Filter By Price</h3>
+                        <div class="mb-3">
+                            <input type="range" class="form-range" id="minPrice" min="0" max="1000" value="@(ViewBag.MinPrice != null ? ViewBag.MinPrice : 0)">
+                            <input type="range" class="form-range" id="maxPrice" min="0" max="1000" value="@(ViewBag.MaxPrice != null ? ViewBag.MaxPrice : 0)">
+                        </div>
+
+                        <div class="d-flex align-items-center mt-3">
+                            <button class="btn btn-dark me-3" onclick="applyPriceFilter()">Filter</button>
+                            <span class="text-muted">Price: <span id="price-display">$36 - $244</span></span>
+                        </div>
+
+                    </div>
+                    
+               
+                    
+                    @* <div class="product-widget pt-50">
+                        <h3 class="widget-title mb-30">Size</h3>
+                        <div class="layer-size">
+                            <span>3XL</span>
+                            <span>L</span>
+                            <span>M</span>
+                        </div>
+                    </div> *@
+                    <div class="product-widget pt-50">
+                        <h3 class="widget-title mb-30">Color Options</h3>
+                        <div class="colors-layer">
+                            <a asp-controller="Shop" asp-action="Index"><span class="blue"></span></a>
+                            <a asp-controller="Shop" asp-action="Index"><span class="gray"></span></a>
+                            <a asp-controller="Shop" asp-action="Index"><span class="skyblue"></span></a>
+                            <a asp-controller="Shop" asp-action="Index"><span class="red"></span></a>
+                            <a asp-controller="Shop" asp-action="Index"><span class="yellow"></span></a>
+
+                        </div>
+                    </div>
+                    @* <div class="product_list_widget">
+                        <h3 class="widget-title mb-30 pt-50">Top rated</h3> *@
+                        @* Demonstrate *@
+                    @*     @for (int i = 0; i < 4; i++)
+                        {
+                            <div class="item-widget">
+                                <div class="img-left">
+                                    <a asp-controller="Shop" asp-action="Product">
+                                        <img src="@Url.Content("~/img/product/10.jpg")" alt="product-meta" />
+                                    </a>
+                                </div>
+                                <div class="product-meta">
+                                    <a asp-controller="Shop" asp-action="Product">
+                                        <h4 class="sm-title">Arsenal Home Jersey</h4>
+                                    </a>
+                                    <span>$55.00</span>
+                                </div>
+                            </div>
+                        }
+
+                    </div> *@
+                    @* <div class="product-widget pt-50">
+                        <h3 class="widget-title mb-30">Product tags</h3>
+                        <div class="tags mb-50">
+                            <a asp-controller="Shop" asp-action="Index">Basketball</a>
+                            <a asp-controller="Shop" asp-action="Index">Handbag</a>
+                            <a asp-controller="Shop" asp-action="Index">Jackets</a>
+                            <a asp-controller="Shop" asp-action="Index">Kids & Young</a>
+                            <a asp-controller="Shop" asp-action="Index">Training Wear</a>
+                            <a asp-controller="Shop" asp-action="Index">Women’s</a>
+                        </div>
+                    </div> *@
+                    <div class="d-flex align-items-center mt-3">
+                        <button class="btn btn-outline-dark me-3 bg-none" onclick="handleClearAllFilters()">Clear Filter</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12">
+                <div class="shop-top-bar position-relative">
+                    <div class="showing-result">
+
+                        @if (searchProductResults == null)
+                        {
+                            <p>0 results</p>
+                        }
+                        else
+                        {
+                            <p>Showing @(searchProductResults.Count()) results</p>
+                        }
+                    </div>
+                    <div class="shop-tab">
+                        <nav>
+                            <div class="nav nav-tabs shop-tabs" id="nav-tab" role="tablist">
+                                <button>
+                                    <span>views</span>
+                                </button>
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                                        aria-selected="true">
+                                    <img src="@Url.Content("~/img/essential/i2.svg")" alt="">
+                                </button>
+                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-profile" type="button" role="tab"
+                                        aria-controls="nav-profile" aria-selected="false">
+                                    <img src="@Url.Content("~/img/essential/i3.svg")" alt="">
+                                </button>
+                                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-contact" type="button" role="tab"
+                                        aria-controls="nav-contact" aria-selected="false">
+                                    <img src="@Url.Content("~/img/essential/i4.svg")" alt="">
+                                </button>
+                                <button class="nav-link" id="nav-contact-tab2" data-bs-toggle="tab"
+                                        data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-contact"
+                                        aria-selected="false">
+                                    <img src="@Url.Content("~/img/essential/list.svg")" alt="">
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="shop-filtaring">
+                        <div class="filter-select">
+                            <select class="order-by">
+                                <option value="Default setting">Default setting</option>
+                                <option value="Default setting">short by popularity</option>
+                                <option value="Default setting">short by average rating</option>
+                                <option value="Default setting">short by latest</option>
+                                <option value="Default setting">short by price : low to high</option>
+                                <option value="Default setting">Default setting</option>
+                            </select>
+                            <button class="open-filter"><i class="fal fa-plus"></i>filter</button>
+                            <div class="filter-content">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-3">
+                                        <div class="product-widget pt-50">
+                                            <h3 class="widget-title mb-30">color</h3>
+                                            <div class="colors-layer">
+                                                <a asp-controller="Shop" asp-action="Index"><span class="blue"></span></a>
+                                                <a asp-controller="Shop" asp-action="Index"><span class="gray"></span></a>
+                                                <a asp-controller="Shop" asp-action="Index"><span class="skyblue"></span></a>
+                                                <a asp-controller="Shop" asp-action="Index"><span class="red"></span></a>
+                                                <a asp-controller="Shop" asp-action="Index"><span class="yellow"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @* <div class="col-xl-3 col-lg-3">
+                                        <div class="product-widget pt-50">
+                                            <h3 class="widget-title mb-30">Size</h3>
+                                            <div class="layer-size">
+                                                <span>3XL</span>
+                                                <span>L</span>
+                                                <span>M</span>
+                                            </div>
+                                        </div>
+                                    </div> *@
+                                    <div class="col-xl-3 col-lg-3">
+                                        <div class="product-widget pt-50">
+                                            <h3 class="widget-title mb-30">Filter By Price</h3>
+                                            <form action="#">
+                                                <div class="price-filter">
+                                                    <div id="slider-range-2"
+                                                         class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                                                        <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                                             style="left: 15%; width: 46.4%;"></div>
+                                                        <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                                                              style="left: 7.2%;"></span><span tabindex="0"
+                                                                                               class="ui-slider-handle ui-corner-all ui-state-default"
+                                                                                               style="left: 48.8%;"></span>
+                                                        <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                                             style="left: 15%; width: 45%;"></div>
+                                                        <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                                             style="left: 7.2%; width: 41.6%;"></div>
+                                                    </div>
+                                                    <div class="filter-form-submit mt-35">
+                                                        <button type="submit">Filter</button>
+                                                        <div class="filter-price d-inline-block pl-20">
+                                                            Price: <input type="button" id="amount-2" value="$36 - $244">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                    @* <div class="col-xl-3 col-lg-3">
+                                        <div class="product-widget pt-50">
+                                            <h3 class="widget-title mb-30">Product tags</h3>
+                                            <div class="tags mb-50">
+                                                <a asp-controller="Shop" asp-action="Index">Basketball</a>
+                                                <a asp-controller="Shop" asp-action="Index">Handbag</a>
+                                                <a asp-controller="Shop" asp-action="Index">Jackets</a>
+                                                <a asp-controller="Shop" asp-action="Index">Kids & Young</a>
+                                                <a asp-controller="Shop" asp-action="Index">Training Wear</a>
+                                                <a asp-controller="Shop" asp-action="Index">Women’s</a>
+
+                                            </div>
+                                        </div>
+                                    </div> *@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-page-product pt-50 pb-100">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="tab-content" id="nav-tabContent">
+                                @*Fist View*@
+                                @if (searchProductResults != null)
+                                {
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                         aria-labelledby="nav-home-tab">
+                                        <div class="row">
+                                            @foreach (var product in searchProductResults)
+                                            {
+                                                var imagePath = product.ProductImages.FirstOrDefault()?.ImagePath;
+                                                <div class="col-xl-6">
+                                                    <div class="product product-4">
+                                                        <div class="product__thumb">
+                                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                                                                <img class="product-primary"
+                                                                     src="~/img/@(imagePath)/1.png" alt="product_image">
+                                                                <img class="product-secondary"
+                                                                     src="~/img/@(imagePath)/2.png" alt="product_image">
+                                                            </a>
+                                                            <!-- <div class="product__update">
+                                                            <a class="#">sale</a>
+                                                            </div> -->
+                                                            <div class="product-info mb-10">
+                                                                <div class="product_category">
+                                                                    <span>@product.Category.Name</span>
+                                                                </div>
+                                                                <div class="product_rating">
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star"></i></a>
+                                                                    <a href="#"><i class="fal fa-star"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product__name">
+                                                                <h4><a asp-controller="Product" asp-action="Controller" asp-route-id="@product.Id">@product.Name</a></h4>
+                                                                <div class="pro-price">
+                                                                    <p class="p-absoulute pr-1">
+                                                                        <span>$</span>@product.Price
+
+                                                                    </p>
+                                                                    <a class="p-absoulute pr-2" href="#">add to cart</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product__action">
+                                                                <div class="inner__action">
+                                                                    <div class="wishlist">
+                                                                        <a href="#"><i class="fal fa-heart"></i></a>
+                                                                    </div>
+                                                                    <div class="view">
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fal fa-eye"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="layer">
+                                                                        <a href="#"><i class="fal fa-layer-group"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+
+                                    @*Second View*@
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+                                         aria-labelledby="nav-profile-tab">
+                                        <div class="row">
+                                            <!-- a product here -->
+                                            @foreach (var product in searchProductResults)
+                                            {
+                                                var imagePath = product.ProductImages.FirstOrDefault()?.ImagePath;
+                                                <div class="col-xl-4">
+                                                    <div class="product product-4">
+                                                        <div class="product__thumb">
+                                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                                                                <img class="product-primary" src="~/img/@(imagePath)/1.png" alt="product_image" />
+                                                                <img class="product-secondary" src="~/img/@(imagePath)/2.png" alt="product_image" />
+                                                            </a>
+                                                            <!-- <div class="product__update">
+                                                                <a class="#">sale</a>
+                                                            </div> -->
+                                                            <div class="product-info mb-10">
+                                                                <div class="product_category">
+                                                                    <span>@product.Category.Name</span>
+                                                                </div>
+                                                                <div class="product_rating">
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star"></i></a>
+                                                                    <a href="#"><i class="fal fa-star"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product__name">
+                                                                <h4>
+                                                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">@product.Name</a>
+                                                                </h4>
+                                                                <div class="pro-price">
+                                                                    <p class="p-absoulute pr-1">
+                                                                        <span>$</span>@product.Price
+
+                                                                    </p>
+                                                                    <a class="p-absoulute pr-2" href="#">add to cart</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product__action">
+                                                                <div class="inner__action">
+                                                                    <div class="wishlist">
+                                                                        <a href="#"><i class="fal fa-heart"></i></a>
+                                                                    </div>
+                                                                    <div class="view">
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fal fa-eye"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="layer">
+                                                                        <a href="#"><i class="fal fa-layer-group"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    @*Third View*@
+                                    <div class="tab-pane fade" id="nav-contact" role="tabpanel"
+                                         aria-labelledby="nav-contact-tab">
+                                        <div class="row">
+                                            <!-- a product here -->
+                                            @foreach (var product in searchProductResults)
+                                            {
+                                                var imagePath = product.ProductImages.FirstOrDefault()?.ImagePath;
+                                                <div class="col-xl-3">
+                                                    <div class="product product-3">
+                                                        <div class="product__thumb">
+                                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                                                                <img class="product-primary" src="~/img/@(imagePath)/1.png" alt="product_image" />
+                                                                <img class="product-secondary" src="~/img/@(imagePath)/2.png" alt="product_image" />
+
+                                                            </a>
+                                                            <!-- <div class="product__update">
+                                                                <a class="#">sale</a>
+                                                            </div> -->
+                                                            <div class="product-info mb-10">
+                                                                <div class="product_category">
+                                                                    <span>@product.Category.Name</span>
+                                                                </div>
+                                                                <div class="product_rating">
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                    <a href="#"><i class="fal fa-star"></i></a>
+                                                                    <a href="#"><i class="fal fa-star"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product__name">
+                                                                <h4><a asp-controller="Shop" asp-action="Product">@product.Name</a></h4>
+                                                                <div class="pro-price">
+                                                                    <p class="p-absoulute pr-1">
+                                                                        <span>$</span>@product.Price
+
+                                                                    </p>
+                                                                    <a class="p-absoulute pr-2" href="#">add to cart</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product__action">
+                                                                <div class="inner__action">
+                                                                    <div class="wishlist">
+                                                                        <a href="#"><i class="fal fa-heart"></i></a>
+                                                                    </div>
+                                                                    <div class="view">
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fal fa-eye"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="layer">
+                                                                        <a href="#"><i class="fal fa-layer-group"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    @*Fourth View*@
+
+                                    <div class="tab-pane fade" id="nav-list" role="tabpanel"
+                                         aria-labelledby="nav-contact-tab">
+                                        <!-- a product here -->
+                                        @foreach (var product in searchProductResults)
+                                        {
+                                            var imagePath = product.ProductImages.FirstOrDefault()?.ImagePath;
+                                            <div class="border-top">
+                                                <div class="row">
+                                                    <div class="col-xl-4 col-lg-4 col-md-4">
+                                                        <div class="list-product">
+                                                            <div class="list__thumb">
+                                                                <a asp-controller="Shop" asp-action="Product">
+                                                                    <img src="~/img/@(imagePath)/1.png" alt="" />
+
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-8 col-lg-8 col-md-8">
+                                                        <div class="list__content">
+                                                            <div class="viewcontent">
+                                                                <div class="viewcontent__header">
+                                                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                                                                        <h2 class="mb-10">@product.Name</h2>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="viewcontent__rating">
+                                                                    <i class="fal fa-star ratingcolor"></i>
+                                                                    <i class="fal fa-star ratingcolor"></i>
+                                                                    <i class="fal fa-star ratingcolor"></i>
+                                                                    <i class="fal fa-star"></i>
+                                                                </div>
+                                                                <div class="viewcontent__price">
+                                                                    <h4><span>$</span>@product.Price</h4>
+                                                                </div>
+                                                                <div class="view__para">
+                                                                    <p>
+                                                                        @product.Description
+                                                                    </p>
+                                                                </div>
+                                                                <div class="list-actions pt-20">
+                                                                    <div class="viewcontent__action">
+                                                                        <span><a href="#">add to cart</a></span>
+                                                                        <a href="#"><i class="fal fa-heart"></i></a>
+                                                                        <a class="ml-5" href="#"><i class="fal fa-layer-group"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- shop page end -->
+<!-- search area  -->
+
+<!-- popup area start -->
+@* <div class="overlay"></div> *@
+@* <div class="product-popup">
+    <div class="view-background">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-5">
+                <div class="quickview">
+                    <div class="quickview__thumb">
+                        <img src="@Url.Content("~/img/quick_view/25.jpg")" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-7">
+                <div class="viewcontent">
+                    <div class="viewcontent__header">
+                        <h2>Brown Leather Bags</h2>
+                        <a class="view_close product-p-close" href="javascript:void(0)">
+                            <i class="fal fa-times-circle"></i>
+                        </a>
+                    </div>
+                    <div class="viewcontent__rating">
+                        <i class="fal fa-star ratingcolor"></i>
+                        <i class="fal fa-star ratingcolor"></i>
+                        <i class="fal fa-star ratingcolor"></i>
+                        <i class="fal fa-star"></i>
+                    </div>
+                    <div class="viewcontent__price">
+                        <h4><span>$</span>99.00</h4>
+                    </div>
+                    <div class="viewcontent__stock">
+                        <h4>Available :<span> In stock</span></h4>
+                    </div>
+                    <div class="viewcontent__details">
+                        <p>
+                            Anlor sit amet, consectetur adipiscing elit. Fusce condimentum est lacus, non pretium
+                            risus lacinia vel. Fusce eget turpis orci.
+                        </p>
+                    </div>
+                    <div class="viewcontent__action">
+                        <span>Qty</span>
+                        <span><input type="number" placeholder="1"></span>
+                        <span><a href="#">add to cart</a></span>
+                        <span><i class="fal fa-heart"></i></span>
+                        <span><i class="fal fa-info-circle"></i></span>
+                    </div>
+                    <div class="viewcontent__footer">
+                        <ul>
+                            <li>Category:</li>
+                            <li>SKU:</li>
+                            <li>Brand:</li>
+                        </ul>
+                        <ul>
+                            <li>Watches</li>
+                            <li>2584-MK63</li>
+                            <li>Brenda</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@

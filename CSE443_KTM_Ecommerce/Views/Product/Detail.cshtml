@@ -1,4 +1,12 @@
-﻿<div class="search_area">
+﻿
+
+@{
+    var product = ViewBag.Product as Product;
+    var relatedCategoryProducts = ViewBag.RelatedCategoryProducts as List<Product>;
+}
+@model CSE443_KTM_Ecommerce.Models.Product;
+
+<div class="search_area">
     <div class="search_close">
         <span><i class="fal fa-times"></i></span>
     </div>
@@ -136,139 +144,149 @@
 <div class="cart-offcanvas-overlay"></div>
 <!-- cart area end  -->
 <!-- single_breadcrumb_area start -->
- <!--Breadcrumb !!!-->
+<!--Breadcrumb !!!-->
 <div class="single_breadcrumb pt-25">
     <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                <li class="breadcrumb-item"><a href="#">Outerwears</a></li>
-                <li class="breadcrumb-item"><a href="#">jackets</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Arsenal Home Jersey</li>
-            </ol>
-        </nav>
 
-              <!--Product Image Tabs -->
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12">
-                <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2">
-                        <div class="single_product_tab">
-                            <div class="single_prodct">
-                                <ul class="nav nav-tabs justify-content-center mb-55" id="dfde" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                                data-bs-target="#homde" type="button" role="tab"
-                                                aria-selected="true">
-                                            <img src="@Url.Content("~/img/product/17.jpg")" alt="">
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profidfdle"
-                                                type="button" role="tab"
-                                                aria-selected="false">
-                                            <img src="@Url.Content("~/img/product/17-1.jpg")" alt="">
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contadfdct"
-                                                type="button" role="tab"
-                                                aria-selected="false">
-                                            <img src="@Url.Content("~/img/product/17-2.jpg")" alt="">
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="kids-tab" data-bs-toggle="tab"
-                                                data-bs-target="#kidsdfd" type="button" role="tab"
-                                                aria-selected="false">
-                                            <img src="@Url.Content("~/img/product/17-ê.jpg")" alt="">
-                                        </button>
-                                    </li>
-                                </ul>
+        @if(product == null)
+        {
+            <h1>Product Not Found</h1>
+        }
+        else
+        {
+            var productRootImagePath = product.ProductImages.FirstOrDefault()?.ImagePath;
+            @* <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item"><a href="#">Outerwears</a></li>
+                    <li class="breadcrumb-item"><a href="#">jackets</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Arsenal Home Jersey</li>
+                </ol>
+            </nav> *@
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-2">
+                            <div class="single_product_tab">
+                                <div class="single_prodct">
+                                    <ul class="nav nav-tabs justify-content-center mb-55" id="dfde" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link product-thumbnail-button active" id="home-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#product-image-1" type="button" role="tab"
+                                                    aria-selected="true">
+                                                <img src="~/img/@(productRootImagePath)/1.png" alt="">
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link product-thumbnail-button " id="profile-tab" data-bs-toggle="tab" data-bs-target="#product-image-2"
+                                                    type="button" role="tab"
+                                                    aria-selected="false">
+                                                <img src="~/img/@(productRootImagePath)/2.png" alt="">
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link product-thumbnail-button " data-bs-toggle="tab" data-bs-target="#product-image-3"
+                                                    type="button" role="tab"
+                                                    aria-selected="false">
+                                                <img src="~/img/@(productRootImagePath)/3.png" alt="">
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link product-thumbnail-button" id="kids-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#product-image-4" type="button" role="tab"
+                                                    aria-selected="false">
+                                                <img src="~/img/@(productRootImagePath)/4.png" alt="">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                     <!--Product Image Tab Items-->
-                    <div class="col-xl-10 col-lg-10 col-md-10">
-                        <div class="single_preview_product">
-                            <div class="single-popup-view">
-                                <a class="popup-image" href="@Url.Content("~/img/product/17-3.jpg")"><i class="fal fa-search"></i></a>
-                            </div>
-                            <div class="tab-content" id="myTabefContent">
-                                <div class="tab-pane fade show active" id="homde" role="tabpanel">
-                                    <div class="full-view">
-                                        <img src="@Url.Content("~/img/product/17.jpg")" alt="">
-                                    </div>
+                        <!--Product Image Tab Items-->
+                        <div class="col-xl-10 col-lg-10 col-md-10">
+                            <div class="single_preview_product">
+                                <div class="single-popup-view">
+                                    <a class="popup-image" href="~/img/@(productRootImagePath)/1.png"><i class="fal fa-search"></i></a>
+                                  
                                 </div>
-                                <div class="tab-pane fade" id="profidfdle" role="tabpanel">
-                                    <div class="full-view">
-                                        <img src="@Url.Content("~/img/product/17-1.jpg")" alt="">
+                                <div class="tab-content" id="myTabefContent">
+                                    <div class="tab-pane fade show active" id="product-image-1" role="tabpanel">
+                                        <div class="full-view">
+                                            <img src="~/img/@(productRootImagePath)/1.png" alt="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="contadfdct" role="tabpanel">
-                                    <div class="full-view">
-                                        <img src="@Url.Content("~/img/product/17-2.jpg")" alt="">
+                                    <div class="tab-pane fade" id="product-image-2" role="tabpanel">
+                                        <div class="full-view">
+                                            <img src="~/img/@(productRootImagePath)/2.png" alt="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="kidsdfd" role="tabpanel">
-                                    <div class="full-view">
-                                        <img src="@Url.Content("~/img/product/17-3.jpg")" alt="">
+                                    <div class="tab-pane fade" id="product-image-3" role="tabpanel">
+                                        <div class="full-view">
+                                            <img src="~/img/@(productRootImagePath)/3.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="product-image-4" role="tabpanel">
+                                        <div class="full-view">
+                                            <img src="~/img/@(productRootImagePath)/4.png" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
-            <!--Product Detail-->
-            <div class="col-xl-6 col-lg-6 col-md-12">
-                <div class="single_preview_content pl-30">
-                    <h2 class="title-5 edit-title border-bottom-0">Arsenal Home Jersey</h2>
-                    <div class="s-product-review">
-                        <span><i class="far fa-star start-color"></i></span>
-                        <span><i class="far fa-star start-color"></i></span>
-                        <span><i class="far fa-star start-color"></i></span>
-                        <span><i class="far fa-star start-color"></i></span>
-                        <span><i class="far fa-star"></i></span>
-                        <span class="pl-left">(1 customer review)</span>
-                    </div>
-                    <div class="s-price pt-30 mb-30">
-                        <span>$45.00</span>
-                    </div>
-                    <div class="s-des">
-                        <p>Designed by Hans J. Wegner in 1949 as one of the first models created especially for Carl Hansen & Son, and produced since 1950. The last of a series of chairs Wegner designed based on inspiration from antique Chinese armchairs. The gently rounded top together with the back and seat offers a</p>
-                    </div>
-                    <div class="viewcontent__action single_action pt-30">
-                        <span><input type="number" placeholder="1"></span>
-                        <span><a asp-controller="Cart" asp-action="Index">+ add to cart</a></span>
-                        <span><i class="fal fa-heart"></i></span>
-                        <span><i class="fas fa-compress"></i></span>
-                    </div>
-                    <div class="viewcontent__footer border-top-0 border-bottom pb-30">
-                        <ul>
-                            <li>Category:</li>
-                            <li>SKU:</li>
-                        </ul>
-                        <ul>
-                            <li>jackets, Youth</li>
-                            <li>woo-hoodie-with-logo</li>
-                        </ul>
-                    </div>
-                    <div class="social__media f-social-media mb-30 pt-15">
-                        <h3 class="f-title edit-f-title">FOLLOW US ON</h3>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                <!--Product Detail-->
+                <div class="col-xl-6 col-lg-6 col-md-12">
+                    <div class="single_preview_content pl-30">
+                        <h2 class="title-5 edit-title border-bottom-0">@product.Name</h2>
+                        <div class="s-product-review">
+                            <span><i class="far fa-star start-color"></i></span>
+                            <span><i class="far fa-star start-color"></i></span>
+                            <span><i class="far fa-star start-color"></i></span>
+                            <span><i class="far fa-star start-color"></i></span>
+                            <span><i class="far fa-star"></i></span>
+                            <span class="pl-left">(1 customer review)</span>
+                        </div>
+                        <div class="s-price pt-30 mb-30">
+                            <span>$@product.Price</span>
+                        </div>
+                        <div class="s-des">
+                            <p>@product.Description</p>
+                        </div>
+                        <div class="viewcontent__action single_action pt-30">
+                            <span><input type="number" placeholder="1"></span>
+
+                            <span> <a asp-controller="Cart" asp-action="Index">+ add to cart</a> </span>
+                            <span><i class="fal fa-heart"></i></span>
+                            <span><i class="fas fa-compress"></i></span>
+                        </div>
+                        <div class="viewcontent__footer border-top-0 border-bottom pb-30">
+                            <ul>
+                                <li>Category:</li>
+                                @* <li>SKU:</li> *@
+                            </ul>
+                            <ul>
+                                <li>@product.Category.Name</li>
+                                @* <li>woo-hoodie-with-logo</li> *@
+                            </ul>
+                        </div>
+                        <div class="social__media f-social-media mb-30 pt-15">
+                            <h3 class="f-title edit-f-title">FOLLOW US ON</h3>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        }   
     </div>
 </div>
 <!-- single_breadcrumb_area end -->
@@ -296,21 +314,30 @@
                     </ul>
                     <div class="tab-content" id="myTabCffontent">
                         <div class="tab-pane fade show active" id="Additional" role="tabpanel">
-                            <div class="additional-information">
-                                <ul>
-                                    <li class="title">Additional information</li>
-                                    <li>Weight</li>
-                                    <li>1.4 oz</li>
-                                    <li>Dimensions</li>
-                                    <li>62 × 56 × 12 in</li>
-                                    <li>Size</li>
-                                    <li>XL, XXL, LG, SM, MD</li>
-                                    <li>Fabric</li>
-                                    <li>Cotton, Silk & Synthetic</li>
-                                    <li>Warranty</li>
-                                    <li>3 Months</li>
-                                </ul>
-                            </div>
+                            @if(product != null)
+                            {
+                                <div class="additional-information">
+                                    <ul>
+                                        <li class="title">Additional information</li>
+                                        <li>Weight</li>
+                                        <li>@product.Weight</li>
+                                        <li>Dimensions</li>
+                                        <li>@product.Dimensions</li>
+                                        <li>Size</li>
+                                        <li>@product.Size</li>
+                                        <li>Fabric</li>
+                                        <li>@product.Fabric</li>
+                                        <li>Warranty</li>
+                                        <li>@product.Warranty</li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="additional-information">
+                                    <h1>Addiional Information Not Found</h1>
+                                </div>
+                            }
                             <!-- categories area start -->
                             <div class="categories_area pt-85 mb-150">
                                 <div class="container-fluid">
@@ -327,63 +354,79 @@
                                                         <div class="container">
                                                             <div class="product-active swiper-container">
                                                                 <div class="swiper-wrapper">
-                                                                    <div class="product-item swiper-slide wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
-                                                                        <div class="product">
-                                                                            <div class="product__thumb">
-                                                                                <a asp-controller="Shop" asp-action="Product">
-                                                                                    <img class="product-primary"
-                                                                                         src="@Url.Content("~/img/product/cat1.png")" alt="product_image">
-                                                                                    <img class="product-secondary"
-                                                                                         src="@Url.Content("~/img/product/cat2.png")" alt="product_image">
+                                                                    @if(relatedCategoryProducts  != null)
+                                                                    {
+                                                                        @foreach(var p in relatedCategoryProducts)
+                                                                        {
+                                                                            var imagePath = p.ProductImages.FirstOrDefault()?.ImagePath;
+                                                                            <div class="product-item swiper-slide wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+                                                                                <div class="product">
+                                                                                    <div class="product__thumb">
+                                                                                       
+                                                                                        <a asp-controller="Product" asp-action="Detail"  asp-route-id="@p.Id">
+                                                                                            <img class="product-primary"
+                                                                                                 src="~/img/@(imagePath)/1.png" alt="product_image">
+                                                                                            <img class="product-secondary"
+                                                                                                 src="~/img/@(imagePath)/2.png" alt="product_image">
 
-                                                                                </a>
-                                                                                <div class="product__update">
-                                                                                    <a class="#">new</a>
-                                                                                </div>
-                                                                                <div class="product-info mb-10">
-                                                                                    <div class="product_category">
-                                                                                        <span>Shoes, Clothing</span>
-                                                                                    </div>
-                                                                                    <div class="product_rating text-end">
-                                                                                        <a href="#"><i class="fal fa-star start-color"></i></a>
-                                                                                        <a href="#"><i class="fal fa-star start-color"></i></a>
-                                                                                        <a href="#"><i class="fal fa-star start-color"></i></a>
-                                                                                        <a href="#"><i class="fal fa-star"></i></a>
-                                                                                        <a href="#"><i class="fal fa-star"></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="product__name">
-                                                                                    <h4><a asp-controller="Shop" asp-action="Product">NikeCourt Air Zoom Prestige</a></h4>
-                                                                                    <div class="pro-price">
-                                                                                        <p class="p-absoulute pr-1">
-                                                                                            <span>$</span>680.00 -
-                                                                                            <span>$</span>680.00
-                                                                                        </p>
-                                                                                        <a class="p-absoulute pr-2" href="#">add to cart</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="product__action">
-                                                                                    <div class="inner__action">
-                                                                                        <div class="wishlist">
-                                                                                            <a href="#"><i class="fal fa-heart"></i></a>
+                                                                                        </a>
+                                                                                        @if (product.Featured)
+                                                                                        {
+                                                                                            <div class="product__update">
+                                                                                                <a class="#">New</a>
+                                                                                            </div>
+                                                                                        }
+                                                                                        <div class="product-info mb-10">
+                                                                                            <div class="product_category">
+                                                                                                <span>@p.Category.Name</span>
+                                                                                            </div>
+                                                                                            <div class="product_rating text-end">
+                                                                                                <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                                                <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                                                <a href="#"><i class="fal fa-star start-color"></i></a>
+                                                                                                <a href="#"><i class="fal fa-star"></i></a>
+                                                                                                <a href="#"><i class="fal fa-star"></i></a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="view">
-                                                                                            <a href="javascript:void(0)"><i class="fal fa-eye"></i></a>
+                                                                                        <div class="product__name">
+                                                                                            <h4><a asp-controller="Shop" asp-action="Product">@p.Name</a></h4>
+                                                                                            <div class="pro-price">
+                                                                                                <p class="p-absoulute pr-1">
+                                                                                                    <span>$</span>@p.Price
+                                                                                                    
+                                                                                                </p>
+                                                                                                <a class="p-absoulute pr-2" href="#">add to cart</a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="layer">
-                                                                                            <a href="#">
-                                                                                                <i class="fal fa-layer-group"></i>
-                                                                                            </a>
+                                                                                        <div class="product__action">
+                                                                                            <div class="inner__action">
+                                                                                                <div class="wishlist">
+                                                                                                    <a href="#"><i class="fal fa-heart"></i></a>
+                                                                                                </div>
+                                                                                                <div class="view">
+                                                                                                    <a href="javascript:void(0)"><i class="fal fa-eye"></i></a>
+                                                                                                </div>
+                                                                                                <div class="layer">
+                                                                                                    <a href="#">
+                                                                                                        <i class="fal fa-layer-group"></i>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-item swiper-slide wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
-                                                                    </div>
-
+                                                                          
+                                                                        }
+                                                                        
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <h1>Related Products Not Found</h1>
+                                                                    }
                                                                 </div>
+                                                                @* <div class="product-item swiper-slide wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                                                                </div> *@
                                                             </div>
                                                         </div>
                                                     </div>

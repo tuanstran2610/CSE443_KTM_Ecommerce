@@ -1,0 +1,18 @@
+﻿/* filter price  CSS */
+
+input[type="range"] {
+    width: 48%;
+    display: inline-block;
+    margin-right: 2%;
+}
+
+
+/*Category Product Count Active Style*/
+.category-product-active a > span{
+    color :blue !important;
+}
+.category-product-active a {
+    color: blue !important;
+    font-weight: bold;
+}
+
