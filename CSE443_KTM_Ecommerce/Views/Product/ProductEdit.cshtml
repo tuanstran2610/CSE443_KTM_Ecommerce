@@ -1,360 +1,375 @@
+@model CSE443_KTM_Ecommerce.Models.Product
 @{
     Layout = "AdminLayout";
 }
 <div class="page-content">
-
-        <!-- Start Container Fluid -->
-        <div class="container-xxl">
-
-            <div class="row">
-                <div class="col-xl-3 col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="/images/product/p-1.png" alt="" class="img-fluid rounded bg-light">
-                            <div class="mt-3">
-                                <h4>Men Black Slim Fit T-shirt <span class="fs-14 text-muted ms-1">(Fashion)</span></h4>
-                                <h5 class="text-dark fw-medium mt-3">Price :</h5>
-                                <h4 class="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
-                                    <span class="text-muted text-decoration-line-through">$100</span> $80 <small
-                                                                                                              class="text-muted"> (30% Off)</small>
-                                </h4>
-                                <div class="mt-3">
-                                    <h5 class="text-dark fw-medium">Size :</h5>
-                                    <div class="d-flex flex-wrap gap-2" role="group"
-                                         aria-label="Basic checkbox toggle button group">
-                                        <input type="checkbox" class="btn-check" id="size-s">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="size-s">S</label>
-
-                                        <input type="checkbox" class="btn-check" id="size-m" checked>
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="size-m">M</label>
-
-                                        <input type="checkbox" class="btn-check" id="size-xl">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="size-xl">Xl</label>
-
-                                        <input type="checkbox" class="btn-check" id="size-xxl">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="size-xxl">XXL</label>
-
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <h5 class="text-dark fw-medium">Colors :</h5>
-                                    <div class="d-flex flex-wrap gap-2" role="group"
-                                         aria-label="Basic checkbox toggle button group">
-                                        <input type="checkbox" class="btn-check" id="color-dark">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="color-dark"> <i class="bx bxs-circle fs-18 text-dark"></i></label>
-
-                                        <input type="checkbox" class="btn-check" id="color-yellow">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="color-yellow"> <i
-                                                                       class="bx bxs-circle fs-18 text-warning"></i></label>
-
-                                        <input type="checkbox" class="btn-check" id="color-white">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="color-white"> <i class="bx bxs-circle fs-18 text-white"></i></label>
-
-                                        <input type="checkbox" class="btn-check" id="color-red">
-                                        <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                               for="color-red"> <i class="bx bxs-circle fs-18 text-danger"></i></label>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-9 col-lg-8 ">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Add Product Photo</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="dropzone bg-light-subtle py-5">
-                                <div class="fallback">
-                                    <input name="file" type="file" multiple="multiple">
-                                </div>
-                                <div class="dz-message needsclick">
-                                    <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                                    <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span>
-                                    </h3>
-                                    <span class="text-muted fs-13">
-                                        1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
-                                    </span>
-                                </div>
-                            </div>
-
-                            <ul class="list-unstyled mb-0" id="dropzone-preview">
-                                <li class="mt-2" id="dropzone-preview-list">
-                                    <!-- This is used as the file preview template -->
-                                    <div class="border rounded">
-                                        <div class="d-flex p-2">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar-sm bg-light rounded">
-                                                    <img data-dz-thumbnail class="img-fluid rounded d-block" src="#"
-                                                         alt="Dropzone-Image"/>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <div class="pt-1">
-                                                    <h5 class="fs-14 mb-1" data-dz-name>&</h5>
-                                                    <p class="fs-13 text-muted mb-0" data-dz-size></p>
-                                                    <strong class="error text-primary" data-dz-errormessage></strong>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-3">
-                                                <button data-dz-remove class="btn btn-sm btn-primary">Delete</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- end dropzon-preview -->
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Product Information</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="product-name" class="form-label">Product Name</label>
-                                            <input type="text" id="product-name" class="form-control"
-                                                   placeholder="Items Name" value="Men Black Slim Fit T-shirt">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <form>
-                                        <label for="product-categories" class="form-label">Product Categories</label>
-                                        <select class="form-control" id="product-categories" data-choices
-                                                data-choices-groups data-placeholder="Select Categories"
-                                                name="choices-single-groups">
-                                            <option value="">Choose a categories</option>
-                                            <option value="Fashion" selected>Fashion</option>
-                                            <option value="Electronics">Electronics</option>
-                                            <option value="Footwear">Footwear</option>
-                                            <option value="Sportswear">Sportswear</option>
-                                            <option value="Watches">Watches</option>
-                                            <option value="Furniture">Furniture</option>
-                                            <option value="Appliances">Appliances</option>
-                                            <option value="Headphones">Headphones</option>
-                                            <option value="Other Accessories">Other Accessories</option>
-                                        </select>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="product-brand" class="form-label">Brand</label>
-                                            <input type="text" id="product-brand" class="form-control"
-                                                   placeholder="Brand Name" value="Larkon Fashion">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="product-weight" class="form-label">Weight</label>
-                                            <input type="text" id="product-weight" class="form-control"
-                                                   placeholder="In gm & kg" value="300gm">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4">
-                                    <form>
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <select class="form-control" id="gender" data-choices data-choices-groups
-                                                data-placeholder="Select Gender">
-                                            <option value="">Select Gender</option>
-                                            <option value="Men" selected>Men</option>
-                                            <option value="Women">Women</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-lg-4">
-                                    <div class="mt-3">
-                                        <h5 class="text-dark fw-medium">Size :</h5>
-                                        <div class="d-flex flex-wrap gap-2" role="group"
-                                             aria-label="Basic checkbox toggle button group">
-                                            <input type="checkbox" class="btn-check" id="size-xs1">
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="size-xs1">XS</label>
-
-                                            <input type="checkbox" class="btn-check" id="size-s1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="size-s1">S</label>
-
-                                            <input type="checkbox" class="btn-check" id="size-m1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="size-m1">M</label>
-
-                                            <input type="checkbox" class="btn-check" id="size-xl1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="size-xl1">Xl</label>
-
-                                            <input type="checkbox" class="btn-check" id="size-xxl1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="size-xxl1">XXL</label>
-                                            <input type="checkbox" class="btn-check" id="size-3xl1">
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="size-3xl1">3XL</label>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="mt-3">
-                                        <h5 class="text-dark fw-medium">Colors :</h5>
-                                        <div class="d-flex flex-wrap gap-2" role="group"
-                                             aria-label="Basic checkbox toggle button group">
-                                            <input type="checkbox" class="btn-check" id="color-dark1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-dark1"> <i
-                                                                          class="bx bxs-circle fs-18 text-dark"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-yellow1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-yellow1"> <i class="bx bxs-circle fs-18 text-warning"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-white1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-white1"> <i
-                                                                           class="bx bxs-circle fs-18 text-white"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-red1" checked>
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-red1"> <i
-                                                                         class="bx bxs-circle fs-18 text-primary"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-green1">
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-green1"> <i class="bx bxs-circle fs-18 text-success"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-blue1">
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-blue1"> <i
-                                                                          class="bx bxs-circle fs-18 text-danger"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-sky1">
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-sky1"> <i
-                                                                         class="bx bxs-circle fs-18 text-info"></i></label>
-
-                                            <input type="checkbox" class="btn-check" id="color-gray1">
-                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                   for="color-gray1"> <i class="bx bxs-circle fs-18 text-secondary"></i></label>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
+    <div class="container-xxl">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        @if (Model.ProductImages != null && Model.ProductImages.Any())
+                        {
+                            <div id="productImages">
+                                @foreach (var image in Model.ProductImages)
+                                {
                                     <div class="mb-3">
-                                        <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control bg-light-subtle" id="description" rows="7"
-                                                  placeholder="Short description about the product">Top in sweatshirt fabric made from a cotton blend with a soft brushed inside. Relaxed fit with dropped shoulders, long sleeves and ribbing around the neckline, cuffs and hem. Small metal text applique.</textarea>
+                                        
+                                            <img src="~/img/@(image.ImagePath)/1.png" alt="@Model.Name" class="img-fluid rounded bg-light mb-2">
+                                        
                                     </div>
-                                </div>
+                                }
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="product-id" class="form-label">Tag Number</label>
-                                            <input type="number" id="product-id" class="form-control"
-                                                   placeholder="#******" value="36294007">
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="col-lg-4">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="product-stock" class="form-label">Stock</label>
-                                            <input type="number" id="product-stock" class="form-control"
-                                                   placeholder="Quantity" value="465">
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="product-stock" class="form-label">Tag</label>
-                                    <select class="form-control" id="choices-multiple-remove-button" data-choices
-                                            data-choices-removeItem name="choices-multiple-remove-button" multiple>
-                                        <option value="Fashion" selected>Fashion</option>
-                                        <option value="Electronics">Electronics</option>
-                                        <option value="Watches">Watches</option>
-                                        <option value="Headphones">Headphones</option>
-                                    </select>
-                                </div>
+                        }
+                        else
+                        {
+                            <div class="bg-light rounded p-3 text-center">
+                                <i class="bx bx-image fs-48 text-muted"></i>
+                                <p class="mt-2">No image available</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Pricing Details</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <form>
-                                        <label for="product-price" class="form-label">Price</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
-                                            <input type="number" id="product-price" class="form-control"
-                                                   placeholder="000" value="80">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4">
-                                    <form>
-                                        <label for="product-discount" class="form-label">Discount</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
-                                            <input type="number" id="product-discount" class="form-control"
-                                                   placeholder="000" value="30">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4">
-                                    <form>
-                                        <label for="product-tex" class="form-label">Tex</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text fs-20"><i class='bx bxs-file-txt'></i></span>
-                                            <input type="number" id="product-tex" class="form-control" placeholder="000"
-                                                   value="3">
-                                        </div>
-                                    </form>
-                                </div>
+                        }
+                        <div class="mt-3">
+                            <h4>@Model.Name</h4>
+                            <h5 class="text-dark fw-medium mt-3">Price:</h5>
+                            <h4 class="fw-semibold text-dark mt-2">$@Model.Price</h4>
+                            <div class="mt-3">
+                                <h5 class="text-dark fw-medium">Size:</h5>
+                                <h4 class="fw-semibold text-dark mt-2">@Model.Size</h4>
                             </div>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-light mb-3 rounded">
-                        <div class="row justify-content-end g-2">
-                            <div class="col-lg-2">
-                                <a href="#!" class="btn btn-outline-secondary w-100">Reset</a>
-                            </div>
-                            <div class="col-lg-2">
-                                <a href="#!" class="btn btn-primary w-100">Save</a>
+                            <div class="mt-3">
+                                <h5 class="text-dark fw-medium">Created At:</h5>
+                                <h4 class="fw-semibold text-dark mt-2">@Model.CreatedAt.ToString("dd/MM/yyyy")</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div class="col-xl-9 col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Add Product Photo</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="dropzone" class="dropzone bg-light-subtle py-5" action="/Product/UploadImage/@Model.Id">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple="multiple">
+                            </div>
+                            <div class="dz-message needsclick">
+                                <i class="bx bx-cloud-upload fs-48 text-primary"></i>
+                                <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
+                                <span class="text-muted fs-13">1600 x 1600 pixels recommended. PNG, JPG and GIF files are allowed</span>
+                            </div>
+                        </form>
+
+                        @if (Model.ProductImages != null && Model.ProductImages.Any())
+                        {
+                            <div class="mt-4">
+                                <h5>Current Images</h5>
+                                <div class="row">
+                                    @foreach (var image in Model.ProductImages)
+                                    {
+                                        <div class="col-12 mb-3">
+                                            <div class="d-flex gap-2">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    <div class="position-relative" style="width: 100px;">
+                                                        <img src="~/img/@(image.ImagePath)/@(i).png" alt="@Model.Name" 
+                                                             class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
+                                                                onclick="deleteImage(@image.Id, @i)">×</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Product Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="ProductEdit" asp-controller="Product" method="post" id="productForm">
+                            <input type="hidden" asp-for="Id" />
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Name" class="form-label">Product Name</label>
+                                        <input asp-for="Name" class="form-control" required />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="CategoryId" class="form-label">Category</label>
+                                        <select name="CategoryId" asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select" required>
+                                            <option value="">Select Category</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Brand" class="form-label">Brand</label>
+                                        <input asp-for="Brand" class="form-control" required />
+                                        <span asp-validation-for="Brand" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Weight" class="form-label">Weight</label>
+                                        <input asp-for="Weight" class="form-control" required />
+                                        <span asp-validation-for="Weight" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Warranty" class="form-label">Warranty</label>
+                                        <input asp-for="Warranty" class="form-control" required />
+                                        <span asp-validation-for="Warranty" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Size" class="form-label">Size</label>
+                                        <input asp-for="Size" class="form-control" required />
+                                        <span asp-validation-for="Size" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Quantity" class="form-label">Quantity (Stock)</label>
+                                        <input asp-for="Quantity" class="form-control" type="number" min="0" required />
+                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Dimensions" class="form-label">Dimensions</label>
+                                        <input asp-for="Dimensions" class="form-control" required />
+                                        <span asp-validation-for="Dimensions" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Description</label>
+                                <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Fabric" class="form-label">Fabric</label>
+                                        <input asp-for="Fabric" class="form-control" required />
+                                        <span asp-validation-for="Fabric" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="ProductTypeId" class="form-label">Product Type</label>
+                                        <select name="ProductTypeId" asp-for="ProductTypeId" asp-items="ViewBag.ProductTypes" class="form-select" required>
+                                            <option value="">Select Product Type</option>
+                                        </select>
+                                        <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Price" class="form-label">Price</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input asp-for="Price" class="form-control" type="number" step="0.01" min="0" required />
+                                        </div>
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Status" class="form-label">Status</label>
+                                        <select name="Status" asp-for="Status" class="form-select" required>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Featured" class="form-label">Featured</label>
+                                <select name="Featured" asp-for="Featured" class="form-select" required>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <span asp-validation-for="Featured" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a asp-action="ProductList" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-  </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        // Initialize Dropzone
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#dropzone", {
+            url: "/Product/UploadImage/@Model.Id",
+            paramName: "file",
+            maxFilesize: 5,
+            acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
+            },
+            init: function() {
+                this.on("addedfile", function(file) {
+                    // Check image dimensions
+                    var img = new Image();
+                    img.onload = function() {
+                        if (this.width !== 1600 || this.height !== 1600) {
+                            alert("Image must be 1600x1600 pixels");
+                            myDropzone.removeFile(file);
+                        }
+                    };
+                    img.src = URL.createObjectURL(file);
+                });
+
+                this.on("success", function(file, response) {
+                    if (response.success) {
+                        // Refresh the images display
+                        location.reload();
+                    } else {
+                        alert(response.message || "Upload failed");
+                        this.removeFile(file);
+                    }
+                });
+
+                this.on("error", function(file, errorMessage) {
+                    alert(errorMessage);
+                    this.removeFile(file);
+                });
+            }
+        });
+
+        function deleteImage(imageId, imageNumber) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                $.post('/Product/DeleteImage/' + imageId + '/' + imageNumber, function(response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert(response.message || "Delete failed");
+                    }
+                });
+            }
+        }
+
+        // Handle form submission
+        $(document).ready(function() {
+            console.log('Document ready');
+            
+            $('#productForm').on('submit', function(e) {
+                console.log('Form submitted');
+                e.preventDefault();
+                
+                // Log form data for debugging
+                var formData = $(this).serialize();
+                console.log('Form data:', formData);
+                
+                // Log specific field values
+                console.log('CategoryId:', $('#CategoryId').val());
+                console.log('ProductTypeId:', $('#ProductTypeId').val());
+                
+                // Validate form
+                if (!$(this).valid()) {
+                    console.log('Form validation failed');
+                    // Show validation errors
+                    var errors = [];
+                    $(this).find(':input').each(function() {
+                        if (!$(this).valid()) {
+                            var fieldName = $(this).attr('name');
+                            var fieldValue = $(this).val();
+                            var errorMessage = $(this).next('.text-danger').text();
+                            console.log('Invalid field:', fieldName, 'Value:', fieldValue, 'Error:', errorMessage);
+                            if (errorMessage) {
+                                errors.push(fieldName + ': ' + errorMessage);
+                            }
+                        }
+                    });
+                    
+                    if (errors.length > 0) {
+                        alert('Please fix the following errors:\n' + errors.join('\n'));
+                    }
+                    return false;
+                }
+
+                console.log('Form is valid, submitting...');
+                // Submit form using AJAX
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        console.log('Server response:', response);
+                        if (response.success) {
+                            // Show success message
+                            alert('Product updated successfully!');
+                            // Redirect to product list
+                            window.location.href = '/Product/ProductList';
+                        } else {
+                            var errorMessage = response.message;
+                            if (response.errors && response.errors.length > 0) {
+                                errorMessage += '\n\nValidation errors:\n' + response.errors.join('\n');
+                            }
+                            alert(errorMessage);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log('Error response:', xhr.responseJSON);
+                        var errorMessage = 'An error occurred while updating the product';
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message;
+                            }
+                            if (xhr.responseJSON.errors && xhr.responseJSON.errors.length > 0) {
+                                errorMessage += '\n\nValidation errors:\n' + xhr.responseJSON.errors.join('\n');
+                            }
+                        }
+                        alert(errorMessage);
+                    }
+                });
+            });
+        });
+    </script>
+}
