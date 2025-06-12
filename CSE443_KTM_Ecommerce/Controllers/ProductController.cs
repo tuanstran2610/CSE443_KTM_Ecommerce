@@ -17,9 +17,10 @@ namespace CSE443_KTM_Ecommerce.Controllers
         private readonly ILogger<ProductController> _logger;
 
         
-        public ProductController(KTMDbContext context, ILogger<ProductController> logger)
+        public ProductController(KTMDbContext context, IWebHostEnvironment env, ILogger<ProductController> logger)
         {
             _context = context;
+            _env = env;
             _logger = logger;
         }
         
@@ -203,15 +204,27 @@ namespace CSE443_KTM_Ecommerce.Controllers
             var product = _context.Products
                 .Include(p => p.ProductImages)
                 .FirstOrDefault(p => p.Id == id);
-
             if (product == null)
             {
                 return NotFound();
             }
 
+            // Lấy danh sách file ảnh vật lý trong folder
+            var productImage = product.ProductImages.FirstOrDefault();
+            string folderPath = productImage?.ImagePath;
+            string fullFolderPath = string.IsNullOrEmpty(folderPath) ? null : Path.Combine(_env.WebRootPath, folderPath);
+            List<string> imageFiles = new List<string>();
+            if (!string.IsNullOrEmpty(fullFolderPath) && Directory.Exists(fullFolderPath))
+            {
+                imageFiles = Directory.GetFiles(fullFolderPath, "*.png")
+                    .Select(f => Path.Combine(folderPath, Path.GetFileName(f)).Replace("\\", "/"))
+                    .ToList();
+            }
+            ViewBag.PhysicalImages = imageFiles;
+
             // Populate ViewBag with categories and product types
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", product.CategoryId);
-            ViewBag.ProductTypes = new SelectList(_context.ProductTypes.ToList(), "Id", "Name", product.ProductTypeId);
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewBag.ProductTypes = new SelectList(_context.ProductTypes, "Id", "Name", product.ProductTypeId);
 
             return View(product);
         }
@@ -301,57 +314,35 @@ namespace CSE443_KTM_Ecommerce.Controllers
         {
             try
             {
-                var product = _context.Products
-                    .Include(p => p.ProductImages)
-                    .FirstOrDefault(p => p.Id == id);
-
-                if (product == null)
-                {
-                    return Json(new { success = false, message = "Product not found" });
-                }
-
                 if (file == null || file.Length == 0)
-                {
                     return Json(new { success = false, message = "No file uploaded" });
-                }
 
-                // Get the folder path from the first image if exists
-                string folderPath = product.ProductImages.FirstOrDefault()?.ImagePath;
-                if (string.IsNullOrEmpty(folderPath))
-                {
-                    return Json(new { success = false, message = "Product folder path not found" });
-                }
+                // Lấy folder path từ ProductImage đầu tiên
+                var productImage = _context.ProductImages.FirstOrDefault(pi => pi.ProductId == id);
+                if (productImage == null)
+                    return Json(new { success = false, message = "Product image folder not found" });
 
-                // Create the full physical path
-                var fullPath = Path.Combine(_env.WebRootPath, "img", folderPath);
-                Console.WriteLine($"Full path: {fullPath}");
-                
-                // Create directory if it doesn't exist
-                if (!Directory.Exists(fullPath))
-                {
-                    Directory.CreateDirectory(fullPath);
-                    Console.WriteLine($"Created directory: {fullPath}");
-                }
+                string folderPath = "img/" + productImage.ImagePath; // Thêm prefix 'img/' vào đường dẫn
+                string fullFolderPath = Path.Combine(_env.WebRootPath, folderPath);
 
-                // Save the file with the specified number
-                var fileName = $"{imageNumber}.png";
-                var filePath = Path.Combine(fullPath, fileName);
-                Console.WriteLine($"File path: {filePath}");
+                // Tạo thư mục nếu chưa có
+                if (!Directory.Exists(fullFolderPath))
+                    Directory.CreateDirectory(fullFolderPath);
 
-                // Save the file
+                // Lưu file với tên số thứ tự
+                string fileName = $"{imageNumber}.png";
+                string filePath = Path.Combine(fullFolderPath, fileName);
+
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
-                    Console.WriteLine($"File saved successfully to: {filePath}");
                 }
 
                 return Json(new { success = true, message = "Image uploaded successfully" });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error uploading image: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                return Json(new { success = false, message = $"Error uploading image: {ex.Message}" });
+                return Json(new { success = false, message = ex.Message });
             }
         }
 
