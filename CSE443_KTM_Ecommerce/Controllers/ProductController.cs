@@ -131,11 +131,9 @@ namespace CSE443_KTM_Ecommerce.Controllers
                     return Json(new { success = false, message = "Invalid product ID" });
                 }
 
-                // Log the received data
                 Console.WriteLine($"Received CategoryId: {product.CategoryId}");
                 Console.WriteLine($"Received ProductTypeId: {product.ProductTypeId}");
 
-                // Remove ModelState validation for Category and ProductType
                 ModelState.Remove("Category");
                 ModelState.Remove("ProductType");
 
@@ -202,13 +200,13 @@ namespace CSE443_KTM_Ecommerce.Controllers
 
         // POST: ProductController/UploadImage/5
         [HttpPost]
-        public async Task<IActionResult> UploadImage(int id, IFormFile file)
+        public IActionResult UploadImage(int id, IFormFile file, int imageNumber)
         {
             try
             {
-                var product = await _context.Products
+                var product = _context.Products
                     .Include(p => p.ProductImages)
-                    .FirstOrDefaultAsync(p => p.Id == id);
+                    .FirstOrDefault(p => p.Id == id);
 
                 if (product == null)
                 {
@@ -220,58 +218,43 @@ namespace CSE443_KTM_Ecommerce.Controllers
                     return Json(new { success = false, message = "No file uploaded" });
                 }
 
-                // Get the product's folder path from the first image or create a new one
-                var productImage = product.ProductImages.FirstOrDefault();
-                string folderPath;
-                
-                if (productImage != null)
+                // Get the folder path from the first image if exists
+                string folderPath = product.ProductImages.FirstOrDefault()?.ImagePath;
+                if (string.IsNullOrEmpty(folderPath))
                 {
-                    folderPath = productImage.ImagePath;
-                }
-                else
-                {
-                    // Create new folder path if no images exist
-                    folderPath = $"product_data/{product.Category?.Name?.ToLower() ?? "uncategorized"}/{product.Brand?.ToLower() ?? "unknown"}/product{product.Id}";
+                    return Json(new { success = false, message = "Product folder path not found" });
                 }
 
-                // Create full path
+                // Create the full physical path
                 var fullPath = Path.Combine(_env.WebRootPath, "img", folderPath);
-
+                Console.WriteLine($"Full path: {fullPath}");
+                
                 // Create directory if it doesn't exist
                 if (!Directory.Exists(fullPath))
                 {
                     Directory.CreateDirectory(fullPath);
+                    Console.WriteLine($"Created directory: {fullPath}");
                 }
 
-                // Generate unique filename
-                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                var extension = Path.GetExtension(file.FileName);
-                var uniqueFileName = $"{fileName}_{DateTime.Now:yyyyMMddHHmmss}{extension}";
-                var filePath = Path.Combine(fullPath, uniqueFileName);
+                // Save the file with the specified number
+                var fileName = $"{imageNumber}.png";
+                var filePath = Path.Combine(fullPath, fileName);
+                Console.WriteLine($"File path: {filePath}");
 
                 // Save the file
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(stream);
-                }
-
-                // Add image to database if it's a new folder
-                if (productImage == null)
-                {
-                    var newProductImage = new ProductImage
-                    {
-                        ImagePath = folderPath,
-                        ProductId = product.Id
-                    };
-                    _context.ProductImages.Add(newProductImage);
-                    await _context.SaveChangesAsync();
+                    file.CopyTo(stream);
+                    Console.WriteLine($"File saved successfully to: {filePath}");
                 }
 
                 return Json(new { success = true, message = "Image uploaded successfully" });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                Console.WriteLine($"Error uploading image: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return Json(new { success = false, message = $"Error uploading image: {ex.Message}" });
             }
         }
 
@@ -287,14 +270,12 @@ namespace CSE443_KTM_Ecommerce.Controllers
                     return Json(new { success = false, message = "Image not found" });
                 }
 
-                // Delete the specific image file
                 var imagePath = Path.Combine(_env.WebRootPath, "img", image.ImagePath, $"{imageNumber}.png");
                 if (System.IO.File.Exists(imagePath))
                 {
                     System.IO.File.Delete(imagePath);
                 }
 
-                // If this was the last image in the folder, delete the folder and database record
                 var folderPath = Path.Combine(_env.WebRootPath, "img", image.ImagePath);
                 var remainingImages = Directory.GetFiles(folderPath, "*.png");
                 if (remainingImages.Length == 0)

@@ -71,14 +71,28 @@
                                     {
                                         <div class="col-12 mb-3">
                                             <div class="d-flex gap-2">
-                                                @for (int i = 1; i <= 5; i++)
-                                                {
-                                                    <div class="position-relative" style="width: 100px;">
-                                                        <img src="~/img/@(image.ImagePath)/@(i).png" alt="@Model.Name" 
-                                                             class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
-                                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
-                                                                onclick="deleteImage(@image.Id, @i)">×</button>
-                                                    </div>
+                                                @{
+                                                    var imagePath = $"~/img/{image.ImagePath}";
+                                                    var physicalPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", image.ImagePath);
+                                                    var files = System.IO.Directory.GetFiles(physicalPath, "*.png")
+                                                        .Select(f => new {
+                                                            Path = f,
+                                                            Number = int.TryParse(System.IO.Path.GetFileNameWithoutExtension(f), out int num) ? num : 0
+                                                        })
+                                                        .Where(f => f.Number > 0)
+                                                        .OrderBy(f => f.Number)
+                                                        .ToList();
+                                                    
+                                                    foreach (var file in files)
+                                                    {
+                                                        var fileName = System.IO.Path.GetFileName(file.Path);
+                                                        <div class="position-relative" style="width: 100px;">
+                                                            <img src="@Url.Content($"{imagePath}/{fileName}")" alt="@Model.Name" 
+                                                                 class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                                                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
+                                                                    onclick="deleteImage(@image.Id, @file.Number)">×</button>
+                                                        </div>
+                                                    }
                                                 }
                                             </div>
                                         </div>
@@ -271,6 +285,20 @@
                 'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
             },
             init: function() {
+                // Get the next available image number
+                var getNextImageNumber = function() {
+                    var maxNumber = 0;
+                    $('.position-relative').each(function() {
+                        var imgSrc = $(this).find('img').attr('src');
+                        var fileName = imgSrc.split('/').pop();
+                        var number = parseInt(fileName);
+                        if (!isNaN(number) && number > maxNumber) {
+                            maxNumber = number;
+                        }
+                    });
+                    return maxNumber + 1;
+                };
+
                 this.on("addedfile", function(file) {
                     // Create thumbnail preview
                     if (file.type.match(/image.*/)) {
@@ -290,6 +318,13 @@
                         };
                         reader.readAsDataURL(file);
                     }
+                });
+
+                this.on("sending", function(file, xhr, formData) {
+                    // Add the next available image number to the form data
+                    var nextImageNumber = getNextImageNumber();
+                    formData.append("imageNumber", nextImageNumber);
+                    console.log('Sending image number:', nextImageNumber);
                 });
 
                 this.on("success", function(file, response) {
