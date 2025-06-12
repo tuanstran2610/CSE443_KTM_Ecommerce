@@ -1,15 +1,15 @@
 ﻿using CSE443_KTM_Ecommerce.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CSE443_KTM_Ecommerce.Data
 {
-    public class KTMDbContext : DbContext
-
+    public class KTMDbContext : IdentityDbContext<User, Role, int>
     {
-
         public KTMDbContext(DbContextOptions<KTMDbContext> options) : base(options)
-        { }
+        {
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Product> Products { get; set; }

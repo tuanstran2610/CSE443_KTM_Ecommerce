@@ -3,6 +3,13 @@
 *@
 @{
 }
+
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +33,7 @@
     <link rel="stylesheet" href="~/css/style.css?v=124">
     <link rel="stylesheet" href="~/css/responsive.css">
     <link rel="stylesheet" href="~/css/account.css?v=14">
+    <link rel="stylesheet" href="~/css/auth.css" />
 
 </head>
 
@@ -61,7 +69,27 @@
                                 <li><a href="#">Wishlist</a></li>
                                 <li><a asp-controller="Account" asp-action="Index">Account</a></li>
                                 <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
-                                <li><a asp-controller="Home" asp-action="Login">Login & register</a></li>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var user = await UserManager.GetUserAsync(User);
+                                    <li>Hello, @user?.FullName</li>
+                                    <li>
+                                    <li>
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;">
+                                                @Html.AntiForgeryToken()
+                                        </form>
+                                    </li>
+
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                    <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -322,7 +350,7 @@
     <script src="~/js/swiper-bundle.min.js"></script>
     <script src="~/js/countdown.js"></script>
     <script src="~/js/main.js"></script>
-
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
