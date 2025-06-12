@@ -58,7 +58,7 @@
                             <div class="dz-message needsclick">
                                 <i class="bx bx-cloud-upload fs-48 text-primary"></i>
                                 <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
-                                <span class="text-muted fs-13">1600 x 1600 pixels recommended. PNG, JPG and GIF files are allowed</span>
+                                <span class="text-muted fs-13">PNG, JPG and GIF files are allowed</span>
                             </div>
                         </form>
 
@@ -250,20 +250,46 @@
             maxFilesize: 5,
             acceptedFiles: "image/*",
             addRemoveLinks: true,
+            previewTemplate: `
+                <div class="dz-preview dz-file-preview">
+                    <div class="dz-image">
+                        <img data-dz-thumbnail />
+                    </div>
+                    <div class="dz-details">
+                        <div class="dz-filename"><span data-dz-name></span></div>
+                        <div class="dz-size"><span data-dz-size></span></div>
+                    </div>
+                    <div class="dz-progress">
+                        <span class="dz-upload" data-dz-uploadprogress></span>
+                    </div>
+                    <div class="dz-success-mark"><span>✔</span></div>
+                    <div class="dz-error-mark"><span>✘</span></div>
+                    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                </div>
+            `,
             headers: {
                 'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
             },
             init: function() {
                 this.on("addedfile", function(file) {
-                    // Check image dimensions
-                    var img = new Image();
-                    img.onload = function() {
-                        if (this.width !== 1600 || this.height !== 1600) {
-                            alert("Image must be 1600x1600 pixels");
-                            myDropzone.removeFile(file);
-                        }
-                    };
-                    img.src = URL.createObjectURL(file);
+                    // Create thumbnail preview
+                    if (file.type.match(/image.*/)) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var img = new Image();
+                            img.src = e.target.result;
+                            img.onload = function() {
+                                // Resize image to fit preview
+                                var canvas = document.createElement('canvas');
+                                var ctx = canvas.getContext('2d');
+                                canvas.width = 100;
+                                canvas.height = 100;
+                                ctx.drawImage(img, 0, 0, 100, 100);
+                                file.previewElement.querySelector('img').src = canvas.toDataURL();
+                            };
+                        };
+                        reader.readAsDataURL(file);
+                    }
                 });
 
                 this.on("success", function(file, response) {
