@@ -5,7 +5,6 @@ namespace CSE443_KTM_Ecommerce.Models
 {
     public class ProductImage
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -17,6 +16,7 @@ namespace CSE443_KTM_Ecommerce.Models
         [Required]
         public int ProductId { get; set; }
 
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
     }
 }

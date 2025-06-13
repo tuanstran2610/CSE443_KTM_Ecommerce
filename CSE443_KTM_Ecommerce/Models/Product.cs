@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CSE443_KTM_Ecommerce.Models
 {
@@ -48,10 +49,13 @@ namespace CSE443_KTM_Ecommerce.Models
         /// Foreign Key 
         /// Set the ProductType into an Entity ( Table) in order  to further have  other product types
         [Required]
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         [Required]
-        public int ProductTypeId { get; set; }
+        public int? ProductTypeId { get; set; }
+        
+      
         public Category Category { get; set; }
+        
         public ProductType ProductType { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; } =  new List<ProductImage>();
         public ICollection<ProductDiscount> ProductDiscounts { get; set; } = new List<ProductDiscount>();
