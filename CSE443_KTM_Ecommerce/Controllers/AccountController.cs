@@ -1,5 +1,6 @@
 ﻿using CSE443_KTM_Ecommerce.Models;
 using CSE443_KTM_Ecommerce.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -173,6 +174,65 @@ namespace CSE443_KTM_Ecommerce.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(user); // Truyền model là User
+        }
+
+
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EditInfo()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var model = new EditInfoViewModel
+            {
+                FullName = user.FullName,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditInfo(EditInfoViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.GetUserAsync(User);
+            if (!await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                ModelState.AddModelError(string.Empty, "Incorrect password.");
+                return View(model);
+            }
+
+            user.FullName = model.FullName;
+            user.Address = model.Address;
+            user.PhoneNumber = model.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Information updated successfully.";
+                return RedirectToAction("Profile");
+            }
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            return View(model);
         }
 
 
