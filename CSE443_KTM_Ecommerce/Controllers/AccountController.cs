@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
+using Microsoft.EntityFrameworkCore;
+
 namespace CSE443_KTM_Ecommerce.Controllers
 {
     public class AccountController : Controller
@@ -185,9 +187,14 @@ namespace CSE443_KTM_Ecommerce.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.Users
+                .Include(u => u.Orders)
+                .ThenInclude(o => o.OrderDetails) // nếu cần thông tin chi tiết sản phẩm
+                .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -195,6 +202,7 @@ namespace CSE443_KTM_Ecommerce.Controllers
 
             return View(user); // Truyền model là User
         }
+
 
 
 
@@ -243,6 +251,7 @@ namespace CSE443_KTM_Ecommerce.Controllers
             return View(model);
         }
 
+    
 
         //public ActionResult Index()
         //{

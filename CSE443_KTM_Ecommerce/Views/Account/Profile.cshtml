@@ -172,9 +172,40 @@
                 </div>
             </div>
         </div>
-        <div id="orders" class="section-content"><h1>My Orders</h1><p>You have no orders.</p></div>
-        @* <div id="downloads" class="section-content"><h1>My Downloadable Products</h1><p>You have no downloadable products.</p></div> *@
-        <div id="wishlist" class="section-content"><h1>My Wish List</h1><p>Your wish list is empty.</p></div>
+        <div id="orders" class="section-content">
+            <h1>My Orders</h1>
+
+            @if (Model.Orders != null && Model.Orders.Any())
+            {
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var order in Model.Orders.OrderByDescending(o => o.CreatedAt))
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>@order.Status</td>
+                            <td>@order.OrderTotalPrice.ToString("C")</td>
+                            <td><a asp-controller="Order" asp-action="Details" asp-route-id="@order.Id">View</a></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>You have no orders.</p>
+            }
+        </div>        <div id="wishlist" class="section-content"><h1>My Wish List</h1><p>Your wish list is empty.</p></div>
         <div id="reviews" class="section-content"><h1>My Product Reviews</h1><p>You have not reviewed any products.</p></div>
         @* <div id="referrals" class="section-content"><h1>Referrals</h1><p>You have no referrals.</p></div> *@
         @* <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div> *@
