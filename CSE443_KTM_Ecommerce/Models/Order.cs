@@ -35,5 +35,7 @@ namespace CSE443_KTM_Ecommerce.Models
         public DateTime? CompletedAt {get;set;}
         public DateTime? DeliveredAt { get; set; }
 
+        // Add navigation property for OrderDetails
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

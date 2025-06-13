@@ -36,6 +36,8 @@ namespace CSE443_KTM_Ecommerce.Data
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,30 +54,30 @@ namespace CSE443_KTM_Ecommerce.Data
                new Delivery { Id = 3, Name = "Pickup In-Store", Description = "Pick up from store for free", DeliveryFees = 1.02M }
                 );
             
-           
-            var adminUser = new User
-            {
-                Id = 999,
-                UserName = "admin",
-                NormalizedUserName = "ADMIN",
-                Email = "admin@example.com",
-                NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                EmailConfirmed = true,
-                SecurityStamp = "STATIC-SECURITY-STAMP",
-                ConcurrencyStamp = "STATIC-CONCURRENCY-STAMP",
-                FullName = "Super Admin",
-                Address = "Admin Address",
-                CreatedAt = new DateTime(2024, 01, 01),
-                PasswordHash = "AQAAAAIAAYagAAAAEGlTlHiVUEOUM7qZpWBhE+czTE+iWAsmjeJ5G17QcKxXGcFesY1oqdIdS7Ezs8CGbQ==" //Admin@123
-            };
+            //
+            // var adminUser = new User
+            // {
+            //     Id = 999,
+            //     UserName = "admin",
+            //     NormalizedUserName = "ADMIN",
+            //     Email = "admin@example.com",
+            //     NormalizedEmail = "ADMIN@EXAMPLE.COM",
+            //     EmailConfirmed = true,
+            //     SecurityStamp = "STATIC-SECURITY-STAMP",
+            //     ConcurrencyStamp = "STATIC-CONCURRENCY-STAMP",
+            //     FullName = "Super Admin",
+            //     Address = "Admin Address",
+            //     CreatedAt = new DateTime(2024, 01, 01),
+            //     PasswordHash = "AQAAAAIAAYagAAAAEGlTlHiVUEOUM7qZpWBhE+czTE+iWAsmjeJ5G17QcKxXGcFesY1oqdIdS7Ezs8CGbQ==" //Admin@123
+            // };
+            //
+            // modelBuilder.Entity<User>().HasData(adminUser);
 
-            modelBuilder.Entity<User>().HasData(adminUser);
-
-            modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
-            {
-                UserId = 1000,
-                RoleId = 2
-            });
+            // modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
+            // {
+            //     UserId = 1000,
+            //     RoleId = 2
+            // });
 
 
             modelBuilder.Entity<ProductType>().HasData(

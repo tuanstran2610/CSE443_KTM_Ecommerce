@@ -114,17 +114,9 @@
                                             <td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
                                             <td>$@order.OrderTotalPrice.ToString("N2")</td>
                                             <td>
-                                                @if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.DELIVERED)
+                                                @if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.COMPLETED)
                                                 {
-                                                    <span class="badge bg-success">Delivered</span>
-                                                }
-                                                else if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.PROCESSED)
-                                                {
-                                                    <span class="badge bg-warning">Processing</span>
-                                                }
-                                                else if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.CANCELLED)
-                                                {
-                                                    <span class="badge bg-danger">Cancelled</span>
+                                                    <span class="badge bg-success">Complete</span>
                                                 }
                                                 else
                                                 {
