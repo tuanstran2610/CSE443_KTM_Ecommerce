@@ -692,6 +692,7 @@ namespace CSE443_KTM_Ecommerce.Data
                 new ProductImage { Id = 11, ImagePath = "product_data/jerseys/psg/product1", ProductId = 11 },
                 new ProductImage { Id = 12, ImagePath = "product_data/jerseys/intermilan/product1", ProductId = 12 },
                 new ProductImage { Id = 13, ImagePath = "product_data/jerseys/dortmund/product1", ProductId = 13 },
+
                 // Shoes (Product IDs 14-21)
                 new ProductImage { Id = 14, ImagePath = "product_data/shoes/nike/product1", ProductId = 14 },
                 new ProductImage { Id = 15, ImagePath = "product_data/shoes/nike/product2", ProductId = 15 },
@@ -701,6 +702,7 @@ namespace CSE443_KTM_Ecommerce.Data
                 new ProductImage { Id = 19, ImagePath = "product_data/shoes/adidas/product3", ProductId = 19 },
                 new ProductImage { Id = 20, ImagePath = "product_data/shoes/adidas/product4", ProductId = 20 },
                 new ProductImage { Id = 21, ImagePath = "product_data/shoes/adidas/product5", ProductId = 21 },
+
                 // Jackets (Product IDs 22-27)
                 new ProductImage { Id = 22, ImagePath = "product_data/jackets/machesterunited/product1", ProductId = 22 },
                 new ProductImage { Id = 23, ImagePath = "product_data/jackets/machesterunited/product2", ProductId = 23 },
@@ -708,7 +710,8 @@ namespace CSE443_KTM_Ecommerce.Data
                 new ProductImage { Id = 25, ImagePath = "product_data/jackets/realmadrid/product1", ProductId = 25 },
                 new ProductImage { Id = 26, ImagePath = "product_data/jackets/intermilan/product1", ProductId = 26 },
                 new ProductImage { Id = 27, ImagePath = "product_data/jackets/psg/product1", ProductId = 27 },
-                // Accessories (Product IDs 28-38)
+
+                // Accessories (Product IDs 28-38) - Using the base path from the Product seed data
                 new ProductImage { Id = 28, ImagePath = "product_data/accessories/manchesterunited/product1", ProductId = 28 },
                 new ProductImage { Id = 29, ImagePath = "product_data/accessories/manchesterunited/product2", ProductId = 29 },
                 new ProductImage { Id = 30, ImagePath = "product_data/accessories/manchesterunited/product3", ProductId = 30 },
@@ -721,6 +724,7 @@ namespace CSE443_KTM_Ecommerce.Data
                 new ProductImage { Id = 37, ImagePath = "product_data/accessories/adidas/product3", ProductId = 37 },
                 new ProductImage { Id = 38, ImagePath = "product_data/accessories/adidas/product4", ProductId = 38 }
             );
+
         }
     }
 }

@@ -21,7 +21,7 @@ $('.side-info-close,.offcanvas-overlay').on('click', function () {
 	$("[data-background").each(function () {
 	$(this).css("background-image", "url( " + $(this).attr("data-background") + "  )");
 });
-
+	
 //cart active
 $('.gota_cart').click(function(){
 	$('.cart__sidebar').addClass('open-cart');
@@ -86,41 +86,41 @@ var swiper = new Swiper('.slider-active', {
 
   //price filter active
   	/* Price filter active */
-	if ($("#slider-range").length) {
-		$("#slider-range").slider({
-			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
-			slide: function (event, ui) {
-				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-			}
-		});
-		$("#amount").val("$" + $("#slider-range").slider("values", 0) +
-			" - $" + $("#slider-range").slider("values", 1));
-		$('#filter-btn').on('click', function () {
-			$('.filter-widget').slideToggle(1000);
-		});
+	//if ($("#slider-range").length) {
+	//	$("#slider-range").slider({
+	//		range: true,
+	//		min: 0,
+	//		max: 500,
+	//		values: [75, 300],
+	//		slide: function (event, ui) {
+	//			$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+	//		}
+	//	});
+	//	$("#amount").val("$" + $("#slider-range").slider("values", 0) +
+	//		" - $" + $("#slider-range").slider("values", 1));
+	//	$('#filter-btn').on('click', function () {
+	//		$('.filter-widget').slideToggle(1000);
+	//	});
 
-	}
+	//}
 
-	if ($("#slider-range-2").length) {
-		$("#slider-range-2").slider({
-			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
-			slide: function (event, ui) {
-				$("#amount-2").val("$" + ui.values[0] + " - $" + ui.values[1]);
-			}
-		});
-		$("#amount-2").val("$" + $("#slider-range-2").slider("values", 0) +
-			" - $" + $("#slider-range-2").slider("values", 1));
-		$('#filter-btn-2').on('click', function () {
-			$('.filter-widget').slideToggle(1000);
-		});
+	//if ($("#slider-range-2").length) {
+	//	$("#slider-range-2").slider({
+	//		range: true,
+	//		min: 0,
+	//		max: 500,
+	//		values: [75, 300],
+	//		slide: function (event, ui) {
+	//			$("#amount-2").val("$" + ui.values[0] + " - $" + ui.values[1]);
+	//		}
+	//	});
+	//	$("#amount-2").val("$" + $("#slider-range-2").slider("values", 0) +
+	//		" - $" + $("#slider-range-2").slider("values", 1));
+	//	$('#filter-btn-2').on('click', function () {
+	//		$('.filter-widget').slideToggle(1000);
+	//	});
 
-	}
+	//}
 
 	// filter widget toggle
 	$('.filter-popup').hide();

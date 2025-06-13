@@ -11,7 +11,8 @@ namespace CSE443_KTM_Ecommerce.Models
         public int Id { get; set; }
 
         public int Quantity { get; set; }
-        public double Price { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Price { get; set; }
         public double? TotalPrice { get; set; }
 
         public DateTime CreatedAt { get; set; } =  DateTime.Now;
