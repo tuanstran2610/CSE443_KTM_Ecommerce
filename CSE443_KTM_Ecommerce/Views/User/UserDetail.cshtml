@@ -5,125 +5,143 @@
     Layout = "AdminLayout";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- User Information Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">User Information</h5>
-                </div>
-                <div class="card-body">
-                    <div class="text-center mb-4">
-                        <h4 class="mt-2">@Model.User.FullName</h4>
-                        <p class="text-muted">@Model.User.Email</p>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        <p>@Model.User.PhoneNumber</p>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Address</label>
-                        <p>@Model.User.Address</p>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Roles</label>
-                        <div>
-                            @foreach (var role in Model.User.Roles)
-                            {
-                                <span class="badge bg-primary me-1">@role.Name</span>
-                            }
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Member Since</label>
-                        <p>@Model.User.CreatedAt.ToString("dd/MM/yyyy")</p>
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0">User Details</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/User/UserList">Users</a></li>
+                            <li class="breadcrumb-item active">User Details</li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Order Statistics Card -->
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Order Statistics</h5>
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
+                                    @Model.User.FullName[0]
+                                </span>
+                            </div>
+                            <h5 class="font-size-16 mb-1">@Model.User.FullName</h5>
+                            <p class="text-muted mb-3">@Model.User.Email</p>
+                            <div class="d-flex gap-2 justify-content-center mb-3">
+                                @foreach (var role in Model.User.Roles)
+                                {
+                                    <span class="badge bg-primary">@role.Name</span>
+                                }
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Phone :</th>
+                                        <td>@Model.User.PhoneNumber</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address :</th>
+                                        <td>@Model.User.Address</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Member Since :</th>
+                                        <td>@Model.User.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card bg-primary text-white">
-                                <div class="card-body">
-                                    <h6 class="card-title">Total Orders</h6>
-                                    <h3 class="mb-0">@Model.TotalOrders</h3>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Order Statistics</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="text-center">
+                                    <h5 class="mb-1">@Model.TotalOrders</h5>
+                                    <p class="text-muted mb-0">Total Orders</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-center">
+                                    <h5 class="mb-1">$@Model.TotalSpent.ToString("N2")</h5>
+                                    <p class="text-muted mb-0">Total Spent</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card bg-success text-white">
-                                <div class="card-body">
-                                    <h6 class="card-title">Total Spent</h6>
-                                    <h3 class="mb-0">$@Model.TotalSpent.ToString("N2")</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-info text-white">
-                                <div class="card-body">
-                                    <h6 class="card-title">Last Order</h6>
-                                    <h3 class="mb-0">@(Model.LastOrderDate?.ToString("dd/MM/yyyy") ?? "No orders")</h3>
-                                </div>
-                            </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-muted mb-0">
+                                Last Order: @(Model.LastOrderDate.HasValue ? Model.LastOrderDate.Value.ToString("dd/MM/yyyy") : "No orders yet")
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Order History -->
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Order History</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Date</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var order in Model.Orders)
-                                {
-                                    var orderStatus = (OrderStatus)order.Status;
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Order History</h4>
+                        <div class="table-responsive">
+                            <table class="table table-centered table-nowrap mb-0">
+                                <thead>
                                     <tr>
-                                        <td>#@order.Id</td>
-                                        <td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
-                                        <td>$@order.OrderTotalPrice.ToString("N2")</td>
-                                        <td>
-                                            <span class="badge bg-@(orderStatus == OrderStatus.DELIVERED ? "success" : 
-                                                                   orderStatus == OrderStatus.PROCESSED ? "warning" : 
-                                                                   orderStatus == OrderStatus.CANCELLED ? "danger" : "info")">
-                                                @orderStatus
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <a href="/Order/OrderDetail/@order.Id" class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </td>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        var orderStatus = (CSE443_KTM_Ecommerce.Enum.OrderStatus)order.Status;
+                                        <tr>
+                                            <td>#@order.Id</td>
+                                            <td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                            <td>$@order.OrderTotalPrice.ToString("N2")</td>
+                                            <td>
+                                                @if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.DELIVERED)
+                                                {
+                                                    <span class="badge bg-success">Delivered</span>
+                                                }
+                                                else if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.PROCESSED)
+                                                {
+                                                    <span class="badge bg-warning">Processing</span>
+                                                }
+                                                else if (orderStatus == CSE443_KTM_Ecommerce.Enum.OrderStatus.CANCELLED)
+                                                {
+                                                    <span class="badge bg-danger">Cancelled</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-info">Pending</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="/Order/OrderDetail/@order.Id" class="btn btn-primary btn-sm">View</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

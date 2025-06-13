@@ -21,7 +21,14 @@
       <li><a href="#" data-section="reviews"><span>My Product Reviews</span></a></li>
       @* <li><a href="#" data-section="referrals">Referrals</a></li> *@
       <hr/>
-      <li><a href="#" data-section="signout"><span>Sign Out</span></a></li>
+      <li>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Logout
+        </a>
+        <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;">
+          @Html.AntiForgeryToken()
+        </form>
+      </li>
       @* <li><a href="#" data-section="subscriptions">My Subscriptions</a></li> *@
       @* <li><a href="#" data-section="refunds">Store Credit & Refunds</a></li> *@
       @* <li><a href="#" data-section="returns">Request Return</a></li> *@
@@ -138,7 +145,7 @@
     <div id="wishlist" class="section-content"><h1>My Wish List</h1><p>Your wish list is empty.</p></div>
     <div id="reviews" class="section-content"><h1>My Product Reviews</h1><p>You have not reviewed any products.</p></div>
     @* <div id="referrals" class="section-content"><h1>Referrals</h1><p>You have no referrals.</p></div> *@
-    <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div>
+    @* <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div> *@
     @* <div id="subscriptions" class="section-content"><h1>My Subscriptions</h1><p>You have no subscriptions.</p></div> *@
     @* <div id="refunds" class="section-content"><h1>Store Credit & Refunds</h1><p>You have no store credit or refunds.</p></div> *@
     @* <div id="returns" class="section-content"><h1>Request Return</h1><p>You have no return requests.</p></div> *@

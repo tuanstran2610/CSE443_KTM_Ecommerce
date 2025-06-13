@@ -21,8 +21,14 @@
             <li><a href="#" data-section="reviews"><span>My Product Reviews</span></a></li>
             @* <li><a href="#" data-section="referrals">Referrals</a></li> *@
             <hr />
-            <li><a href="#" data-section="signout"><span>Sign Out</span></a></li>
-            @* <li><a href="#" data-section="subscriptions">My Subscriptions</a></li> *@
+            <li>
+                <a href="#" class="logout-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="margin-left: 15px">
+                    Logout
+                </a>
+                <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" >
+                    @Html.AntiForgeryToken()
+                </form>
+            </li>          @* <li><a href="#" data-section="subscriptions">My Subscriptions</a></li> *@
             @* <li><a href="#" data-section="refunds">Store Credit & Refunds</a></li> *@
             @* <li><a href="#" data-section="returns">Request Return</a></li> *@
         </ul>
@@ -30,7 +36,7 @@
 
     <main class="main account-page">
         <div id="dashboard" class="section-content active">
-            <h1>Account Information</h1>
+            <h1>Dashboard</h1>
             <div class="cards">
                 <div class="card">
                     <div class="contact-info">
@@ -67,18 +73,32 @@
             </div>
             <div class="address-header">
                 <h3>Address Book</h3>
-                <a href="#">Manage Addresses</a>
+                <a asp-action="EditInfo" asp-controller="Account">Manage Addresses</a>
             </div>
             <div class="address-group">
                 <div class="address-card">
                     <h4>Default Billing Address</h4>
-                    <p><em>You have not set a default billing address.</em></p>
-                    <a href="#">Edit Address &rarr;</a>
+                    @if (!string.IsNullOrEmpty(Model.Address))
+                    {
+                        <p>@Model.Address</p>
+                    }
+                    else
+                    {
+                        <p><em>You have not set a default billing address.</em></p>
+                    }
+                    <a asp-action="EditInfo" asp-controller="Account">Edit Address &rarr;</a>
                 </div>
                 <div class="address-card">
                     <h4>Default Shipping Address</h4>
-                    <p><em>You have not set a default shipping address.</em></p>
-                    <a href="#">Edit Address &rarr;</a>
+                    @if (!string.IsNullOrEmpty(Model.Address))
+                    {
+                        <p>@Model.Address</p>
+                    }
+                    else
+                    {
+                        <p><em>You have not set a default shipping address.</em></p>
+                    }
+                    <a asp-action="EditInfo" asp-controller="Account">Edit Address &rarr;</a>
                 </div>
             </div>
         </div>
@@ -121,20 +141,34 @@
         </div>
         <div id="address-book" class="section-content">
             <h1>Address Book</h1>
-            <div class="address-header">
-                @* <h3>Address Book</h3> *@
-                <a href="#">Manage Addresses</a>
-            </div>
+            @* <div class="address-header"> *@
+            @*     $1$ <h3>Address Book</h3> #1# *@
+            @*     <a href="#">Manage Addresses</a> *@
+            @* </div> *@
             <div class="address-group">
                 <div class="address-card">
                     <h4>Default Billing Address</h4>
-                    <p><em>You have not set a default billing address.</em></p>
-                    <a href="#">Edit Address &rarr;</a>
+                    @if (!string.IsNullOrEmpty(Model.Address))
+                    {
+                        <p>@Model.Address</p>
+                    }
+                    else
+                    {
+                        <p><em>You have not set a default billing address.</em></p>
+                    }
+                    <a asp-action="EditInfo" asp-controller="Account">Edit Address &rarr;</a>
                 </div>
                 <div class="address-card">
                     <h4>Default Shipping Address</h4>
-                    <p><em>You have not set a default shipping address.</em></p>
-                    <a href="#">Edit Address &rarr;</a>
+                    @if (!string.IsNullOrEmpty(Model.Address))
+                    {
+                        <p>@Model.Address</p>
+                    }
+                    else
+                    {
+                        <p><em>You have not set a default shipping address.</em></p>
+                    }
+                    <a asp-action="EditInfo" asp-controller="Account">Edit Address &rarr;</a>
                 </div>
             </div>
         </div>
@@ -143,7 +177,7 @@
         <div id="wishlist" class="section-content"><h1>My Wish List</h1><p>Your wish list is empty.</p></div>
         <div id="reviews" class="section-content"><h1>My Product Reviews</h1><p>You have not reviewed any products.</p></div>
         @* <div id="referrals" class="section-content"><h1>Referrals</h1><p>You have no referrals.</p></div> *@
-        <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div>
+        @* <div id="signout" class="section-content"><h1>Sign Out</h1><p>You have been signed out.</p></div> *@
         @* <div id="subscriptions" class="section-content"><h1>My Subscriptions</h1><p>You have no subscriptions.</p></div> *@
         @* <div id="refunds" class="section-content"><h1>Store Credit & Refunds</h1><p>You have no store credit or refunds.</p></div> *@
         @* <div id="returns" class="section-content"><h1>Request Return</h1><p>You have no return requests.</p></div> *@

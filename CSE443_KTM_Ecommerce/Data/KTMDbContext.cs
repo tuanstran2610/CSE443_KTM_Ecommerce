@@ -1,11 +1,20 @@
 ﻿using CSE443_KTM_Ecommerce.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CSE443_KTM_Ecommerce.Data
 {
-    public class KTMDbContext : DbContext
-
+    public class KTMDbContext : IdentityDbContext<
+        User,                          // User class
+        Role,                          // Role class
+        int,                           // Primary key type
+        IdentityUserClaim<int>,        // User claims
+        IdentityUserRole<int>,         // User-Role link
+        IdentityUserLogin<int>,        // External logins
+        IdentityRoleClaim<int>,        // Role claims
+        IdentityUserToken<int>>        // User tokens
     {
 
         public KTMDbContext(DbContextOptions<KTMDbContext> options) : base(options)
@@ -42,6 +51,31 @@ namespace CSE443_KTM_Ecommerce.Data
                 new Delivery { Id = 2, Name = "Express Delivery", Description = "Delivered in 1–2 days", DeliveryFees = 5.99M },
                new Delivery { Id = 3, Name = "Pickup In-Store", Description = "Pick up from store for free", DeliveryFees = 1.02M }
                 );
+            
+           
+            var adminUser = new User
+            {
+                Id = 999,
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@example.com",
+                NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                EmailConfirmed = true,
+                SecurityStamp = "STATIC-SECURITY-STAMP",
+                ConcurrencyStamp = "STATIC-CONCURRENCY-STAMP",
+                FullName = "Super Admin",
+                Address = "Admin Address",
+                CreatedAt = new DateTime(2024, 01, 01),
+                PasswordHash = "AQAAAAIAAYagAAAAEGlTlHiVUEOUM7qZpWBhE+czTE+iWAsmjeJ5G17QcKxXGcFesY1oqdIdS7Ezs8CGbQ==" //Admin@123
+            };
+
+            modelBuilder.Entity<User>().HasData(adminUser);
+
+            modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
+            {
+                UserId = 1000,
+                RoleId = 2
+            });
 
 
             modelBuilder.Entity<ProductType>().HasData(
@@ -769,6 +803,8 @@ namespace CSE443_KTM_Ecommerce.Data
             new ProductImage { Id = 38, ImagePath = "product_data/accessories/adidas/product4", ProductId = 38 }
         );
         }
+        
+        
 
     }
 }

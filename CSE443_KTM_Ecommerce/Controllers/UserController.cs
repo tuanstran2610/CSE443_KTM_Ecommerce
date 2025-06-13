@@ -156,6 +156,43 @@ namespace CSE443_KTM_Ecommerce.Controllers
                 RevenueChange = revenueChange
             };
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id.ToString());
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not found" });
+                }
+
+                // Check if user has any orders
+                var hasOrders = await _context.Orders.AnyAsync(o => o.UserId == id);
+                if (hasOrders)
+                {
+                    return Json(new { success = false, message = "Cannot delete user that has orders" });
+                }
+
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return Json(new { success = true, message = "User deleted successfully" });
+                }
+
+                return Json(new { 
+                    success = false, 
+                    message = string.Join(", ", result.Errors.Select(e => e.Description)) 
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting user with ID: {UserId}", id);
+                return Json(new { success = false, message = "An error occurred while deleting the user" });
+            }
+        }
     }
 
     public class UserListViewModel

@@ -1,4 +1,5 @@
 @model CSE443_KTM_Ecommerce.Controllers.RoleListViewModel
+\
 @{
     Layout = "AdminLayout";
 }
@@ -17,37 +18,37 @@
                 <div class="table-responsive">
                     <table class="table align-middle mb-0 table-hover">
                         <thead class="bg-light-subtle">
-                            <tr>
-                                <th>#</th>
-                                <th>Role Name</th>
-                                <th>Users Count</th>
-                                <th>Actions</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Role Name</th>
+                            @* <th>Users Count</th> *@
+                            <th>Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @{
-                                int rowNumber = (Model.CurrentPage - 1) * Model.PageSize + 1;
-                            }
-                            @foreach (var role in Model.Roles)
-                            {
-                                <tr>
-                                    <td>@(rowNumber++)</td>
-                                    <td>@role.Name</td>
-                                    <td>@role.Users.Count</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <a asp-controller="Role" asp-action="RoleEdit" asp-route-id="@role.Id" 
-                                               class="btn btn-soft-primary btn-sm">
-                                                <i class="bx bx-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-soft-danger btn-sm" 
-                                                    onclick="deleteRole(@role.Id, '@role.Name')">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
+                        @{
+                            int rowNumber = (Model.CurrentPage - 1) * Model.PageSize + 1;
+                        }
+                        @foreach (var role in Model.Roles)
+                        {
+                            <tr>
+                                <td>@(rowNumber++)</td>
+                                <td>@role.Name</td>
+                                @* <td>@role.UsersCount</td> *@
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a asp-controller="Role" asp-action="RoleEdit" asp-route-id="@role.Id"
+                                           class="btn btn-soft-primary btn-sm">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-soft-danger btn-sm"
+                                                onclick="deleteRole(@role.Id, '@role.Name')">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                         </tbody>
                     </table>
                 </div>
@@ -56,8 +57,8 @@
                     <div class="row g-0 align-items-center justify-content-between text-center text-sm-start p-3 border-top">
                         <div class="col-sm">
                             <div class="text-muted">
-                                Showing <span class="fw-semibold">@(((Model.CurrentPage - 1) * Model.PageSize) + 1)</span> to 
-                                <span class="fw-semibold">@(Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalItems))</span> of 
+                                Showing <span class="fw-semibold">@(((Model.CurrentPage - 1) * Model.PageSize) + 1)</span> to
+                                <span class="fw-semibold">@(Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalItems))</span> of
                                 <span class="fw-semibold">@Model.TotalItems</span> Results
                             </div>
                         </div>

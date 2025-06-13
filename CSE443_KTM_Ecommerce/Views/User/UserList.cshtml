@@ -108,48 +108,48 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Roles</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Roles</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @{
-                                var counter = (Model.CurrentPage - 1) * Model.PageSize + 1;
-                            }
-                            @foreach (var user in Model.Users)
-                            {
-                                <tr>
-                                    <td>@(counter++)</td>
-                                    <td>@user.FullName</td>
-                                    <td>@user.Email</td>
-                                    <td>@user.PhoneNumber</td>
-                                    <td>@user.Address</td>
-                                    <td>
-                                        @foreach (var role in user.Roles)
-                                        {
-                                            <span class="badge bg-primary me-1">@role.Name</span>
-                                        }
-                                    </td>
-                                    <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="@Url.Action("UserDetail", new { id = user.Id })" class="btn btn-sm btn-info" title="View Details">
-                                                <i class="bx bx-user"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteUser('@user.Id', '@user.FullName')" title="Delete User">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
+                        @{
+                            var counter = (Model.CurrentPage - 1) * Model.PageSize + 1;
+                        }
+                        @foreach (var user in Model.Users)
+                        {
+                            <tr>
+                                <td>@(counter++)</td>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>@user.Address</td>
+                                <td>
+                                    @foreach (var role in user.Roles)
+                                    {
+                                        <span class="badge bg-primary me-1">@role.Name</span>
+                                    }
+                                </td>
+                                <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("UserDetail", new { id = user.Id })" class="btn btn-sm btn-info" title="View Details">
+                                            <i class="bx bx-user"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="deleteUser('@user.Id', '@user.FullName')" title="Delete User">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                         </tbody>
                     </table>
                 </div>
@@ -194,33 +194,33 @@
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            function deleteUser(id, name) {
-                if (confirm(`Are you sure you want to delete user "${name}"?`)) {
-                    $.ajax({
-                        url: '@Url.Action("DeleteUser")',
-                        type: 'POST',
-                        data: { id: id },
-                        headers: {
-                            'RequestVerificationToken': $('#token-form input[name="__RequestVerificationToken"]').val()
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                alert(response.message);
-                                location.reload();
-                            } else {
-                                alert(response.message || 'Failed to delete user');
-                            }
-                        },
-                        error: function(xhr) {
-                            console.error('Error:', xhr);
-                            alert('An error occurred while deleting the user. Please try again.');
+        function deleteUser(id, name) {
+            if (confirm(`Are you sure you want to delete user "${name}"?`)) {
+                $.ajax({
+                    url: '@Url.Action("DeleteUser")',
+                    type: 'POST',
+                    data: { id: id },
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert(response.message || 'Failed to delete user');
                         }
-                    });
-                }
+                    },
+                    error: function(xhr) {
+                        console.error('Error:', xhr);
+                        alert('An error occurred while deleting the user. Please try again.');
+                    }
+                });
             }
+        }
 
-            window.deleteUser = deleteUser;
+        $(document).ready(function() {
+            // Any additional document ready code can go here
         });
     </script>
 }

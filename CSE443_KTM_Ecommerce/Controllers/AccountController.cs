@@ -12,14 +12,18 @@ namespace CSE443_KTM_Ecommerce.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender, RoleManager<Role> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
+
         }
 
         // GET: /Account/Register
@@ -60,6 +64,10 @@ namespace CSE443_KTM_Ecommerce.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                if (!await _roleManager.RoleExistsAsync("CUSTOMER"))
+                {
+                    await _roleManager.CreateAsync(new Role { Name = "CUSTOMER" });
+                }
                 // Tạo token xác minh email
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));

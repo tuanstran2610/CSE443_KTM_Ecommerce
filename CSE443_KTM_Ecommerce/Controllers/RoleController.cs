@@ -24,23 +24,33 @@ namespace CSE443_KTM_Ecommerce.Controllers
         // GET: RoleController
         public async Task<IActionResult> RoleList(int page = 1)
         {
-            var query = _context.Roles.Include(r => r.Users);
-            
-            // Tính toán thông tin phân trang
-            var totalItems = await query.CountAsync();
-            var totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
-            page = Math.Max(1, Math.Min(page, totalPages)); // Đảm bảo page nằm trong khoảng hợp lệ
+            var rolesQuery = _roleManager.Roles;
 
-            // Lấy dữ liệu cho trang hiện tại
-            var roles = await query
+            var totalItems = await rolesQuery.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+            page = Math.Clamp(page, 1, totalPages);
+
+            var pagedRoles = await rolesQuery
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
 
-            // Tạo ViewModel để truyền dữ liệu
+            var roleViewModels = new List<RoleListItemViewModel>();
+
+            foreach (var role in pagedRoles)
+            {
+                var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
+                roleViewModels.Add(new RoleListItemViewModel
+                {
+                    Id = role.Id,
+                    Name = role.Name,
+                    UsersCount = usersInRole.Count
+                });
+            }
+
             var viewModel = new RoleListViewModel
             {
-                Roles = roles,
+                Roles = roleViewModels,
                 CurrentPage = page,
                 TotalPages = totalPages,
                 TotalItems = totalItems,
@@ -49,12 +59,26 @@ namespace CSE443_KTM_Ecommerce.Controllers
 
             return View(viewModel);
         }
+
         
         public IActionResult RoleAdd()
         {
             return View();
         }
+        public async Task<IActionResult> UserCountByRole()
+        {
+            var allRoles = await _roleManager.Roles.ToListAsync();
 
+            var roleCounts = allRoles.Select(role => new RoleUserCountViewModel
+            {
+                RoleName = role.Name,
+                UserCount = _context.UserRoles.Count(ur => ur.RoleId == role.Id)
+            }).ToList();
+
+            return View(roleCounts);
+        }
+
+        
         [HttpPost]
         public async Task<IActionResult> RoleAdd(Role role)
         {
@@ -162,13 +186,27 @@ namespace CSE443_KTM_Ecommerce.Controllers
             }
         }
     }
-
+    public class RoleListItemViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int UsersCount { get; set; }
+    }
+    
     public class RoleListViewModel
     {
-        public IEnumerable<Role> Roles { get; set; }
+        public List<RoleListItemViewModel> Roles { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
         public int TotalItems { get; set; }
         public int PageSize { get; set; }
     }
+    public class RoleUserCountViewModel
+    {
+        public string RoleName { get; set; }
+        public int UserCount { get; set; }
+    }
+
+
+
 }
