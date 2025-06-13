@@ -1,6 +1,8 @@
 ﻿using CSE443_KTM_Ecommerce.Data;
+using CSE443_KTM_Ecommerce.Enum;
 using CSE443_KTM_Ecommerce.Extensions;
 using CSE443_KTM_Ecommerce.Models;
+using CSE443_KTM_Ecommerce.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +14,7 @@ namespace CSE443_KTM_Ecommerce.Controllers
     {
         private readonly KTMDbContext _context;
         private readonly UserManager<User> _userManager;
-
+        //private List<CartItem> _cartItems = new List<CartItem>();
 
         public CartController(KTMDbContext context, UserManager<User> userManager)
         {
@@ -55,6 +57,8 @@ namespace CSE443_KTM_Ecommerce.Controllers
         //    }
         //    return cart;
         //}
+
+
         [HttpPost]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartRequest addToCartRequest)
         {
@@ -183,5 +187,103 @@ namespace CSE443_KTM_Ecommerce.Controllers
         {
             return ViewComponent("Cart");
         }
+
+
+        public async Task<IActionResult> Checkout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var identityUser = await _userManager.GetUserAsync(User);
+                var user = await _context.Users
+                    .Include(u => u.Cart)
+                    .FirstOrDefaultAsync(u => u.Id == identityUser.Id);
+
+                // Kiểm tra null an toàn
+                if (user == null || user.Cart == null)
+                {
+                    return RedirectToAction("Login", "Account"); 
+                }
+
+                var cartItems = await _context.CartItems
+                    .Include(ci => ci.Cart)
+                    .Include(ci => ci.Product)
+                    .ThenInclude(p => p.ProductImages)
+                    .Where(ci => ci.Cart.Id == user.Cart.Id)
+                    .ToListAsync();
+
+                var model = new CheckoutViewModel
+                {
+                    FullName = user.FullName,
+                    Address = user.Address,
+                    PhoneNumber = user.PhoneNumber,
+                    CartItems = cartItems
+                };
+
+                return View(model);
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PlaceOrder(CheckoutViewModel model, string PaymentMethod)
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            var user = await _context.Users
+                .Include(u => u.Cart)
+                .ThenInclude(c => c.CartItems)
+                .FirstOrDefaultAsync(u => u.Id == identityUser.Id);
+
+            if (user?.Cart?.CartItems == null || !user.Cart.CartItems.Any())
+            {
+                return RedirectToAction("Index", "Cart");
+            }
+
+            decimal total = user.Cart.CartItems.Sum(ci => ci.Price * ci.Quantity);
+
+            var order = new Order
+            {
+                UserId = user.Id,
+                OrderTotalPrice = (double)total,
+                DeliveryAddress = model.Address,
+                DeliveryId = 1, 
+                CreatedAt = DateTime.Now,
+                Status = OrderStatus.PENDING,
+            };
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync(); 
+
+            foreach (var cartItem in user.Cart.CartItems)
+            {
+                var detail = new OrderDetail
+                {
+                    OrderId = order.Id,
+                    ProductId = cartItem.ProductId,
+                    Quantity = cartItem.Quantity,
+                    Price = (double)cartItem.Price
+                };
+                _context.OrderDetails.Add(detail);
+            }
+
+            var payment = new Payment
+            {
+                OrderId = order.Id,
+                Method = PaymentMethod,
+                Amount = total,
+                PaymentStatus = "Pending",
+                PaymentDate = DateTime.Now
+            };
+            _context.Payments.Add(payment);
+
+            _context.CartItems.RemoveRange(user.Cart.CartItems);
+
+            await _context.SaveChangesAsync();
+
+            return View("OrderSuccess", order);
+        }
+
+
+
     }
 }

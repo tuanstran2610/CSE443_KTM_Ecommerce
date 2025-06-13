@@ -69,17 +69,18 @@
                             <ul>
                                 <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
                                 <li><a href="#">Wishlist</a></li>
-                                <li><a asp-controller="Account" asp-action="Index">Account</a></li>
                                 <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     var user = await UserManager.GetUserAsync(User);
+
+
+
                                     <li>
                                         <a asp-controller="Account" asp-action="Profile" style="color: #888888; text-decoration: none;">
                                             Hello, @user?.FullName
                                         </a>
                                     </li>
-                                    <li>
                                     <li>
                                         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Logout
@@ -88,8 +89,9 @@
                                             @Html.AntiForgeryToken()
                                         </form>
                                     </li>
-
-                                    </li>
+                                    
+                                   
+                                   
                                 }
                                 else
                                 {
