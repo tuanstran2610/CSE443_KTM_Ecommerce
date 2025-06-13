@@ -3,9 +3,12 @@
 *@
 @{
 }
+
+
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,335 +33,443 @@
     <link rel="stylesheet" href="~/css/style.css?v=124">
     <link rel="stylesheet" href="~/css/responsive.css">
     <link rel="stylesheet" href="~/css/account.css?v=14">
-    <link rel="stylesheet" href="~/css/auth.css" />
     <link rel="stylesheet" href="~/css/custom/site.css">
+    <link rel="stylesheet" href="~/css/auth.css" />
 
 </head>
 
 <body>
 
 
-    <!-- header area start -->
-    <header class="header-area">
-        <div class="gota_top bg-soft d-none d-sm-block">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                        <div class="gota_lang">
-                            <ul>
-                                <li>
-                                    <a href="#">usd<i class="fal fa-chevron-down"></i></a>
-                                    <ul class="additional_dropdown">
-                                        <li><a href="#">vnd</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">english<i class="fal fa-chevron-down"></i></a>
-                                    <ul class="additional_dropdown">
-                                        <li><a href="#">vietnamese</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 offset-xl-5 col-lg-6 col-md-6 col-sm-6 text-end">
-                        <div class="gota_right">
-                            <ul>
-                                @* <li><a href="#">Wishlist</a></li> *@
-                                <li><a asp-controller="Account" asp-action="Profile">Account</a></li>
-                                <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
-                                @if (User.IsInRole("ADMIN"))
-                                {
-                                    <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
-                                }
-                                @if (SignInManager.IsSignedIn(User))
-                                {
-                                    var user = await UserManager.GetUserAsync(User);
-                                   
-                                    <li>
-                                        <a asp-controller="Account" asp-action="Profile" style="color: #888888; text-decoration: none;">
-                                            Hello, @user?.FullName
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <li>
-                                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                Logout
-                                            </a>
-                                            <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;">
-                                                @Html.AntiForgeryToken()
-                                            </form>
-                                        </li>
-
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-                                    <li><a asp-controller="Account" asp-action="Register">Register</a></li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gota_bottom position-relative">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 d-none d-sm-block">
-                        <div class="gota_search">
-                            <form class="search_form">
-                                <button class="search_action">
-                                    <i class="fal fa-search d-sm-none d-md-block"></i>
-                                </button>
-                                <input type="text" placeholder="search" />
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-8 col-md-4 col-sm-4">
-                        <div class="sidemenu sidemenu-1 d-lg-none d-md-block">
-                            <a class="open" href="#"><i class="fal fa-bars"></i></a>
-                        </div>
-                        <div class="main-menu">
-                            <nav id="mobile-menu">
-                                <ul>
-                                    <li class="nav-item">
-                                        <a asp-controller="Home" asp-action="Index">Home </a>
-                                    
-                                    </li>
-                                    <li class="position-static menu-item-has-children">
-                                        <a asp-controller="Shop" asp-action="Index">Store</a>
-                                        <ul class="mega_menu" data-background="@Url.Content("~/img/mega-menu/product.png")">
-                                            <li>
-                                                <h4 class="mega_title">Jersey</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="Index">Manchester United</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Real Madrid</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Barcelona</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">AC Milan</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Inter Milan</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Bayern Muchen</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Paris Saint-German</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Borussia Dortmund</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h4 class="mega_title">Footwear</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="Index">Football</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Running</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h4 class="mega_title">Jacket</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="Index">Manchester United</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Real Madrid</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">AC Milan</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Inter Milan</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Paris Saint-German</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h4 class="mega_title">Accessories</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="Index">Hat</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Toy</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Scarf</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Ball</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Book</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Socks</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Bags</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="Index">Gloves</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="position-static menu-item-has-children">
-                                        <a asp-controller="Shop" asp-action="ShopList">Features</a>
-                                        <ul class="mega_menu" >
-                                            <li data-background="@Url.Content("~/img/mega-menu/product4.png")" >
-                                                <h4 class="mega_title">Club</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Manchester United</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Real Madrid</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Barcelona</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">AC Milan</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Inter Milan</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Bayern Muchen</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Paris Saint-German</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Borussia Dortmund</a></li>
-                                                </ul>
-                                            </li>
-                                            <li data-background="@Url.Content("~/img/mega-menu/product4.png")">
-                                                <h4 class="mega_title">Brand</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Adidas</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Nike</a></li>
-                                                </ul>
-                                            </li>
-                                            <li data-background="@Url.Content("~/img/mega-menu/product4.png")">
-                                                <h4 class="mega_title">Sport</h4>
-                                                <ul class="mega_item">
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Football</a></li>
-                                                    <li><a asp-controller="Shop" asp-action="ShopList">Running</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li>
-                                        <a asp-controller="Home" asp-action="Index">
-                                            <img class="pl-50 pr-50" src="@Url.Content("~/img/logo/logo.png")" style="height: 50px" alt="">
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Home" asp-action="Blog">Blog</a>                    
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-controller="Home" asp-action="About">About Us</a>
-                                    </li>
-                                    @* <li class="menu-item-has-children"> *@
-                                    @*     <a href="about.html">pages</a> *@
-                                    @*     <ul class="sub-menu"> *@
-                                    @*         <li><a asp-controller="Home" asp-action="About">about us</a></li> *@
-                                    @*         <li><a asp-controller="Home" asp-action="Contact">contact</a></li>                     *@
-                                    @*         <li><a asp-controller="Cart" asp-action="Index">cart page</a></li> *@
-                                    @*         <li><a asp-controller="Home" asp-action="Checkout">checkout page</a></li> *@
-                                    @*         <li><a asp-controller="Home" asp-action="NotFound">page 404</a></li> *@
-                                    @*         <li><a asp-controller="Home" asp-action="Service">services</a></li> *@
-                                    @*         <li><a asp-controller="Home" asp-action="Accordion">FAQ</a></li> *@
-                                    @*     </ul> *@
-                                    @* </li> *@
-                                    <li><a asp-controller="Home" asp-action="Accordion">FAQ</a></li>
-                                    <li><a asp-controller="Home" asp-action="Contact">contact us </a></li>
+<!-- header area start -->
+<header class="header-area">
+    <div class="gota_top bg-soft d-none d-sm-block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <div class="gota_lang">
+                        <ul>
+                            <li>
+                                <a href="#">usd<i class="fal fa-chevron-down"></i></a>
+                                <ul class="additional_dropdown">
+                                    <li><a href="#">vnd</a></li>
                                 </ul>
-                            </nav>
-                        </div>
-
+                            </li>
+                            <li>
+                                <a href="#">english<i class="fal fa-chevron-down"></i></a>
+                                <ul class="additional_dropdown">
+                                    <li><a href="#">vietnamese</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
-                        <div class="gota_cart gotat_cart_1 text-end">
-                            <a href="javascript:void(0)"><i class="fal fa-shopping-cart"></i>My Bag<span class="counter"> (2)</span></a>
-                        </div>
+                </div>
+                <div class="col-xl-4 offset-xl-5 col-lg-6 col-md-6 col-sm-6 text-end">
+                    <div class="gota_right">
+                        <ul>
+                            @if (User.IsInRole("ADMIN"))
+                            {
+                                <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
+                            }
+                            <li><a href="#">Wishlist</a></li>
+                            <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var user = await UserManager.GetUserAsync(User);
+
+
+
+                                <li>
+                                    <a asp-controller="Account" asp-action="Profile" style="color: #888888; text-decoration: none;">
+                                        Hello, @user?.FullName
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                    <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                </li>
+
+
+
+                            }
+                            else
+                            {
+                                <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                            }
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- header area end -->
+    </div>
+    <div class="gota_bottom position-relative">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 d-none d-sm-block">
+                    <div class="gota_search">
+                        <form class="search_form" asp-action="Search" asp-controller="Product" method="get">
+                            <button class="search_action">
+                                <i class="fal fa-search d-sm-none d-md-block"></i>
+                            </button>
+                            <input type="text" name="title" placeholder="search" />
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-4 col-sm-4">
+                    <div class="sidemenu sidemenu-1 d-lg-none d-md-block">
+                        <a class="open" href="#"><i class="fal fa-bars"></i></a>
+                    </div>
+                    <div class="main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                                <li class="nav-item">
+                                    <a asp-controller="Home" asp-action="Index">Home </a>
 
-    <main>
-        @RenderBody()
-    </main>
+                                </li>
+                                <li class="position-static menu-item-has-children">
+                                    <a href="/">Store</a>
+                                    <ul class="mega_menu" data-background="@Url.Content("~/img/mega-menu/product.png")">
+                                        <li>
+                                            <h4 class="mega_title">Jersey</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="manchesterunited" asp-route-category="Jersey">Manchester United</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="realmadrid" asp-route-category="Jersey">Real Madrid</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="barcelona" asp-route-category="Jersey">Barcelona</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="acmilan" asp-route-category="Jersey">AC Milan</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="intermilan" asp-route-category="Jersey">Inter Milan</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="bayern" asp-route-category="Jersey">Bayern Muchen</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="psg" asp-route-category="Jersey">Paris Saint-German</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="dortmund" asp-route-category="Jersey">Borussia Dortmund</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <h4 class="mega_title">Shoes</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-type="Football" asp-route-category="Shoes">Football</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-type="Running" asp-route-category="Shoes">Running</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <h4 class="mega_title">Jackets</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Jacket" asp-route-brand="manchesterunited">Manchester United</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Jacket" asp-route-brand="realmadrid">Real Madrid</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Jacket" asp-route-brand="acmilan">AC Milan</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Jacket" asp-route-brand="intermilan">Inter Milan</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Jacket" asp-route-brand="psg">Paris Saint-German</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <h4 class="mega_title">Accessories</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Hat">Hat</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Toy">Toy</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Scarf">Scarf</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Ball">Ball</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Book/Magazines">Book</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Socks">Socks</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Bag">Bags</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-category="Accessories" asp-route-type="Gloves">Gloves</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="position-static menu-item-has-children">
+                                    <a href="/">Features</a>
+                                    <ul class="mega_menu">
+                                        <li data-background="@Url.Content("~/img/mega-menu/product4.png")">
+                                            <h4 class="mega_title">Club</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="manchesterunited">Manchester United</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="realmadrid">Real Madrid</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="barcelona">Barcelona</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="acmilan">AC Milan</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="intermilan">Inter Milan</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="bayern">Bayern Muchen</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="psg">Paris Saint-German</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="dortmund">Borussia Dortmund</a></li>
+                                            </ul>
+                                        </li>
+                                        <li data-background="@Url.Content("~/img/mega-menu/product4.png")">
+                                            <h4 class="mega_title">Brand</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="adidas">Adidas</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-brand="nike">Nike</a></li>
+                                            </ul>
+                                        </li>
+                                        <li data-background="@Url.Content("~/img/mega-menu/product4.png")">
+                                            <h4 class="mega_title">Sport</h4>
+                                            <ul class="mega_item">
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-type="Football">Football</a></li>
+                                                <li><a asp-controller="Product" asp-action="Search" asp-route-type="Running">Running</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
 
-    <!-- footer area start -->
-    <footer class="footer_area fix">
+                                <li>
+                                    <a asp-controller="Home" asp-action="Index">
+                                        <img class="pl-50 pr-50" src="@Url.Content("~/img/logo/logo.png")" style="height: 50px" alt="">
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Home" asp-action="Blog">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Home" asp-action="About">About Us</a>
+                                </li>
+                                @* <li class="menu-item-has-children"> *@
+                                @*     <a href="about.html">pages</a> *@
+                                @*     <ul class="sub-menu"> *@
+                                @*         <li><a asp-controller="Home" asp-action="About">about us</a></li> *@
+                                @*         <li><a asp-controller="Home" asp-action="Contact">contact</a></li>                     *@
+                                @*         <li><a asp-controller="Cart" asp-action="Index">cart page</a></li> *@
+                                @*         <li><a asp-controller="Home" asp-action="Checkout">checkout page</a></li> *@
+                                @*         <li><a asp-controller="Home" asp-action="NotFound">page 404</a></li> *@
+                                @*         <li><a asp-controller="Home" asp-action="Service">services</a></li> *@
+                                @*         <li><a asp-controller="Home" asp-action="Accordion">FAQ</a></li> *@
+                                @*     </ul> *@
+                                @* </li> *@
+                                <li><a asp-controller="Home" asp-action="Accordion">FAQ</a></li>
+                                <li><a asp-controller="Home" asp-action="Contact">contact us </a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                    <div class="gota_cart gotat_cart_1 text-end">
+                        <a id="cart-mini-container" href="javascript:void(0)">  @await Component.InvokeAsync("CartMini")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header area end -->
+
+<main>
+    <div class="search_area">
+        <div class="search_close">
+            <span><i class="fal fa-times"></i></span>
+        </div>
         <div class="container">
             <div class="row">
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                    <div class="company__info  wow fadeInUp " data-wow-duration=".s" data-wow-delay=".3s">
-                        <h3 class="f-title">Contact Info</h3>
-                        <ul>
-                            <li>Add: Nam Ky Khoi Nghia, Hoa Phu </li>
-                            <li>Thu Dau Mot, Binh Duong.</li>
-                            <li>Email: ktm.contact@gmail.com</li>
-                            <li>Fax: (+84) 0983.301.103</li>
-                        </ul>
-                        <div class="social__media mb-30">
-                            <h3 class="f-title">FOLLOW US ON</h3>
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                            <a href="#"><i class="fab fa-dribbble"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12">
-                    <div class="company__info wow fadeInUp " data-wow-duration=".7s" data-wow-delay=".4s">
-                        <h3 class="f-title">Get Help</h3>
-                        <ul>
-                            <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
-                            <li><a asp-controller="Home" asp-action="Accordion">Delivery Information</a></li>
-                            <li><a asp-controller="Home" asp-action="Accordion">Sale Terms & Conditions</a></li>
-                            <li><a asp-controller="Home" asp-action="Accordion">Privacy Notice</a></li>
-                            <li><a asp-controller="Home" asp-action="Accordion">Shopping FAQs</a></li>
-                            <li><a asp-controller="Home" asp-action="Accordion">Returns & Refundss</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12">
-                    <div class="company__info wow fadeInUp " data-wow-duration=".8s" data-wow-delay=".5s">
-                        <h3 class="f-title">Popular categories</h3>
-                        <ul>
-                            <li><a asp-controller="Shop" asp-action="ShopList">Football Jerseys</a></li>
-                            <li><a asp-controller="Shop" asp-action="ShopList">Footwear</a></li>
-                            <li><a asp-controller="Shop" asp-action="ShopList">Jacket & Bomber</a></li>
-                            <li><a asp-controller="Shop" asp-action="ShopList">Accessories</a></li>
-                        </ul>
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="search-wrapper text-center">
+                        <h2>search</h2>
+                        <div class="search-filtering pt-30">
+                            <div class="search_tab">
+                                <ul class="nav nav-tabs justify-content-center mb-55"
+                                    id="myTab2"
+                                    role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link search-category-name active"
+                                                id="home-tab2"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#home2"
+                                                type="button"
+                                                role="tab"
+                                                data-category-name="All"
+                                                aria-selected="true">
+                                            All categories
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link search-category-name "
+                                                id="profile-tab2"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#profile2"
+                                                type="button"
+                                                role="tab"
+                                                data-category-name="Jersey"
+                                                aria-selected="false">
+                                            Jerseys
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link search-category-name"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#contact2"
+                                                type="button"
+                                                role="tab"
+                                                data-category-name="Shoes"
+                                                aria-selected="false">
+                                            Shoes
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link search-category-name"
+                                                id="sportswear-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#sportswear"
+                                                type="button"
+                                                role="tab"
+                                                data-category-name="Jacket"
+                                                aria-selected="false">
+                                            Jackets
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link search-category-name"
+                                                id="sportswear-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#sportswear"
+                                                type="button"
+                                                role="tab"
+                                                data-category-name="Accessories"
+                                                aria-selected="false">
+                                            Accessories
+                                        </button>
+                                    </li>
+                                </ul>
 
-                    </div>
-                </div>
-                <div class="col-xl-3 offset-xl-1 col-lg-6 col-md-6 col-sm-12">
-                    <div class="company__info wow fadeInUp " data-wow-duration=".9s" data-wow-delay=".6s">
-                        <h3 class="f-title">get in touch</h3>
-                        <p>
-                            Sign up for all the news about our latest arrivals and<br>
-                            get an exclusive early access shopping. Join <br>
-                            <span>60.000+ Subscribers</span> and get a new discount coupon<br> on every Saturday.
-                        </p>
-                        <div class="subscribe pt-20">
-                            <form action="#">
-                                <input type="email" placeholder="Enter your email here..." />
-                                <button>Subscribe</button>
+                            </div>
+                        </div>
+                        <div class="main_search">
+                            <form onsubmit="handleSubmitSearchProductForm(event)" method="get">
+                                <input type="text"
+                                       id="search-product"
+                                       name="title"
+                                       placeholder="search products" />
+
+                                <button class="m-search">
+                                    <i class="fal fa-search d-sm-none d-md-block"></i>
+                                </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer__bottom pb-10 mt-60">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 ">
-                        <p>
-                            Copyright © <span>KTM Jersey Store</span> All Rights Reserved
-                        </p>
+        </div>
+    </div>
+    <div class="cart__sidebar" id="sidebar-cart">
+        @await Component.InvokeAsync("Cart")
+    </div>
+
+    <div class="cart-offcanvas-overlay"></div>
+    @RenderBody()
+    <div class="overlay"></div>
+    <div class="product-popup">
+        <div class="view-background" id="view-product-detail-container">
+
+        </div>
+    </div>
+</main>
+
+<!-- footer area start -->
+<footer class="footer_area fix">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                <div class="company__info  wow fadeInUp " data-wow-duration=".s" data-wow-delay=".3s">
+                    <h3 class="f-title">Contact Info</h3>
+                    <ul>
+                        <li>Add: Nam Ky Khoi Nghia, Hoa Phu </li>
+                        <li>Thu Dau Mot, Binh Duong.</li>
+                        <li>Email: ktm.contact@gmail.com</li>
+                        <li>Fax: (+84) 0983.301.103</li>
+                    </ul>
+                    <div class="social__media mb-30">
+                        <h3 class="f-title">FOLLOW US ON</h3>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
                     </div>
-                    <div class="col-xl-5 offset-xl-2 col-lg-4 col-md-6 col-sm-12">
-                        <div class="footer-menu">
-                            <ul class="text-end">
-                                <li><a asp-controller="Home" asp-action="Contact">Site Map</a></li>
-                                <li><a asp-controller="Home" asp-action="Accordion">Search Terms</a></li>
-                                <li><a asp-controller="Shop" asp-action="Index">Advanced Search </a></li>
-                            </ul>
-                        </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12">
+                <div class="company__info wow fadeInUp " data-wow-duration=".7s" data-wow-delay=".4s">
+                    <h3 class="f-title">Get Help</h3>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                        <li><a asp-controller="Home" asp-action="Accordion">Delivery Information</a></li>
+                        <li><a asp-controller="Home" asp-action="Accordion">Sale Terms & Conditions</a></li>
+                        <li><a asp-controller="Home" asp-action="Accordion">Privacy Notice</a></li>
+                        <li><a asp-controller="Home" asp-action="Accordion">Shopping FAQs</a></li>
+                        <li><a asp-controller="Home" asp-action="Accordion">Returns & Refundss</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12">
+                <div class="company__info wow fadeInUp " data-wow-duration=".8s" data-wow-delay=".5s">
+                    <h3 class="f-title">Popular categories</h3>
+                    <ul>
+                        <li><a asp-controller="Shop" asp-action="ShopList">Football Jerseys</a></li>
+                        <li><a asp-controller="Shop" asp-action="ShopList">Footwear</a></li>
+                        <li><a asp-controller="Shop" asp-action="ShopList">Jacket & Bomber</a></li>
+                        <li><a asp-controller="Shop" asp-action="ShopList">Accessories</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-xl-3 offset-xl-1 col-lg-6 col-md-6 col-sm-12">
+                <div class="company__info wow fadeInUp " data-wow-duration=".9s" data-wow-delay=".6s">
+                    <h3 class="f-title">get in touch</h3>
+                    <p>
+                        Sign up for all the news about our latest arrivals and<br>
+                        get an exclusive early access shopping. Join <br>
+                        <span>60.000+ Subscribers</span> and get a new discount coupon<br> on every Saturday.
+                    </p>
+                    <div class="subscribe pt-20">
+                        <form action="#">
+                            <input type="email" placeholder="Enter your email here..." />
+                            <button>Subscribe</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- footer area end -->    <!-- JavaScript Files -->
-    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/isotope.pkgd.min.js"></script>
-    <script src="~/js/one-page-nav-min.js"></script>
-    <script src="~/js/slick.min.js"></script>
-    <script src="~/js/jquery.meanmenu.min.js"></script>
-    <script src="~/js/ajax-form.js"></script>
-    <script src="~/js/wow.min.js"></script>
-    <script src="~/js/jquery.scrollUp.min.js"></script>
-    <script src="~/js/imagesloaded.pkgd.min.js"></script>
-    <script src="~/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/js/plugins.js"></script>
-    <script src="~/js/swiper-bundle.min.js"></script>
-    <script src="~/js/countdown.js"></script>
-    <script src="~/js/main.js"></script>
-    @RenderSection("Scripts", required: false)
+        <div class="footer__bottom pb-10 mt-60">
+            <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 ">
+                    <p>
+                        Copyright © <span>KTM Jersey Store</span> All Rights Reserved
+                    </p>
+                </div>
+                <div class="col-xl-5 offset-xl-2 col-lg-4 col-md-6 col-sm-12">
+                    <div class="footer-menu">
+                        <ul class="text-end">
+                            <li><a asp-controller="Home" asp-action="Contact">Site Map</a></li>
+                            <li><a asp-controller="Home" asp-action="Accordion">Search Terms</a></li>
+                            <li><a asp-controller="Shop" asp-action="Index">Advanced Search </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer area end -->    <!-- JavaScript Files -->
+<script src="~/js/custom/site.js"></script>
+<script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/isotope.pkgd.min.js"></script>
+<script src="~/js/one-page-nav-min.js"></script>
+<script src="~/js/slick.min.js"></script>
+<script src="~/js/jquery.meanmenu.min.js"></script>
+<script src="~/js/ajax-form.js"></script>
+<script src="~/js/wow.min.js"></script>
+<script src="~/js/jquery.scrollUp.min.js"></script>
+<script src="~/js/imagesloaded.pkgd.min.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/plugins.js"></script>
+<script src="~/js/swiper-bundle.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/main.js"></script>
 
+
+@RenderSection("Scripts", required: false)
 </body>
 
 </html>
