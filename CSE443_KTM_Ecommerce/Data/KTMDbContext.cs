@@ -73,11 +73,11 @@ namespace CSE443_KTM_Ecommerce.Data
             //
             // modelBuilder.Entity<User>().HasData(adminUser);
 
-            // modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
-            // {
-            //     UserId = 1000,
-            //     RoleId = 2
-            // });
+            modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
+            {
+                UserId = 1000,
+                RoleId = 2
+            });
 
 
             modelBuilder.Entity<ProductType>().HasData(

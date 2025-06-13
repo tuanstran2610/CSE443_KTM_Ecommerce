@@ -72,7 +72,7 @@
                                 <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
                             }
                             @* <li><a href="#">Wishlist</a></li> *@
-                            <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li>
+                            @* <li><a asp-controller="Home" asp-action="Checkout">Checkout</a></li> *@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 var user = await UserManager.GetUserAsync(User);

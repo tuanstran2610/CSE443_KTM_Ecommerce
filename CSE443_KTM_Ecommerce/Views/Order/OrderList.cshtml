@@ -1,126 +1,115 @@
 @using CSE443_KTM_Ecommerce.Enum
+@model List<CSE443_KTM_Ecommerce.Models.Order>
 @{
-     Layout = "AdminLayout";
+    Layout = "AdminLayout";
 }
+
 <div class="page-content">
-
-     <!-- Start Container Fluid -->
-     <div class="container-xxl">
-
-          <div class="row">
-               <div class="col-md-12 col-xl-6">
-                    <div class="card">
-                         <div class="card-body">
-                              <div class="d-flex align-items-center justify-content-between">
-                                   <div>
-                                        <h4 class="card-title mb-2">Order Pending</h4>
-                                        <p class="text-muted fw-medium fs-22 mb-0">490</p>
-                                   </div>
-                                   <div>
-                                        <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                             <iconify-icon icon="solar:chat-round-money-broken" class="fs-32 text-primary avatar-title"></iconify-icon>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
+    <form id="token-form">
+        @Html.AntiForgeryToken()
+    </form>
+    <div class="container-xxl">
+        <!-- Order Statistics -->
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h4 class="card-title mb-2">Order Pending</h4>
+                                <p class="text-muted fw-medium fs-22 mb-0">@ViewBag.PendingOrders</p>
+                            </div>
+                            <div>
+                                <div class="avatar-md bg-warning bg-opacity-10 rounded">
+                                    <iconify-icon icon="solar:chat-round-money-broken" class="fs-32 text-warning avatar-title"></iconify-icon>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-               </div>
-               <div class="col-md-12 col-xl-6">
-                    <div class="card">
-                         <div class="card-body">
-                              <div class="d-flex align-items-center justify-content-between">
-                                   <div>
-                                        <h4 class="card-title mb-2">Order Complete</h4>
-                                        <p class="text-muted fw-medium fs-22 mb-0">241</p>
-                                   </div>
-                                   <div>
-                                        <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                             <iconify-icon icon="solar:cart-cross-broken" class="fs-32 text-primary avatar-title"></iconify-icon>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
-               </div>
-
-      
-          </div>
-
-          <div class="row">
-               <div class="col-12">
-                    <div class="card">
-                         <div class="card-header">
-                              <h4 class="card-title">Order List</h4>
-                         </div>
-                         <div class="card-body">
-                              <div class="table-responsive">
-                                   <table class="table table-striped">
-                                        <thead>
-                                             <tr>
-                                                  <th>Order ID</th>
-                                                  <th>Customer</th>
-                                                  <th>Order Date</th>
-                                                  <th>Total Amount</th>
-                                                  <th>Status</th>
-                                                  <th>Actions</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             @foreach (var order in ViewBag.Orders)
-                                             {
-                                                  <tr>
-                                                       <td>@order.Id</td>
-                                                       <td>@order.User.FullName</td>
-                                                       <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
-                                                       <td>$@order.OrderTotalPrice</td>
-                                                       <td>
-                                                            @switch (order.Status)
-                                                            {
-                                                                 case OrderStatus.PENDING:
-                                                                      <span class="badge bg-warning">Pending</span>
-                                                                      break;
-                                                                 case OrderStatus.COMPLETED:
-                                                                      <span class="badge bg-success">Completed</span>
-                                                                      break;
-                                                                 default:
-                                                                      <span class="badge bg-secondary">@order.Status</span>
-                                                                      break;
-                                                            }
-                                                       </td>
-                                                       <td>
-                                                            <button type="button" class="btn btn-info btn-sm" onclick="viewOrderDetails(@order.Id)">
-                                                                 <i class="bx bx-detail"></i> Details
-                                                            </button>
-                                                            @if (order.Status == OrderStatus.PENDING)
-                                                            {
-                                                                 <button type="button" class="btn btn-success btn-sm" onclick="acceptOrder(@order.Id)">
-                                                                      <i class="bx bx-check"></i> Accept
-                                                                 </button>
-                                                            }
-                                                       </td>
-                                                  </tr>
-                                             }
-                                        </tbody>
-                                   </table>
-                              </div>
-                         </div>
-                    </div>
-               </div>
-          </div>
-
-     </div>
-</div>
-
-<!-- Order Details Modal -->
-<div class="modal fade" id="orderDetailsModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Order Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div id="orderDetailsContent"></div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h4 class="card-title mb-2">Order Complete</h4>
+                                <p class="text-muted fw-medium fs-22 mb-0">@ViewBag.CompletedOrders</p>
+                            </div>
+                            <div>
+                                <div class="avatar-md bg-success bg-opacity-10 rounded">
+                                    <iconify-icon icon="solar:cart-cross-broken" class="fs-32 text-success avatar-title"></iconify-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order List -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Order List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Order Date</th>
+                                        <th>Total Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model)
+                                    {
+                                        <tr>
+                                            <td>@order.Id</td>
+                                            <td>@order.User.FullName</td>
+                                            <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>$@order.OrderTotalPrice</td>
+                                            <td>
+                                                @switch (order.Status)
+                                                {
+                                                    case OrderStatus.PENDING:
+                                                        <span class="badge bg-warning">Pending</span>
+                                                        break;
+                                                    case OrderStatus.COMPLETED:
+                                                        <span class="badge bg-success">Completed</span>
+                                                        break;
+                                                    default:
+                                                        <span class="badge bg-secondary">@order.Status</span>
+                                                        break;
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="/Order/OrderDetail/@order.Id" class="btn btn-info btn-sm">
+                                                    <i class="bx bx-detail"></i> Details
+                                                </a>
+                                                @if (order.Status == OrderStatus.PENDING)
+                                                {
+                                                    <button type="button" class="btn btn-success btn-sm" onclick="acceptOrder(@order.Id)">
+                                                        <i class="bx bx-check"></i> Accept
+                                                    </button>
+                                                    <button onclick="deleteOrder(@order.Id)" class="btn btn-danger btn-sm">
+                                                        <iconify-icon icon="solar:trash-bin-trash-bold-duotone"></iconify-icon>
+                                                    </button>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -128,66 +117,46 @@
 
 @section Scripts {
     <script>
-        function viewOrderDetails(orderId) {
-            $.get('/Order/GetOrderDetails/' + orderId, function(data) {
-                var html = '<div class="row mb-4">';
-                html += '<div class="col-md-6">';
-                html += '<h6>Order Information</h6>';
-                html += '<p><strong>Order ID:</strong> ' + orderId + '</p>';
-                html += '<p><strong>Status:</strong> ' + data.status + '</p>';
-                html += '<p><strong>Created At:</strong> ' + data.createdAt + '</p>';
-                if (data.completedAt) {
-                    html += '<p><strong>Completed At:</strong> ' + data.completedAt + '</p>';
-                }
-                html += '</div>';
-                
-                html += '<div class="col-md-6">';
-                html += '<h6>Delivery Information</h6>';
-                html += '<p><strong>Address:</strong> ' + (data.deliveryAddress || 'Not specified') + '</p>';
-                html += '</div>';
-                html += '</div>';
-
-                if (data.coupon) {
-                    html += '<div class="alert alert-info mb-4">';
-                    html += '<h6>Coupon Applied</h6>';
-                    html += '<p><strong>Code:</strong> ' + data.coupon.code + '</p>';
-                    html += '<p><strong>Discount:</strong> ' + data.coupon.discount + '%</p>';
-                    html += '</div>';
-                }
-
-                html += '<div class="table-responsive">';
-                html += '<table class="table">';
-                html += '<thead><tr><th>Product</th><th>Quantity</th><th>Price</th><th>Total</th></tr></thead>';
-                html += '<tbody>';
-                
-                data.orderDetails.forEach(function(detail) {
-                    html += '<tr>';
-                    html += '<td>' + detail.productName + '</td>';
-                    html += '<td>' + detail.quantity + '</td>';
-                    html += '<td>$' + detail.price.toFixed(2) + '</td>';
-                    html += '<td>$' + detail.total.toFixed(2) + '</td>';
-                    html += '</tr>';
-                });
-                
-                html += '</tbody>';
-                html += '<tfoot>';
-                html += '<tr><th colspan="3" class="text-end">Total Amount:</th><th>$' + data.totalAmount.toFixed(2) + '</th></tr>';
-                html += '</tfoot>';
-                html += '</table>';
-                html += '</div>';
-                
-                $('#orderDetailsContent').html(html);
-                $('#orderDetailsModal').modal('show');
-            });
-        }
-
         function acceptOrder(orderId) {
             if (confirm('Are you sure you want to accept this order?')) {
-                $.post('/Order/AcceptOrder/' + orderId, function(response) {
-                    if (response.success) {
-                        location.reload();
-                    } else {
-                        alert(response.message || 'Failed to accept order');
+                $.ajax({
+                    url: '/Order/AcceptOrder/' + orderId,
+                    type: 'POST',
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert(response.message || 'Failed to accept order');
+                        }
+                    },
+                    error: function() {
+                        alert('Error accepting order. Please try again.');
+                    }
+                });
+            }
+        }
+
+        function deleteOrder(id) {
+            if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+                $.ajax({
+                    url: '/Order/DeleteOrder/' + id,
+                    type: 'POST',
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Order deleted successfully');
+                            location.reload();
+                        } else {
+                            alert(response.message || 'Error deleting order');
+                        }
+                    },
+                    error: function () {
+                        alert('Error deleting order');
                     }
                 });
             }
