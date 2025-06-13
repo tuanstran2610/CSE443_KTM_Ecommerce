@@ -21,16 +21,16 @@ $('.side-info-close,.offcanvas-overlay').on('click', function () {
 	$("[data-background").each(function () {
 	$(this).css("background-image", "url( " + $(this).attr("data-background") + "  )");
 });
-
+	
 //cart active
-//$('.gota_cart').click(function(){
-//	$('.cart__sidebar').addClass('open-cart');
-//	$('.cart-offcanvas-overlay').addClass('open-cart-overlay');
-//})
-//$('.cart-icon,.cart-offcanvas-overlay').click(function(){
-//  $('.cart__sidebar').removeClass('open-cart');
-//  $('.cart-offcanvas-overlay').removeClass('open-cart-overlay');
-//})
+$('.gota_cart').click(function(){
+	$('.cart__sidebar').addClass('open-cart');
+	$('.cart-offcanvas-overlay').addClass('open-cart-overlay');
+})
+$('.cart-icon,.cart-offcanvas-overlay').click(function(){
+  $('.cart__sidebar').removeClass('open-cart');
+  $('.cart-offcanvas-overlay').removeClass('open-cart-overlay');
+})
 
 
 // WOW active

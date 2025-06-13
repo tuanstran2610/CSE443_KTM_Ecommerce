@@ -1,0 +1,60 @@
+﻿@model Product
+
+@if(Model != null)
+{
+    var product = Model;
+    var imagePath = product.ProductImages.FirstOrDefault()?.ImagePath + "/1.png";
+    <div class="row">
+        <div class="col-xl-5 col-lg-5 col-md-5">
+            <div class="quickview">
+                <div class="quickview__thumb">
+                    <img src="~/img/@(imagePath)" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-7 col-lg-7 col-md-7">
+            <div class="viewcontent">
+                <div class="viewcontent__header">
+                    <h2>@product.Name</h2>
+                    <a class="view_close product-p-close" href="javascript:void(0)">
+                        <i class="fal fa-times-circle"></i>
+                    </a>
+                </div>
+                <div class="viewcontent__rating">
+                    <i class="fal fa-star ratingcolor"></i>
+                    <i class="fal fa-star ratingcolor"></i>
+                    <i class="fal fa-star ratingcolor"></i>
+                    <i class="fal fa-star"></i>
+                </div>
+                <div class="viewcontent__price">
+                    <h4><span>$</span>@product.Price</h4>
+                </div>
+                <div class="viewcontent__stock">
+                    <h4>Available :<span>@(product.Quantity > 0 ? "In Stock" : "Out Of Stock")</span></h4>
+                </div>
+                <div class="viewcontent__details">
+                    <p>
+                        @product.Description
+                    </p>
+                </div>
+                <div class="viewcontent__action">
+                    <span>Qty</span>
+                    <span><input type="number" value="1"  id="product-quantity" placeholder="1" /></span>
+                    <span><a class="addToCartBtn" data-product-id="@product.Id" href="javascript:void(0)">add to cart</a></span>
+                    <span><i class="fal fa-heart"></i></span>
+                    <span><i class="fal fa-info-circle"></i></span>
+                </div>
+                <div class="viewcontent__footer">
+                    <ul>
+                        <li>Category:</li>
+                        <li>Brand:</li>
+                    </ul>
+                    <ul>
+                        <li>@product.Category.Name</li>
+                        <li>@product.Brand</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,11 +1,15 @@
 ﻿
-
+@{
+    Layout = "_Layout";
+}
 @{
     var product = ViewBag.Product as Product;
     var relatedCategoryProducts = ViewBag.RelatedCategoryProducts as List<Product>;
 }
 @model CSE443_KTM_Ecommerce.Models.Product;
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 <div class="search_area">
     <div class="search_close">
         <span><i class="fal fa-times"></i></span>
@@ -101,47 +105,7 @@
 <div class="offcanvas-overlay"></div>
 
 <!-- cart area start  -->
-<div class="cart__sidebar">
-    <div class="container">
-        <div class="cart__content">
-            <div class="cart-text">
-                <h3 class="mb-40">Shopping cart</h3>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="@Url.Content("~/img/product/29-3.jpg")" alt="">
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a asp-controller="Shop" asp-action="Index">Running 3-Stripes</a></h5>
-                        <p>1 × $66.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="@Url.Content("~/img/product/17.jpg")" alt="">
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a asp-controller="Shop" asp-action="Index">Buddy non Stripes</a></h5>
-                        <p>1 × $40.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="cart-icon">
-                <i class="fal fa-times"></i>
-            </div>
-            <div class="cart-bottom">
-                <div class="cart-bottom__text">
-                    <span>Subtotal:</span>
-                    <span class="end">$121.00</span>
-                    <a asp-controller="Cart" asp-action="Index">view cart</a>
-                    <a asp-controller="Home" asp-action="Checkout">checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="cart-offcanvas-overlay"></div>
+
 <!-- cart area end  -->
 <!-- single_breadcrumb_area start -->
 <!--Breadcrumb !!!-->
@@ -258,9 +222,9 @@
                             <p>@product.Description</p>
                         </div>
                         <div class="viewcontent__action single_action pt-30">
-                            <span><input type="number" placeholder="1"></span>
-
-                            <span> <a asp-controller="Cart" asp-action="Index">+ add to cart</a> </span>
+                            <span><input type="number" id="product-quantity"value="1" placeholder="1"></span>
+                            <input type="hidden" id="product-id" value="@product.Id"/>
+                            <span> <a href="javascript:void(0)" id="addToCartBtn" data-product-id="@product.Id">+ add to cart</a></span>
                             <span><i class="fal fa-heart"></i></span>
                             <span><i class="fas fa-compress"></i></span>
                         </div>

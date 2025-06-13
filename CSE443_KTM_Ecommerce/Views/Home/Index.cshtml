@@ -28,69 +28,6 @@
         </div>
     </div>
 </div>
-<div class="offcanvas-overlay"></div>
-
-<!-- cart area start  -->
-<div class="cart__sidebar" id="sidebar-cart">
-    <div class="container sidebar-cart-container">
-        <div class="cart__content">
-            <div class="cart-text">
-                <h3 class="mb-40">Shopping cart</h3>
-                @if(  Context.Session.GetObject<Cart>("cart") != null )
-                {
-                    var cart = Context.Session.GetObject<Cart>("cart") as Cart;
-                    @if (cart.CartItems == null)
-                    {
-                        <p>No Product Added</p>
-                        <p>Continue Shopping</p>
-                    }
-                    else
-                    {
-                        @foreach (var cartItem in cart.CartItems)
-                        {
-                            var imagePath = cartItem.Product.ProductImages.FirstOrDefault()?.ImagePath + "/1.png";
-                            <div class="add_cart_product">
-                                <div class="add_cart_product__thumb">
-                                    <img src="~/img/@(imagePath)" alt="" />
-                                </div>
-                                <div class="add_cart_product__content">
-                                    <h5><a asp-controller="Shop" asp-action="Product">Running 3-Stripes</a></h5>
-                                    <p>@cartItem.Quantity × $@cartItem.Price</p>
-                                    <button class="cart_close"><i class="fal fa-times"></i></button>
-                                </div>
-                            </div>
-
-                        }
-                    }
-                }
-                @* <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="~/img/product/17.jpg" alt="" />
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a asp-controller="Shop" asp-action="Product">Buddy non Stripes</a></h5>
-                        <p>1 × $40.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div> *@
-            </div>
-            <div class="cart-icon">
-                <i class="fal fa-times"></i>
-            </div>
-            <div class="cart-bottom">
-                <div class="cart-bottom__text">
-                    <span>Subtotal:</span>
-                    <span class="end">$121.00</span>
-                    <a asp-controller="Cart" asp-action="Index">view cart</a>
-                    <a asp-controller="Home" asp-action="Checkout">checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="cart-offcanvas-overlay"></div>
-<!-- cart area end  -->
-<!-- slider start -->
 <div class="slider-active swiper-container height">
     <div class="swiper-wrapper">
         <div class="swiper-slide slider-item">
@@ -296,7 +233,7 @@
                                                                             <p class="p-absoulute pr-1">
                                                                                 <span>$</span>@product.Price
                                                                             </p>
-                                                                            <a class="p-absoulute pr-2" href="#">add to cart</a>
+                                                                            <a class="p-absoulute pr-2 addToCartBtn" href="javascript:void(0)" data-product-id="@product.Id">add to cart</a>
                                                                         </div>
                                                                     </div>
                                                                     <div class="product__action">
@@ -305,7 +242,7 @@
                                                                                 <a href="#"><i class="fal fa-heart"></i></a>
                                                                             </div>
                                                                             <div class="view">
-                                                                                <a href="javascript:void(0)">
+                                                                                <a class="view-detail-btn" href="javascript:void(0)" data-product-id="@product.Id">
                                                                                     <i class="fal fa-eye"></i>
                                                                                 </a>
                                                                             </div>
@@ -447,7 +384,7 @@
                                                             <a href="#"><i class="fal fa-heart"></i></a>
                                                         </div>
                                                         <div class="view">
-                                                            <a href="javascript:void(0)">
+                                                            <a class="view-detail-btn" href="javascript:void(0)" data-product-id="@product.Id">
                                                                 <i class="fal fa-eye"></i>
                                                             </a>
                                                         </div>
@@ -536,7 +473,7 @@
                                                             <a href="#"><i class="fal fa-heart"></i></a>
                                                         </div>
                                                         <div class="view">
-                                                            <a href="javascript:void(0)">
+                                                            <a class="view-detail-btn" href="javascript:void(0)" data-product-id="@product.Id">
                                                                 <i class="fal fa-eye"></i>
                                                             </a>
                                                         </div>
@@ -666,68 +603,3 @@
         </a>
     </div>
 </div>
-<!-- gallary area end  -->
-<!-- popup area start -->
-<div class="overlay"></div>
-<div class="product-popup">
-    <div class="view-background">
-        <div class="row">
-            <div class="col-xl-5 col-lg-5 col-md-5">
-                <div class="quickview">
-                    <div class="quickview__thumb">
-                        <img src="~/img/quick_view/25.jpg" alt="" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-7">
-                <div class="viewcontent">
-                    <div class="viewcontent__header">
-                        <h2>Brown Leather Bags</h2>
-                        <a class="view_close product-p-close" href="javascript:void(0)">
-                            <i class="fal fa-times-circle"></i>
-                        </a>
-                    </div>
-                    <div class="viewcontent__rating">
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star"></i>
-                    </div>
-                    <div class="viewcontent__price">
-                        <h4><span>$</span>99.00</h4>
-                    </div>
-                    <div class="viewcontent__stock">
-                        <h4>Available :<span> In stock</span></h4>
-                    </div>
-                    <div class="viewcontent__details">
-                        <p>
-                            Anlor sit amet, consectetur adipiscing elit. Fusce condimentum
-                            est lacus, non pretium risus lacinia vel. Fusce eget turpis
-                            orci.
-                        </p>
-                    </div>
-                    <div class="viewcontent__action">
-                        <span>Qty</span>
-                        <span><input type="number" placeholder="1" /></span>
-                        <span><a href="#">add to cart</a></span>
-                        <span><i class="fal fa-heart"></i></span>
-                        <span><i class="fal fa-info-circle"></i></span>
-                    </div>
-                    <div class="viewcontent__footer">
-                        <ul>
-                            <li>Category:</li>
-                            <li>SKU:</li>
-                            <li>Brand:</li>
-                        </ul>
-                        <ul>
-                            <li>Watches</li>
-                            <li>2584-MK63</li>
-                            <li>Brenda</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- popup area end -->
