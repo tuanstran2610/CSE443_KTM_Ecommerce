@@ -6058,9 +6058,15 @@ label {
 }
 
 @media (max-width: 767px) {
-  .gota_right {
-    float: left;
-  }
+    .gota_right {
+        /*    float: left;*/
+        float: none; /* xóa float */
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #1a1a1a;
+    }
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .gota_right {

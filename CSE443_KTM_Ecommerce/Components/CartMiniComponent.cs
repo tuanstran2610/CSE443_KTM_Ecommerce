@@ -24,11 +24,18 @@ namespace CSE443_KTM_Ecommerce.Components
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                itemCount = await _context.CartItems.Where(ci => ci.Cart.UserId == user.Id).CountAsync();       
+
+                if (user != null)
+                {
+                    itemCount = await _context.CartItems
+                        .Where(ci => ci.Cart != null && ci.Cart.UserId == user.Id)
+                        .CountAsync();
+                }
             }
 
             return View(itemCount);
         }
+
     }
 
 }
