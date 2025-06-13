@@ -1,8 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model CSE443_KTM_Ecommerce.Models.Category;
-
+@using CSE443_KTM_Ecommerce.Models
+@* @using CSE443_KTM_Ecommerce.Extensions; *@
 
 <div class="fix">
     <div class="side-info">
@@ -31,22 +31,39 @@
 <div class="offcanvas-overlay"></div>
 
 <!-- cart area start  -->
-<div class="cart__sidebar">
-    <div class="container">
+<div class="cart__sidebar" id="sidebar-cart">
+    <div class="container sidebar-cart-container">
         <div class="cart__content">
             <div class="cart-text">
                 <h3 class="mb-40">Shopping cart</h3>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="~/img/product/29-3.jpg" alt="" />
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a asp-controller="Shop" asp-action="Product">Running 3-Stripes</a></h5>
-                        <p>1 × $66.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="add_cart_product">
+                @if(  Context.Session.GetObject<Cart>("cart") != null )
+                {
+                    var cart = Context.Session.GetObject<Cart>("cart") as Cart;
+                    @if (cart.CartItems == null)
+                    {
+                        <p>No Product Added</p>
+                        <p>Continue Shopping</p>
+                    }
+                    else
+                    {
+                        @foreach (var cartItem in cart.CartItems)
+                        {
+                            var imagePath = cartItem.Product.ProductImages.FirstOrDefault()?.ImagePath + "/1.png";
+                            <div class="add_cart_product">
+                                <div class="add_cart_product__thumb">
+                                    <img src="~/img/@(imagePath)" alt="" />
+                                </div>
+                                <div class="add_cart_product__content">
+                                    <h5><a asp-controller="Shop" asp-action="Product">Running 3-Stripes</a></h5>
+                                    <p>@cartItem.Quantity × $@cartItem.Price</p>
+                                    <button class="cart_close"><i class="fal fa-times"></i></button>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                }
+                @* <div class="add_cart_product">
                     <div class="add_cart_product__thumb">
                         <img src="~/img/product/17.jpg" alt="" />
                     </div>
@@ -55,7 +72,7 @@
                         <p>1 × $40.00</p>
                         <button class="cart_close"><i class="fal fa-times"></i></button>
                     </div>
-                </div>
+                </div> *@
             </div>
             <div class="cart-icon">
                 <i class="fal fa-times"></i>

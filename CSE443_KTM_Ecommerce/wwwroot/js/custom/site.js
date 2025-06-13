@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const minSlider = document.getElementById('minPrice');
     const maxSlider = document.getElementById('maxPrice');
     const priceDisplay = document.getElementById('price-display');
-   
+    const sidebarCartEle = document.getElementById("sidebar-cart")
+    const myCartEle = document.getElementById("my-cart")
+    myCartEle.addEventListener('click', function (event) {
+        event.preventDefault();
+        sidebarCartEle.classList.toggle("open-cart")
+    }
     function updatePriceDisplay() {
         let minVal = parseInt(minSlider.value);
         let maxVal = parseInt(maxSlider.value);
