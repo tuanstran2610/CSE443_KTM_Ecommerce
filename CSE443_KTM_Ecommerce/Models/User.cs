@@ -13,6 +13,6 @@ namespace CSE443_KTM_Ecommerce.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
         public ICollection<Role> Roles { get; set; } = new List<Role>();
-        public Cart Cart { get; set; }
+        public Cart? Cart { get; set; }
     }
 }

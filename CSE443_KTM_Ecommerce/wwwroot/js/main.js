@@ -21,7 +21,7 @@ $('.side-info-close,.offcanvas-overlay').on('click', function () {
 	$("[data-background").each(function () {
 	$(this).css("background-image", "url( " + $(this).attr("data-background") + "  )");
 });
-
+	
 //cart active
 $('.gota_cart').click(function(){
 	$('.cart__sidebar').addClass('open-cart');

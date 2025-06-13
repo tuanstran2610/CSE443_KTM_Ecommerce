@@ -52,7 +52,7 @@ namespace CSE443_KTM_Ecommerce.Controllers
             //}
 
 
-            var user = new User
+            var user = new User 
             {
                 UserName = model.Email,
                 Email = model.Email,

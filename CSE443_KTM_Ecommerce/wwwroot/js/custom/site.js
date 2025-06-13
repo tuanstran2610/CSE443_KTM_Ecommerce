@@ -1,13 +1,167 @@
 ﻿
-//Filter price in Search 
+//Filter price in Search
+
+
+document.addEventListener('click', function (e) {
+    const target = e.target.closest('.view-detail-btn');
+    if (target) {
+        const productId = target.getAttribute('data-product-id');
+        console.log("Clicked on productId:", productId); // ✅ Debug
+
+        const modalContent = document.getElementById('view-product-detail-container');
+
+        modalContent.innerHTML = `<div class="p-5 text-center">Loading...</div>`;
+       
+
+        fetch(`/Cart/GetProductDetail?productId=${productId}`)
+            .then(response => response.text())
+            .then(html => {
+                modalContent.innerHTML = html;
+            })
+            .catch(error => {
+                modalContent.innerHTML = `<div class="p-5 text-danger text-center">Failed to load product detail.</div>`;
+                console.error("Fetch error:", error);
+            });
+    }
+});
+document.addEventListener("click", function (e) {
+    const removeBtn = e.target.closest(".cart-remove-btn");
+    if (removeBtn) {
+        const cartItemId = parseInt(removeBtn.getAttribute("data-id"));
+        const removeType = removeBtn.getAttribute("data-type");
+        if (!isNaN(cartItemId)) {
+            fetch("/Cart/RemoveFromCart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(cartItemId)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        if (removeType === "reload") {
+                            window.location.reload()
+                        }
+                        updateCartMini();
+                        updateCartView();
+                    } else {
+                        alert("Error removing item." + data.error);
+                    }
+                })
+                .catch(err => console.error("Remove error:", err));
+        }
+    }
+});
+document.addEventListener("click", function (e) {
+    const addBtn = e.target.closest(".addToCartBtn");
+    if (addBtn) {
+        const productId = addBtn.getAttribute("data-product-id");
+
+        // If inside a modal or specific container, this ensures the correct quantity field is fetched
+        const productQuantityEle = document.getElementById("product-quantity");
+        const quantity = productQuantityEle ? parseInt(productQuantityEle.value) : 1;
+
+        fetch("/Cart/AddToCart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                ProductId: productId,
+                Quantity: quantity
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    updateCartMini();
+                    updateCartView();
+                } else {
+                    alert("Failed to add product to cart.");
+                }
+            })
+            .catch(err => console.error("Add to cart error:", err));
+    }
+});
+
+//document.querySelectorAll(".addToCartBtn").forEach(function (button) {
+//    button.addEventListener("click", function () {
+//        const productId = this.getAttribute("data-product-id");
+//        const productQuantityEle = document.getElementById("product-quantity");
+//        const quantity = productQuantityEle ? parseInt(productQuantityEle.value) : 1;
+
+//        fetch("/Cart/AddToCart", {
+//            method: "POST",
+//            headers: {
+//                "Content-Type": "application/json",
+//            },
+//            body: JSON.stringify({
+//                ProductId: productId,
+//                Quantity: quantity
+//            })
+//        })
+//            .then(res => res.json())
+//            .then(data => {
+//                if (data.success) {
+//                    updateCartMini();
+//                    updateCartView();
+//                }
+//            });
+//    });
+//});
+document.getElementById("addToCartBtn").addEventListener("click", function () {
+    const productId = this.getAttribute("data-product-id");
+    const productQuantityEle = document.getElementById("product-quantity")
+    const quantity = parseInt(productQuantityEle.value);
+    fetch("/Cart/AddToCart", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ProductId: productId,
+            Quantity: productQuantityEle ? quantity : 1
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                updateCartMini();
+                updateCartView();
+            }
+        });
+
+
+});
+
+function updateCartMini() {
+    fetch("/CartMini")
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("cart-mini-container").innerHTML = html;
+        });
+}
+function updateCartView() {
+    fetch("/CartView")
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("sidebar-cart").innerHTML = html;
+        });
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
+
 
     handleSwitchPopupImage()
     const minSlider = document.getElementById('minPrice');
     const maxSlider = document.getElementById('maxPrice');
     const priceDisplay = document.getElementById('price-display');
-   
+
+    const myCartEle = document.getElementById("my-cart")
+
     function updatePriceDisplay() {
         let minVal = parseInt(minSlider.value);
         let maxVal = parseInt(maxSlider.value);
@@ -16,10 +170,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         priceDisplay.textContent = `$${minVal} - $${maxVal}`;
     }
-        
+
     minSlider.addEventListener('input', updatePriceDisplay);
     maxSlider.addEventListener('input', updatePriceDisplay);
-    
+
     window.applyPriceFilter = function () {
         console.log("filter price !!")
         const currentUrl = new URL(window.location.href);
@@ -70,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
 }
 );
 
@@ -143,7 +298,7 @@ function handleSubmitSearchProductForm(event) {
     const searchProductEle = document.getElementById("search-product")
     if (searchProductEle) {
         const search = searchProductEle.value;
-        const selectedEle= document.querySelector('.search-category-name[aria-selected="true"]');
+        const selectedEle = document.querySelector('.search-category-name[aria-selected="true"]');
         if (selectedEle) {
             const currentUrl = new URL(window.location.href);
             const params = currentUrl.searchParams;
@@ -161,9 +316,46 @@ function handleSubmitSearchProductForm(event) {
             //if (category) {
             //    params.set('category', category)
             //}
-            
+
             window.location.href = `/Product/Search?title=${search}&category=${category}`;
             console.log(category)
+        }
+    }
+}
+
+
+async function handleAddToCart() {
+    const sidebarCartEle = document.querySelector(".cart_sidebar");
+    const returnUrl = window.location.href;
+    console.log(sidebarCartEle)
+    const productIdEle = document.getElementById("product-id");
+    const productQuantityEle = document.getElementById("product-quantity")
+
+    if (productIdEle && productQuantityEle) {
+        const productId = parseInt(productIdEle.value);
+        const quantity = parseInt(productQuantityEle.value);
+        const response = await fetch('/Cart/AddToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ProductId: productId,
+                Quantity: quantity,
+                ReturnUrl: returnUrl
+            })
+        });
+
+        if (response.redirected) {
+            // Redirect to the returned URL from server
+            window.location.href = response.url;
+            sidebarCartEle.classList.add("open-cart");
+        } else if (response.ok) {
+            // Optionally update cart UI or show success
+            console.log("Item added to cart.");
+        } else {
+            const error = await response.text();
+            console.error("Error adding to cart:", error);
         }
     }
 }

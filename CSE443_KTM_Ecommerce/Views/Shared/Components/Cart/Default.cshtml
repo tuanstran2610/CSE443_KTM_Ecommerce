@@ -1,0 +1,48 @@
+﻿@model Cart
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model != null)
+    {
+        var cart = Model;
+        <div class="container">
+            <div class="cart__content" style="width:320px!important">
+
+                <div style="max-height: 450px; overflow-y: auto;width:490px" class="p-2">
+                    <h3 class="mb-40">Shopping cart</h3>
+                    @foreach (var ci in Model.CartItems )
+                    {
+                        var imagePath = ci.Product.ProductImages.FirstOrDefault()?.ImagePath + "/1.png";
+                        <div class="add_cart_product d-flex mb-3">
+                            <div class="add_cart_product__thumb me-3">
+                                <img src="~/img/@(imagePath)" alt="" style="width: 60px; height: auto;">
+                            </div>
+                            <div class="add_cart_product__content">
+                                <h5 style="font-size: 0.7rem;font-weight:bold;word-wrap: break-word;white-space: normal;overflow-wrap: break-word;">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@ci.ProductId">
+                                        @ci.Product.Name
+                                    </a>
+                                </h5>
+                                <p>@(ci.Quantity) × $@ci.Price</p>
+                                <button data-id="@ci.Id" class="cart_close cart-remove-btn"><i class="fal fa-times"></i></button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="cart-icon">
+                    <i class="fal fa-times"></i>
+                </div>
+                <div class="cart-bottom">
+                    <div class="cart-bottom__text">
+                        <span>Subtotal:</span>
+                        <span class="end">$@Model.TotalPrice</span>
+                        <a asp-controller="Cart" asp-action="Index">view cart</a>
+                        <a asp-controller="Home" asp-action="Checkout">checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    }
+
+}
