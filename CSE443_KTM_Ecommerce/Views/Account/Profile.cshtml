@@ -184,7 +184,7 @@
                         <th>Order Date</th>
                         <th>Status</th>
                         <th>Total</th>
-                        <th>Details</th>
+                        @* <th>Details</th> *@
                     </tr>
                     </thead>
                     <tbody>
@@ -195,7 +195,7 @@
                             <td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
                             <td>@order.Status</td>
                             <td>@order.OrderTotalPrice.ToString("N2")$</td>
-                            <td><a asp-controller="Order" asp-action="Details" asp-route-id="@order.Id">View</a></td>
+                            @* <td><a asp-controller="Order" asp-action="Details" asp-route-id="@order.Id">View</a></td> *@
                         </tr>
                     }
                     </tbody>
