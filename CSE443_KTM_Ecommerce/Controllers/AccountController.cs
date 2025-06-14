@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.EntityFrameworkCore;
+using CSE443_KTM_Ecommerce.Services;
 
 namespace CSE443_KTM_Ecommerce.Controllers
 {
@@ -251,7 +252,35 @@ namespace CSE443_KTM_Ecommerce.Controllers
             return View(model);
         }
 
-    
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Get user's orders
+            var orders = await _userManager.Users
+                .Include(u => u.Orders)
+                    .ThenInclude(o => o.OrderDetails)
+                        .ThenInclude(od => od.Product)
+                .Where(u => u.Id == user.Id)
+                .SelectMany(u => u.Orders)
+                .OrderByDescending(o => o.CreatedAt)
+                .Take(5)
+                .ToListAsync();
+
+            ViewBag.RecentOrders = orders;
+            return View(user);
+        }
 
         //public ActionResult Index()
         //{

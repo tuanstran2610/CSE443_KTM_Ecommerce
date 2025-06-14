@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="error-page">
+                <h1 class="display-1 text-danger">403</h1>
+                <h2 class="mb-4">Access Denied</h2>
+                <p class="lead mb-4">Sorry, you don't have permission to access this page.</p>
+                <div class="mt-4">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Profile", "Account")" class="btn btn-secondary">Go to Profile</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-secondary">Login</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-page {
+        padding: 40px 0;
+    }
+    .error-page h1 {
+        font-size: 120px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .error-page h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+    .error-page .lead {
+        font-size: 18px;
+        color: #666;
+    }
+</style> 
